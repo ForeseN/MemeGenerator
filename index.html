@@ -48,7 +48,26 @@
                 <!-- Injected By Javascript -->
                 <!-- Media -->
                 <div class="tab-container scrollbar-hidden">
-                    <div class="media grid-2-columns"></div>
+                    <input type="text" name="" id="add-text-input">
+                    <label for="font">Font</label>
+                    <select class="form-control">
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                    </select>
+                    <select class="form-control">
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                    </select>
+                    <button onclick="onAddText(this.value)">Add</button>
+                    <button onclick="onIncFont()">Increase Font</button>
+                    <button onclick="onDecFont()">Decrease Font</button>
+                    <button onclick="onSwitchLines()">Switch Lines</button>
                 </div>
             </div>
 
@@ -71,11 +90,7 @@
             <div class="editor hide">
                 <div class="canvas-container">
                     <canvas id="my-canvas" height="550" width="550"></canvas>
-                    <input type="text" name="" id="add-text-input">
-                    <button onclick="onAddText(this.value)">Add</button>
-                    <button onclick="onIncFont()">Increase Font</button>
-                    <button onclick="onDecFont()">Decrease Font</button>
-                    <button onclick="onSwitchLines()">Switch Lines</button>
+
                 </div>
             </div>
         </main>

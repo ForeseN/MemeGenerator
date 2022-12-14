@@ -12,7 +12,7 @@ function onInit() {
     // console.log(meme)
     renderMeme(meme)
     renderGallery()
-    renderAsideGallery()
+    // renderAsideGallery()
 }
 
 function defaultConfig() {
@@ -79,7 +79,7 @@ function onSwitchLines() {
 function onModuleText(elBtn) {
     removeActiveModules()
     elBtn.classList.add('active')
-    renderTextModule()
+    renderModuleText()
 }
 
 function removeActiveModules() {
@@ -90,7 +90,7 @@ function removeActiveModules() {
 }
 // ---------------------- RENDER MODULES ----------------------
 
-function renderTextModule() {
+function renderModuleText() {
     
 }
 

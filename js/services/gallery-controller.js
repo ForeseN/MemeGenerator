@@ -11,15 +11,16 @@ function renderGallery() {
     let strHTML = imgs.map(img => {
         return `<img src=${img.url} alt="" srcset="" onclick="onImgSelect(${img.id})">`
     })
-    console.log(imgs)
     document.querySelector('.gallery-grid').innerHTML = strHTML.join('')
 }
 
 function renderAsideGallery() {
     const imgs = getImages()
+
     let strHTML = imgs.map(img => {
         return `<img src=${img.url} alt="" srcset="" onclick="onImgSelect(${img.id})">`
     })
-    console.log(imgs)
-    document.querySelector('.media').innerHTML = strHTML.join('')
+    strHTML.unshift('<div class="media grid-2-columns">')
+    strHTML.push(`</div>`)
+    document.querySelector('.tab-container').innerHTML = strHTML.join('')
 }
