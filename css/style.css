@@ -16,6 +16,16 @@
 /* @import './cmps/dropdown.css'; */
 /* @import './cmps/footer.css'; */
 
+.container {
+    display: flex;
+    height: var(--container-height);
+    /* flex: 1 1 auto; */
+}
+main {
+    background: var(--secondary-color);
+    width: 100%;
+}
+
 .grid-container {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
@@ -40,19 +50,32 @@
 }
 
 @media screen and (max-width: 700px) {
+    body {
+        /* overflow-y: hidden; */
+    }
     .mob-hide {
         display: none !important;
     }
-    nav {
-        justify-content: center;
-        align-items: center;
-    }
 
     .grid-container {
-        grid-template-columns: repeat(auto-fill, minmax(30px, 1fr));
+        overflow: auto;
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+        height: var(--container-height);
     }
 
     .container {
         flex-direction: column;
+        justify-content: space-between;
+        /* width: 50px; */
+    }
+    main {
+        height: 100%;
+    }
+
+    .canvas-container {
+        margin: 1rem;
+    }
+    .editor {
+        align-items: flex-start;
     }
 }

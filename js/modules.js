@@ -3,6 +3,7 @@
 function renderModuleText() {
     document.querySelector('.tab-container').innerHTML = `
     <div class="text-module">
+    <div class="module-header">Text</div>
         <input type="text" name="" id="add-text-input" class="add-text-input"
             placeholder="When you realize...">
         <button class="btn round-btn add-text-btn" onclick="onAddText()">Add Text</button>

@@ -6,16 +6,6 @@ aside {
     z-index: 1;
 }
 
-.container {
-    display: flex;
-    height: var(--container-height);
-    /* flex: 1 1 auto; */
-}
-main {
-    background: var(--secondary-color);
-    width: 100%;
-}
-
 .aside-grid {
     display: grid;
     grid-template-columns: 1fr 4fr;
@@ -147,4 +137,35 @@ main {
     background: var(--secondary-color);
     color: white;
     width: 100%;
+}
+
+.module-header {}
+
+@media screen and (max-width: 750px) {
+    aside {
+        position: fixed;
+        order: 1;
+        width: 100%;
+        bottom: 0;
+    }
+    .aside-grid {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .tab-container {
+        border-top: 2px solid var(--primary-color);
+        order: -1;
+        height: 25vh;
+        overflow: scroll;
+    }
+
+    .modules ul {
+        display: flex;
+        flex-direction: row;
+        height: 65px;
+    }
+    .modules ul button {
+        display: inline-block;
+    }
 }

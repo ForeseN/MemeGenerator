@@ -17,7 +17,7 @@ function onInit() {
     // console.log(meme)
     renderMeme(meme)
     renderGallery()
-    renderAsideGallery()
+    // renderAsideGallery()
 }
 
 function defaultConfig() {
