@@ -21,46 +21,51 @@ var gImgs = [
     { id: 17, url: './meme-imgs-square/17.jpg', keywords: ['funny', 'dog'] },
     { id: 18, url: './meme-imgs-square/18.jpg', keywords: ['funny', 'dog'] },
 ]
-var gMeme = {
-    selectedImgId: 5,
-    selectedLineIdx: 0,
-    url: './meme-imgs-square/1.jpg',
-    lines: [
-        {
-            txt: 'You Know Nothing',
-            size: 40,
-            font: 'impact',
-            align: 'center',
-            fillColor: 'white',
-            strokeColor: 'black',
-            bold: false,
-            italic: false,
-            underline: false,
-            x: 275,
-            y: 50,
-        },
-        {
-            txt: 'John Snow',
-            size: 40,
-            font: 'impact',
-            align: 'center',
-            fillColor: 'white',
-            strokeColor: 'black',
-            bold: false,
-            italic: false,
-            underline: false,
-            x: 275,
-            y: 500,
-        },
-    ],
-}
+var gMeme
 
+function createMeme() {
+    gMeme = {
+        selectedImgId: 5,
+        selectedLineIdx: 0,
+        url: './meme-imgs-square/1.jpg',
+        lines: [
+            {
+                txt: 'You Know Nothing',
+                size: 40,
+                font: 'impact',
+                align: 'center',
+                fillColor: 'white',
+                strokeColor: 'black',
+                bold: false,
+                italic: false,
+                underline: false,
+                x: gElCanvas.width / 2,
+                y: 50,
+            },
+            {
+                txt: 'John Snow',
+                size: 40,
+                font: 'impact',
+                align: 'center',
+                fillColor: 'white',
+                strokeColor: 'black',
+                bold: false,
+                italic: false,
+                underline: false,
+                x: gElCanvas.width / 2,
+                y: gElCanvas.height - 50,
+            },
+        ],
+    }
+    return gMeme
+}
 function getImages() {
     return gImgs
 }
 
 function getMeme(id) {
     const img = gImgs.find(img => img.id === id)
+    gMeme = createMeme()
     gMeme.selectedImgId = id
     gMeme.url = img.url
     return gMeme

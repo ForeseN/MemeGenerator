@@ -3,10 +3,13 @@
 let gElCanvas
 let gCtx
 
+const TOUCH_EVS = ['touchstart', 'touchmove', 'touchend']
+
 function onInit() {
     gElCanvas = document.getElementById('my-canvas')
     gCtx = gElCanvas.getContext('2d')
     defaultConfig()
+    addListeners()
     // resizeCanvas()
     const meme = getMeme(3)
     // console.log(meme)
@@ -37,6 +40,25 @@ function renderTextOnMeme(meme) {
     meme.lines.forEach(line => {
         drawText(line)
     })
+}
+
+function isClickedText(line, pos) {
+    const { txt, size, font, align, bold, italic, x, y } = line
+    gCtx.font = `${bold ? 'bold' : 'normal'} ${
+        italic ? 'italic' : 'normal'
+    } ${size}px ${font}`
+    const textMeasurements = gCtx.measureText(txt)
+    const width = textMeasurements.width
+    const height =
+        textMeasurements.actualBoundingBoxAscent +
+        textMeasurements.actualBoundingBoxDescent
+    // console.log(width, height)
+    return (
+        pos.x > line.x - width / 2 &&
+        pos.x < line.x + width / 2 &&
+        pos.y > line.y - height / 2 &&
+        pos.y < line.y + height / 2
+    )
 }
 
 // ---------------------- ON FUNCTIONS  ----------------------
@@ -88,6 +110,25 @@ function onSwitchLines() {
     setMeme(meme)
 }
 
+function onDown(ev) {
+    console.clear()
+    const pos = getEvPos(ev)
+    console.log(pos)
+    const meme = getCurrMeme()
+    console.log(meme)
+
+    meme.lines.forEach((line, idx) => {
+        if (isClickedText(line, pos)) {
+            meme.selectedLineIdx = idx
+        }
+    })
+
+    defaultConfig()
+}
+
+function onUp(ev) {}
+function onMove(ev) {}
+
 // ----------------------  ON MODULES   ----------------------
 
 function onModuleText(elBtn) {
@@ -138,4 +179,51 @@ function drawText(line) {
 function renderImg(img) {
     // Draw the img on the canvas
     gCtx.drawImage(img, 0, 0, gElCanvas.width, gElCanvas.height)
+}
+
+function getEvPos(ev) {
+    // Gets the offset pos , the default pos
+    let pos = {
+        x: ev.offsetX,
+        y: ev.offsetY,
+    }
+    // Check if its a touch ev
+    if (TOUCH_EVS.includes(ev.type)) {
+        // console.log('ev:', ev)
+        //soo we will not trigger the mouse ev
+        ev.preventDefault()
+        //Gets the first touch point
+        ev = ev.changedTouches[0]
+        //Calc the right pos according to the touch screen
+        pos = {
+            x: ev.pageX - ev.target.offsetLeft - ev.target.clientLeft,
+            y: ev.pageY - ev.target.offsetTop - ev.target.clientTop,
+        }
+    }
+    return pos
+}
+
+// ----------------------   LISTENERS   ----------------------
+
+function addListeners() {
+    addMouseListeners()
+    addTouchListeners()
+
+    // Listen for resize ev
+    // window.addEventListener('resize', () => {
+    // resizeCanvas()
+    // renderCanvas()
+    // })
+}
+
+function addMouseListeners() {
+    gElCanvas.addEventListener('mousemove', onMove)
+    gElCanvas.addEventListener('mousedown', onDown)
+    gElCanvas.addEventListener('mouseup', onUp)
+}
+
+function addTouchListeners() {
+    gElCanvas.addEventListener('touchmove', onMove)
+    gElCanvas.addEventListener('touchstart', onDown)
+    gElCanvas.addEventListener('touchend', onUp)
 }

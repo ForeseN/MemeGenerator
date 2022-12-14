@@ -323,6 +323,7 @@ main {
 }
 
 .font-area select {
+    border-radius: 6px;
     margin-top: 0.4rem;
     display: block;
     background: var(--secondary-color);
@@ -345,6 +346,7 @@ main {
     justify-content: space-between;
 }
 .font-buttons button {
+    border-radius: 6px;
     background: var(--secondary-color);
     color: white;
     padding: 0.2rem 0.7rem;
