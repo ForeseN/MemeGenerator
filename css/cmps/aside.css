@@ -1,6 +1,8 @@
 aside {
     background: var(--primary-color);
-    width: 500px;
+    min-width: 400px;
+    max-width: 400px;
+    /* width: 500px; */
     box-shadow: 5px 0px 6px 0px black;
     position: relative;
     z-index: 1;
@@ -150,6 +152,11 @@ aside {
     text-align: center;
     padding-bottom: 0.5rem;
 }
+.stickers-label {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    color: #606060;
+}
 
 @media screen and (max-width: 700px) {
     aside {
@@ -157,6 +164,7 @@ aside {
         order: 1;
         width: 100%;
         bottom: 0;
+        min-width: 100%;
     }
     .aside-grid {
         display: flex;

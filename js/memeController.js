@@ -13,7 +13,7 @@ function onInit() {
     defaultConfig()
     addListeners()
 
-    if (isMobileDevice()) initMobile()
+    // if (isMobileDevice()) initMobile()
 
     resizeCanvas()
 
@@ -203,8 +203,13 @@ function onModuleGallery(elBtn) {
     showElement('.tab-container')
     removeActiveModules()
     elBtn.classList.add('active')
-    console.log('WH')
     renderAsideGallery()
+}
+function onModuleStickers(elBtn) {
+    showElement('.tab-container')
+    removeActiveModules()
+    elBtn.classList.add('active')
+    renderModuleStickers()
 }
 
 function removeActiveModules() {
@@ -221,7 +226,7 @@ function onCloseModule() {
 
 function getModuleHeader(txt) {
     return `
-    <div class="text-module">
+    
         <div class="module-header">${txt}
         <button class="btn pc-hide close-module" onclick="onCloseModule()"><i class="fa-solid fa-xmark fa-1x"></i></button>
     </div>`

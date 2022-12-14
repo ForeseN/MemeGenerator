@@ -2,6 +2,7 @@
 
 function renderModuleText() {
     document.querySelector('.tab-container').innerHTML = `
+    <div class="text-module">
     ${getModuleHeader('text')}
         <input type="text" name="" id="add-text-input" class="add-text-input"
             placeholder="When you realize...">
@@ -48,4 +49,42 @@ function renderModuleText() {
         </div>
     </div>
     `
+}
+
+function renderModuleStickers() {
+    let strHTMLs = []
+    strHTMLs.push(`
+    <div class="stickers-label font-600">
+        <div>Popular</div>
+        <div class="stickers grid-5-columns text-bigger">
+            <button class="btn util-btn" onclick="addText(this.innerText)">😂</button>
+            <button class="btn util-btn" onclick="addText(this.innerText)">❤️</button>
+            <button class="btn util-btn" onclick="addText(this.innerText)">😍</button>
+            <button class="btn util-btn" onclick="addText(this.innerText)">🙏</button>
+            <button class="btn util-btn" onclick="addText(this.innerText)">🎉</button>
+            <button class="btn util-btn" onclick="addText(this.innerText)">😊</button>
+            <button class="btn util-btn" onclick="addText(this.innerText)">🔥</button>
+            <button class="btn util-btn" onclick="addText(this.innerText)">🥺</button>
+            <button class="btn util-btn" onclick="addText(this.innerText)">😎</button>
+            <button class="btn util-btn" onclick="addText(this.innerText)">💪</button>
+        </div>
+    </div>
+    <div class="stickers-label font-600">
+        <div>Emojis</div>
+    </div>`)
+    strHTMLs.push('<div class="grid-5-columns text-bigger">')
+    for (let i = 128512; i < 128592; i++) {
+        strHTMLs.push(
+            `<button class="btn util-btn" onclick="addText(this.innerText)">&#${i}</button>`
+        )
+    }
+    for (let i = 129296; i < 129336; i++) {
+        strHTMLs.push(
+            `<button class="btn util-btn" onclick="addText(this.innerText)">&#${i}</button>`
+        )
+    }
+
+    strHTMLs.unshift(getModuleHeader('Stickers'))
+    strHTMLs.push('</div>')
+    document.querySelector('.tab-container').innerHTML = strHTMLs.join('')
 }
