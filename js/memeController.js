@@ -29,39 +29,53 @@ function renderMeme(meme) {
     img.src = meme.url // Set the img src
     img.onload = () => {
         renderImg(img)
-        meme.lines.forEach(line => {
-            const { txt, size, font, align, fillColor, strokeColor } = line
-            drawText(
-                txt,
-                gElCanvas.width / 2,
-                50,
-                size,
-                font,
-                align,
-                fillColor,
-                strokeColor
-            )
-        })
+        renderTextOnMeme(meme)
     }
+}
+
+function renderTextOnMeme(meme) {
+    meme.lines.forEach(line => {
+        drawText(line)
+    })
 }
 
 // ---------------------- ON FUNCTIONS  ----------------------
 
 function onAddText() {
-    const txt = document.querySelector('#add-text-input').value
+    const addTextInput = document.querySelector('.add-text-input')
+    const txt = addTextInput.value
     addText(txt)
+    addTextInput.value = ''
+}
+
+function onBold() {
+    const meme = getCurrMeme()
+    meme.lines[meme.selectedLineIdx].bold = !meme.lines[meme.selectedLineIdx].bold
+    setMeme(meme)
+    renderMeme(meme)
+}
+function onItalic() {
+    const meme = getCurrMeme()
+    meme.lines[meme.selectedLineIdx].italic = !meme.lines[meme.selectedLineIdx].italic
+    setMeme(meme)
+    renderMeme(meme)
+}
+function onUnderline() {
+    const meme = getCurrMeme()
+    meme.lines[meme.selectedLineIdx].underline =
+        !meme.lines[meme.selectedLineIdx].underline
+    setMeme(meme)
+    renderMeme(meme)
 }
 
 function onIncFont() {
     const meme = getCurrMeme()
-    console.log(meme)
     meme.lines[meme.selectedLineIdx].size += 2
     setMeme(meme)
     renderMeme(meme)
 }
 function onDecFont() {
     const meme = getCurrMeme()
-    console.log(meme)
     meme.lines[meme.selectedLineIdx].size -= 2
     setMeme(meme)
     renderMeme(meme)
@@ -94,13 +108,30 @@ function renderModuleText() {}
 
 // ---------------------- DRAW & RENDER ----------------------
 
-function drawText(text, x, y, size, font, align, fillColor, strokeColor) {
-    gCtx.font = `${size}px ${font}`
+function drawText(line) {
+    const {
+        txt,
+        size,
+        font,
+        align,
+        fillColor,
+        strokeColor,
+        bold,
+        italic,
+        underline,
+        x,
+        y,
+    } = line
+
+    gCtx.font = `${bold ? 'bold' : 'normal'} ${
+        italic ? 'italic' : 'normal'
+    } ${size}px ${font}`
+
     gCtx.fillStyle = fillColor
     gCtx.strokeStyle = strokeColor
     gCtx.textAlign = align
-    gCtx.fillText(text, x, y) // Draws (fills) a given text at the given (x, y) position.
-    gCtx.strokeText(text, x, y) // Draws (strokes) a given text at the given (x, y) position.
+    gCtx.fillText(txt, x, y) // Draws (fills) a given text at the given (x, y) position.
+    gCtx.strokeText(txt, x, y) // Draws (strokes) a given text at the given (x, y) position.
     defaultConfig() // revert settings
 }
 

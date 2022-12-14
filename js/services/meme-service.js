@@ -27,12 +27,30 @@ var gMeme = {
     url: './meme-imgs-square/1.jpg',
     lines: [
         {
-            txt: 'I sometimes eat Falafel',
+            txt: 'You Know Nothing',
             size: 40,
             font: 'impact',
             align: 'center',
             fillColor: 'white',
             strokeColor: 'black',
+            bold: false,
+            italic: false,
+            underline: false,
+            x: 275,
+            y: 50,
+        },
+        {
+            txt: 'John Snow',
+            size: 40,
+            font: 'impact',
+            align: 'center',
+            fillColor: 'white',
+            strokeColor: 'black',
+            bold: false,
+            italic: false,
+            underline: false,
+            x: 275,
+            y: 500,
         },
     ],
 }
@@ -64,6 +82,11 @@ function addText(txt) {
         align: 'center',
         fillColor: 'white',
         strokeColor: 'black',
+        bold: false,
+        italic: false,
+        underline: false,
+        x: 275,
+        y: 275,
     })
     renderMeme(gMeme)
 }

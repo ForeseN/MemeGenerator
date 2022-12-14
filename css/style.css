@@ -203,6 +203,10 @@ nav ul li input:hover {
     padding-bottom: 0.3rem;
 }
 
+.share-btn:hover {
+    background: #1fa2ff;
+}
+
 .export-btn {
     background: #148d86;
     padding-right: 2rem;
@@ -287,9 +291,18 @@ main {
 }
 
 .text-module {
-    margin: 0 auto;
+    margin: 1rem auto;
     width: 85%;
     display: block;
+}
+
+.text-module .add-text-input {
+    background: var(--secondary-color);
+    border: none;
+    outline: none;
+    width: 100%;
+    border-radius: 6px;
+    color: white;
 }
 
 .text-module .add-text-btn {
@@ -298,8 +311,11 @@ main {
     padding: 0.5rem 1rem;
     background: var(--quaternary-color);
     color: white;
-    margin: 1rem 0;
+    margin: 0.5rem 0;
     width: 100%;
+}
+.text-module .add-text-btn:hover {
+    background: #1fa2ff;
 }
 
 .font-area label {
@@ -343,6 +359,7 @@ main {
 }
 
 .font-colors input {
+    cursor: pointer;
     background: var(--secondary-color);
     -webkit-appearance: none;
     -moz-appearance: none;
