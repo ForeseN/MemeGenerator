@@ -13,6 +13,7 @@ function onInit() {
     renderMeme(meme)
     renderGallery()
     // renderAsideGallery()
+    console.log('WORKED')
 }
 
 function defaultConfig() {
