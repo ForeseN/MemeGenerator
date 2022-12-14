@@ -10,8 +10,14 @@
 </head>
 
 <body onload="onInit()">
-    <div class="gallery"></div>
-    <div class="editor"></div>
+    <div class="gallery hide"></div>
+    <div class="editor">
+        <div class="canvas-container">
+            <canvas id="my-canvas" height="450" width="450"></canvas>
+            <input type="text" name="" id="add-text-input" onclick="onAddText(this.val)">
+        </div>
+    </div>
+    <script src="js/services/meme-service.js"></script>
     <script src="js/memeController.js"></script>
 </body>
 
