@@ -9,8 +9,8 @@ function onInit() {
     defaultConfig()
     // resizeCanvas()
     const meme = getMeme(3)
-    console.log(meme)
-    // renderMeme(meme)
+    // console.log(meme)
+    renderMeme(meme)
     // renderGallery()
 }
 
@@ -49,6 +49,28 @@ function renderMeme(meme) {
 function onAddText() {
     const txt = document.querySelector('#add-text-input').value
     addText(txt)
+}
+
+function onIncFont() {
+    const meme = getCurrMeme()
+    console.log(meme)
+    meme.lines[meme.selectedLineIdx].size += 2
+    setMeme(meme)
+    renderMeme(meme)
+}
+function onDecFont() {
+    const meme = getCurrMeme()
+    console.log(meme)
+    meme.lines[meme.selectedLineIdx].size -= 2
+    setMeme(meme)
+    renderMeme(meme)
+}
+
+function onSwitchLines() {
+    const meme = getCurrMeme()
+    meme.selectedLineIdx = (meme.selectedLineIdx + 1) % meme.lines.length
+    console.log(meme.selectedLineIdx)
+    setMeme(meme)
 }
 
 // ---------------------- DRAW & RENDER ----------------------

@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;400;600;700;900&display=swap');
+
 :root {
     --primary-color: #101010;
     --secondary-color: #202020;
@@ -42,6 +44,12 @@ body {
 body {
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
+    font-family: 'Poppins', sans-serif;
+
+    /* MEANWHILE */
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 /*
     6. Improve media defaults

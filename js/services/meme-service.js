@@ -34,6 +34,14 @@ function getMeme(id) {
     return gMeme
 }
 
+function getCurrMeme() {
+    return gMeme
+}
+
+function setMeme(meme) {
+    gMeme = meme
+}
+
 function addText(txt) {
     gMeme.lines.push({
         txt: txt,

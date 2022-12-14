@@ -10,21 +10,26 @@
 </head>
 
 <body onload="onInit()">
-    <div class="gallery">
-        <div class="grid-container">
-            <img src="meme-imgs-square/1.jpg" alt="" srcset="">
+    <nav></nav>
+    <div class="gallery hide">
+        <div class="gallery-grid grid-container">
+            <!-- <img src="meme-imgs-square/1.jpg" alt="" srcset="">
             <img src="meme-imgs-square/2.jpg" alt="" srcset="">
             <img src="meme-imgs-square/3.jpg" alt="" srcset="">
-            <img src="meme-imgs-square/4.jpg" alt="" srcset="">
+            <img src="meme-imgs-square/4.jpg" alt="" srcset=""> -->
         </div>
     </div>
-    <div class="editor hide">
+    <div class="editor">
         <div class="canvas-container">
             <canvas id="my-canvas" height="450" width="450"></canvas>
             <input type="text" name="" id="add-text-input">
             <button onclick="onAddText(this.value)">Add</button>
+            <button onclick="onIncFont()">Increase Font</button>
+            <button onclick="onDecFont()">Decrease Font</button>
+            <button onclick="onSwitchLines()">Switch Lines</button>
         </div>
     </div>
+    <script src="js/services/utils-service.js"></script>
     <script src="js/services/gallery-controller.js"></script>
     <script src="js/services/meme-service.js"></script>
     <script src="js/memeController.js"></script>
