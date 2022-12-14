@@ -139,7 +139,15 @@ aside {
     width: 100%;
 }
 
-.module-header {}
+.module-header {
+    color: white;
+    text-transform: uppercase;
+    font-weight: 600;
+    border-bottom: 1px solid var(--secondary-color);
+    margin-bottom: 1rem;
+    text-align: center;
+    padding-bottom: 0.5rem;
+}
 
 @media screen and (max-width: 750px) {
     aside {
