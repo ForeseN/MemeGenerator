@@ -23,9 +23,25 @@ var gMeme = {
     ],
 }
 
+function getImages() {
+    return gImgs
+}
+
 function getMeme(id) {
     const img = gImgs.find(img => img.id === id)
     gMeme.selectedImgId = id
     gMeme.url = img.url
     return gMeme
+}
+
+function addText(txt) {
+    gMeme.lines.push({
+        txt: txt,
+        size: 40,
+        font: 'impact',
+        align: 'center',
+        fillColor: 'white',
+        strokeColor: 'black',
+    })
+    renderMeme(gMeme)
 }

@@ -75,3 +75,13 @@ h5,
 h6 {
     overflow-wrap: break-word;
 }
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 25px;
+}
+.grid-container img:hover {
+    transform: scale(1.1);
+    cursor: pointer;
+}

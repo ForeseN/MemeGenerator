@@ -10,7 +10,8 @@ function onInit() {
     // resizeCanvas()
     const meme = getMeme(3)
     console.log(meme)
-    renderMeme(meme)
+    // renderMeme(meme)
+    // renderGallery()
 }
 
 function defaultConfig() {
@@ -45,13 +46,15 @@ function renderMeme(meme) {
 
 // ---------------------- ON FUNCTIONS  ----------------------
 
-
+function onAddText() {
+    const txt = document.querySelector('#add-text-input').value
+    addText(txt)
+}
 
 // ---------------------- DRAW & RENDER ----------------------
 
 function drawText(text, x, y, size, font, align, fillColor, strokeColor) {
     gCtx.font = `${size}px ${font}`
-    console.log(fillColor)
     gCtx.fillStyle = fillColor
     gCtx.strokeStyle = strokeColor
     gCtx.textAlign = align
