@@ -54,6 +54,37 @@ main {
     height: 450px; */
 }
 
+.gallery-actions {
+    margin-top: 1rem;
+    color: white;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.gallery-actions input[type='search'] {
+    border: 3px solid var(--tertiary-color);
+    background: var(--tertiary-color);
+    border-radius: 6px;
+    padding: 0.2rem 1rem;
+    color: white;
+}
+.gallery-actions input[type='search']:focus {
+    outline: none;
+}
+
+.custom-file-input {
+    background: var(--tertiary-color);
+    padding: 1rem;
+    border-radius: 6px;
+}
+
+.gallery-actions ul {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+
 @media screen and (max-width: 700px) {
     body {
         /* overflow-y: hidden; */

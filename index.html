@@ -18,13 +18,15 @@
     <!-- NAVBAR -->
     <!-- <li class="font-600">Meme Generator <i class="fa-solid fa-angles-right"></i></li> -->
     <!-- <li><input type="text" class="font-600 mob-hide" id="project-name" placeholder="Untitled Project"></li> -->
+    <!-- <li class="font-600 logo mob-hide">Meme Generator</li> -->
     <nav>
         <ul>
-            <li class="font-600 logo mob-hide">Meme Generator</li>
+            <li class="font-600 logo mob-hide">Meme Generator <i class="fa-solid fa-angles-right"></i></li>
+            <li><input type="text" class="font-600 mob-hide" id="project-name" placeholder="Untitled Project"></li>
 
         </ul>
         <ul>
-            <li><button class="btn util-btn"><i class="fa-solid fa-upload"></i></button></li>
+            <li><button class="btn util-btn"><i class="fa-solid fa-arrow-up-from-bracket"></i></button></li>
             <li><button class="btn util-btn"><i class="fa-solid fa-backward"></i></button></li>
             <li><button class="btn util-btn"><i class="fa-solid fa-gear"></i></button></li>
             <li><button class="btn round-btn share-btn"><i class="fa-solid fa-share-from-square"></i> <span
@@ -48,11 +50,15 @@
                                     class="fa-solid fa-font"></i></button></li>
                         <li><button class="btn util-btn" onclick="onModuleStickers(this)"><i
                                     class="fa-solid fa-icons"></i></button></li>
+                        <li><button class="btn util-btn" onclick="onModuleStickers(this)"><i
+                                    class="fa-solid fa-bookmark"></i></button></li>
+                        <li><button class="btn util-btn" onclick="onModuleStickers(this)"><i
+                                    class="fa-solid fa-bookmark"></i></button></li>
                     </ul>
                 </div>
                 <div class="tab-container scrollbar-hidden">
 
-                    
+
                 </div>
             </div>
 
@@ -64,6 +70,25 @@
         <main>
             <!-- GALLERY -->
             <div class="gallery">
+                <div class="gallery-actions">
+                    <input type="search" name="" id="" placeholder="Search..." class="font-600">
+                    <div class="categories">
+                        <ul>
+                            <li>Dogs</li>
+                            <li>Cats</li>
+                            <li>Funny</li>
+                            <li>Political</li>
+                            <li>Happy</li>
+                            <li>Celeb</li>
+                            <li>Animals</li>
+                            <li>Bad</li>
+                            <li>Dark</li>
+                        </ul>
+                    </div>
+                    <label type="file" name="" for="file-upload" class="custom-file-input">Upload <i
+                            class="fa-solid fa-arrow-up-from-bracket"></i></label>
+                    <input type="file" name="" id="file-upload" hidden>
+                </div>
                 <div class="gallery-grid grid-container">
                 </div>
             </div>
