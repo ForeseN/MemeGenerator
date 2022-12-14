@@ -90,9 +90,7 @@ function removeActiveModules() {
 }
 // ---------------------- RENDER MODULES ----------------------
 
-function renderModuleText() {
-    
-}
+function renderModuleText() {}
 
 // ---------------------- DRAW & RENDER ----------------------
 
