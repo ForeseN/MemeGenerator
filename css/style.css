@@ -7,12 +7,6 @@
     --quaternary-color: #0083e2;
 }
 
-/* Utils */
-
-.hide {
-    display: none;
-}
-
 /* Basics */
 
 /*
@@ -47,9 +41,9 @@ body {
     font-family: 'Poppins', sans-serif;
 
     /* MEANWHILE */
-    display: flex;
+    /* display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: center; */
 }
 /*
     6. Improve media defaults
@@ -84,12 +78,103 @@ h6 {
     overflow-wrap: break-word;
 }
 
+/* Helpers */
+
+.btn {
+    cursor: pointer;
+    border: none;
+    outline: none;
+}
+
+.util-btn {
+    background: transparent;
+    color: white;
+}
+.util-btn:hover {
+    background: var(--tertiary-color);
+    border-radius: 4px;
+    color: #1fa2ff;
+}
+
+.hide {
+    display: none;
+}
+
+.flex {
+    display: flex;
+}
+.round-btn {
+    border-radius: 4px;
+}
+
+.font-600 {
+    font-weight: 600;
+}
+/* STYLES */
+
+/* Navbar */
+
+nav {
+    background: var(--primary-color);
+    color: white;
+    display: flex;
+    justify-content: space-between;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 1rem;
+    padding: 0;
+}
+
+nav ul li {
+    padding: 0.2rem;
+    margin: 0 0.1rem;
+}
+
+nav ul li input {
+    background: transparent;
+    outline: none;
+    border: none;
+    color: white;
+    border: 3px solid transparent;
+}
+nav ul li input:hover {
+    border: 3px solid var(--tertiary-color);
+    background: var(--secondary-color);
+    border-radius: 6px;
+}
+
+.share-btn {
+    background: var(--quaternary-color);
+    color: white;
+    padding-right: 1rem;
+    padding-left: 1rem;
+    padding-top: 0.3rem;
+    padding-bottom: 0.3rem;
+}
+
+.export-btn {
+    background: #148d86;
+    padding-right: 2rem;
+    padding-left: 2rem;
+    padding-top: 0.3rem;
+    padding-bottom: 0.3rem;
+    font-weight: 600;
+}
+
+.export {
+}
+
 .grid-container {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 25px;
 }
 .grid-container img:hover {
-    transform: scale(1.1);
+    /* transform: scale(1.1); */
     cursor: pointer;
 }

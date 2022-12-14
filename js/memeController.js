@@ -11,7 +11,7 @@ function onInit() {
     const meme = getMeme(3)
     // console.log(meme)
     renderMeme(meme)
-    // renderGallery()
+    renderGallery()
 }
 
 function defaultConfig() {

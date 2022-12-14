@@ -5,13 +5,31 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+        integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
     <link rel="stylesheet" href="css/style.css">
     <title>MemeGenerator</title>
 </head>
 
 <body onload="onInit()">
-    <nav></nav>
-    <div class="gallery hide">
+    <nav>
+        <ul>
+            <li class="font-600">Meme Generator <i class="fa-solid fa-angles-right"></i></li>
+            <li><input type="text" class="font-600" id="project-name" placeholder="Untitled Project"></li>
+            <li><button class="btn util-btn"><i class="fa-solid fa-upload"></i></button></li>
+        </ul>
+        <ul>
+            <li><button class="btn util-btn"><i class="fa-solid fa-gear"></i></button></li>
+            <li><button class="btn round-btn share-btn"><i class="fa-solid fa-share-from-square"></i> Share</button>
+            </li>
+            <li><button class="btn round-btn export-btn">Export Project</button></li>
+            <li class="font-600">Sign In</li>
+        </ul>
+    </nav>
+    <div class="gallery">
         <div class="gallery-grid grid-container">
             <!-- <img src="meme-imgs-square/1.jpg" alt="" srcset="">
             <img src="meme-imgs-square/2.jpg" alt="" srcset="">
@@ -19,7 +37,7 @@
             <img src="meme-imgs-square/4.jpg" alt="" srcset=""> -->
         </div>
     </div>
-    <div class="editor">
+    <div class="editor hide">
         <div class="canvas-container">
             <canvas id="my-canvas" height="450" width="450"></canvas>
             <input type="text" name="" id="add-text-input">
