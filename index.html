@@ -27,7 +27,7 @@
             <li><button class="btn round-btn share-btn"><i class="fa-solid fa-share-from-square"></i> Share</button>
             </li>
             <li><button class="btn round-btn export-btn">Export Project</button></li>
-            <li class="font-600">Sign In</li>
+            <!-- <li class="font-600">Sign In</li> -->
         </ul>
     </nav>
 
@@ -48,26 +48,47 @@
                 <!-- Injected By Javascript -->
                 <!-- Media -->
                 <div class="tab-container scrollbar-hidden">
-                    <!-- <input type="text" name="" id="add-text-input">
-                    <label for="font">Font</label>
-                    <select class="form-control">
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
-                    </select>
-                    <select class="form-control">
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
-                    </select>
-                    <button onclick="onAddText(this.value)">Add</button>
-                    <button onclick="onIncFont()">Increase Font</button>
-                    <button onclick="onDecFont()">Decrease Font</button>
-                    <button onclick="onSwitchLines()">Switch Lines</button> -->
+                    <div class="text-module">
+                        <!-- <input type="text" name="" id="add-text-input"> -->
+                        <button class="btn add-text-btn">Add Text</button>
+                        <div class="font-area">
+                            <label for="font" class="text-white">Font</label>
+                            <select class="form-control">
+                                <option>Impact</option>
+                                <option>Arial</option>
+                            </select>
+                            <select class="form-control">
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                                <option>5</option>
+                            </select>
+                            <div class="font-buttons">
+                                <button class="btn"><i class="fa-solid fa-bold"></i></button>
+                                <button class="btn"><i class="fa-solid fa-italic"></i></button>
+                                <button class="btn"><i class="fa-solid fa-underline"></i></button>
+                                <button class="btn"><i class="fa-solid fa-align-left"></i></button>
+                                <button class="btn"><i class="fa-solid fa-align-justify"></i></button>
+                                <button class="btn"><i class="fa-solid fa-align-right"></i></button>
+                            </div>
+                            <div class="font-colors">
+                                <div class="flex justify-space-between align-items-center">
+                                    <label for="text-color" class="text-white">Text Color</label>
+                                    <input type="color" name="" id="text-color" value="#FFFFFF">
+                                </div>
+                                <div class="flex justify-space-between align-items-center">
+
+                                    <label for="text-outline" class="text-white">Text Outline</label>
+                                    <input type="color" name="" id="text-outline">
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <button class="btn" onclick="onAddText(this.value)">Add</button>
+                        <button class="btn" onclick="onIncFont()">Increase Font</button>
+                        <button class="btn" onclick="onDecFont()">Decrease Font</button>
+                        <button class="btn" onclick="onSwitchLines()">Switch Lines</button> -->
+                    </div>
                 </div>
             </div>
 

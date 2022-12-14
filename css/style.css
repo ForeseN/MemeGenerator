@@ -105,8 +105,17 @@ h6 {
 }
 
 .flex {
-    display: flex;
+    display: flex !important;
 }
+
+.justify-space-between {
+    justify-content: space-between;
+}
+
+.align-items-center {
+    align-items: center;
+}
+
 .round-btn {
     border-radius: 4px;
 }
@@ -138,6 +147,10 @@ h6 {
 .scrollbar-hidden {
     -ms-overflow-style: none;
     scrollbar-width: none; /* Firefox */
+}
+
+.text-white {
+    color: white;
 }
 /* STYLES */
 
@@ -271,4 +284,77 @@ main {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.text-module {
+    margin: 0 auto;
+    width: 85%;
+    display: block;
+}
+
+.text-module .add-text-btn {
+    display: block;
+    font-size: 0.9rem;
+    padding: 0.5rem 1rem;
+    background: var(--quaternary-color);
+    color: white;
+    margin: 1rem 0;
+    width: 100%;
+}
+
+.font-area label {
+    color: white;
+}
+
+.font-area select {
+    margin-top: 0.4rem;
+    display: block;
+    background: var(--secondary-color);
+    color: white;
+    padding: 0.5rem 0.5rem;
+    outline: none;
+    border: none;
+}
+
+.font-area select:first-of-type {
+    width: 100%;
+}
+.font-area select:last-of-type {
+    width: 50%;
+}
+
+.font-buttons {
+    margin-top: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+}
+.font-buttons button {
+    background: var(--secondary-color);
+    color: white;
+    padding: 0.2rem 0.7rem;
+}
+
+.font-colors {
+    margin-top: 1rem;
+}
+
+.font-colors > * {
+    display: block;
+}
+
+.font-colors input {
+    background: var(--secondary-color);
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background: transparent;
+    border: none;
+    width: 30%;
+    height: 30px;
+}
+.font-colors input::-webkit-color-swatch {
+    border-radius: 6px;
+    border: transparent;
+}
+.font-colors input:first-of-type {
 }
