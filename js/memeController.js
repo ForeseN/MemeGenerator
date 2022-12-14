@@ -12,7 +12,11 @@ function onInit() {
     gCtx = gElCanvas.getContext('2d')
     defaultConfig()
     addListeners()
-    // resizeCanvas()
+
+    if (isMobileDevice()) initMobile()
+
+    resizeCanvas()
+
     const meme = getMeme(3)
     // console.log(meme)
     renderMeme(meme)
@@ -26,7 +30,7 @@ function defaultConfig() {
     gCtx.fillStyle = 'white'
     gCtx.textAlign = 'center'
     gCtx.textBaseline = 'middle'
-    gCtx.lineWidth = 2
+    gCtx.lineWidth = 1
 }
 
 function renderMeme(meme) {
@@ -38,6 +42,8 @@ function renderMeme(meme) {
         if (meme.selectedLineIdx != null) {
             markSelectedLine(meme.lines[meme.selectedLineIdx])
         }
+
+        // resizeCanvas()
     }
 }
 
@@ -50,6 +56,16 @@ function renderTextOnMeme(meme) {
 function isClickedText(line, pos) {
     const width = getLineWidth(line)
     const height = getLineHeight(line)
+    console.log(
+        pos.x,
+        line.x - width / 2,
+        pos.x,
+        line.x + width / 2,
+        pos.y,
+        line.y - height / 2,
+        pos.y,
+        line.y + height / 2
+    )
     return (
         pos.x > line.x - width / 2 &&
         pos.x < line.x + width / 2 &&
@@ -159,16 +175,15 @@ function onDown(ev) {
     const pos = getEvPos(ev)
     console.log(pos)
     const meme = getCurrMeme()
-    console.log(meme)
-
+    meme.selectedLineIdx = null
     meme.lines.forEach((line, idx) => {
         if (isClickedText(line, pos)) {
             meme.selectedLineIdx = idx
             renderMeme(getCurrMeme())
         }
     })
-
     defaultConfig()
+    renderMeme(getCurrMeme())
 }
 
 function onUp(ev) {}
@@ -177,12 +192,15 @@ function onMove(ev) {}
 // ----------------------  ON MODULES   ----------------------
 
 function onModuleText(elBtn) {
+    if (!elBtn) elBtn = document.querySelector('.txt-btn')
+    showElement('.tab-container')
     removeActiveModules()
     elBtn.classList.add('active')
     renderModuleText()
 }
 
 function onModuleGallery(elBtn) {
+    showElement('.tab-container')
     removeActiveModules()
     elBtn.classList.add('active')
     console.log('WH')
@@ -194,6 +212,19 @@ function removeActiveModules() {
     ;[...btns].forEach(btn => {
         btn.classList.remove('active')
     })
+}
+
+function onCloseModule() {
+    removeActiveModules()
+    hideElement('.tab-container')
+}
+
+function getModuleHeader(txt) {
+    return `
+    <div class="text-module">
+        <div class="module-header">${txt}
+        <button class="btn pc-hide close-module" onclick="onCloseModule()"><i class="fa-solid fa-xmark fa-1x"></i></button>
+    </div>`
 }
 // ---------------------- RENDER MODULES ----------------------
 
@@ -214,15 +245,24 @@ function drawText(line) {
         y,
     } = line
 
-    gCtx.font = `${bold ? 'bold' : 'normal'} ${
-        italic ? 'italic' : 'normal'
-    } ${size}px ${font}`
+    gCtx.font = `
+    ${bold ? 'bold' : 'normal'}
+    ${italic ? 'italic' : 'normal'}
+    ${size}px ${font}`
 
     gCtx.fillStyle = fillColor
     gCtx.strokeStyle = strokeColor
     gCtx.textAlign = align
-    gCtx.fillText(txt, x, y) // Draws (fills) a given text at the given (x, y) position.
-    gCtx.strokeText(txt, x, y) // Draws (strokes) a given text at the given (x, y) position.
+    gCtx.lineJoin = 'miter'
+    gCtx.miterLimit = 2
+    if (isMobileDevice()) {
+        gCtx.lineWidth = 4
+        gCtx.strokeText(txt, x, y)
+        gCtx.fillText(txt, x, y)
+    } else {
+        gCtx.fillText(txt, x, y)
+        gCtx.strokeText(txt, x, y)
+    }
     defaultConfig() // revert settings
 }
 
@@ -260,10 +300,10 @@ function addListeners() {
     addTouchListeners()
 
     // Listen for resize ev
-    // window.addEventListener('resize', () => {
-    // resizeCanvas()
-    // renderCanvas()
-    // })
+    window.addEventListener('resize', () => {
+        // resizeCanvas()
+        // renderCanvas()
+    })
 }
 
 function addMouseListeners() {
@@ -276,4 +316,70 @@ function addTouchListeners() {
     gElCanvas.addEventListener('touchmove', onMove)
     gElCanvas.addEventListener('touchstart', onDown)
     gElCanvas.addEventListener('touchend', onUp)
+}
+
+function resizeCanvas() {
+    // const elContainer = document.querySelector('.canvas-container')
+    // console.log(elContainer.offsetWidth)
+    // const oldCanvasWidth = gElCanvas.width
+    // const oldCanvasHeight = gElCanvas.height
+    // gElCanvas.width = elContainer.offsetWidth - 20
+    // gElCanvas.height = elContainer.offsetHeight - 20
+    // const hWidth = gElCanvas.width / oldCanvasWidth
+    // const hHeight = gElCanvas.width / oldCanvasHeight
+    // console.log(gElCanvas.width)
+    // const meme = getCurrMeme()
+    // meme.lines.forEach(line => {
+    //     line.x *= hWidth
+    //     line.y *= hHeight
+    // })
+    // renderMeme(getCurrMeme())
+    // gElCanvas = document.getElementById('my-canvas')
+    // gElCanvas.width = gElCanvas.offsetWidth
+    // gElCanvas.height = gElCanvas.offsetHeight
+    const pageWidth = getPageWidth()
+    // console.log(pageWidth)
+    if (pageWidth > 1080) {
+        gElCanvas.width = 450
+        gElCanvas.height = 450
+    }
+    if (pageWidth < 1080 && pageWidth > 580) {
+        gElCanvas.width = 400
+        gElCanvas.height = 400
+    }
+    if (pageWidth < 580) {
+        // gElCanvas.width = 200
+        // gElCanvas.height = 200
+        gElCanvas.width = pageWidth * 0.95
+        gElCanvas.height = pageWidth * 0.95
+    }
+    // console.log(gElCanvas.height, gElCanvas.width)
+    // getMeme(1)
+    // renderMeme(getCurrMeme())
+}
+
+function getCanvasMetrics() {
+    const pageWidth = getPageWidth()
+    if (pageWidth > 1080) {
+        return { width: 450, height: 450 }
+    }
+    if (pageWidth < 1080 && pageWidth > 580) {
+        return { width: 400, height: 400 }
+    }
+    if (pageWidth < 580) {
+        return { width: pageWidth * 0.95, height: pageWidth * 0.95 }
+    }
+}
+
+function getPageWidth() {
+    return Math.max(
+        document.body.offsetWidth,
+        document.documentElement.offsetWidth,
+        document.documentElement.clientWidth
+    )
+}
+
+function initMobile() {
+    removeActiveModules()
+    hideElement('.tab-container')
 }

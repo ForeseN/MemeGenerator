@@ -35,13 +35,15 @@ aside {
 }
 
 .tab-container {
+    margin: 0 auto;
+    width: 85%;
     height: 100%;
     overflow: auto;
 }
 
 .text-module {
-    margin: 1rem auto;
-    width: 85%;
+    margin: 0 auto;
+    margin-bottom: 1rem;
     display: block;
 }
 
@@ -149,7 +151,7 @@ aside {
     padding-bottom: 0.5rem;
 }
 
-@media screen and (max-width: 750px) {
+@media screen and (max-width: 700px) {
     aside {
         position: fixed;
         order: 1;
@@ -164,16 +166,31 @@ aside {
     .tab-container {
         border-top: 2px solid var(--primary-color);
         order: -1;
-        height: 25vh;
+        height: 30vh;
         overflow: scroll;
     }
 
     .modules ul {
         display: flex;
         flex-direction: row;
-        height: 65px;
     }
     .modules ul button {
         display: inline-block;
+        padding: 0.5rem 0.8rem;
+    }
+    .module-header {
+        background: var(--primary-color);
+        position: sticky;
+        z-index: 1;
+        top: 0;
+        font-size: 0.8rem;
+        padding: 0;
+    }
+    .close-module {
+        background: transparent;
+        color: white;
+        position: absolute;
+        top: 0%;
+        right: 0%;
     }
 }

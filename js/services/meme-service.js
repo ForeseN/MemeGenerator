@@ -24,32 +24,33 @@ var gImgs = [
 var gMeme
 
 function createMeme() {
+    // const { width, height } = getCanvasMetrics()
     gMeme = {
         selectedImgId: 5,
         selectedLineIdx: null,
         url: './meme-imgs-square/1.jpg',
         lines: [
             {
-                txt: 'You Know Nothing',
+                txt: 'YOU KNOW NOTHING',
                 size: 40,
                 font: 'impact',
                 align: 'center',
                 fillColor: 'white',
                 strokeColor: 'black',
-                bold: false,
+                bold: true,
                 italic: false,
                 underline: false,
                 x: gElCanvas.width / 2,
                 y: 50,
             },
             {
-                txt: 'John Snow',
+                txt: 'JOHN SNOW',
                 size: 40,
                 font: 'impact',
                 align: 'center',
                 fillColor: 'white',
                 strokeColor: 'black',
-                bold: false,
+                bold: true,
                 italic: false,
                 underline: false,
                 x: gElCanvas.width / 2,
@@ -90,8 +91,9 @@ function addText(txt) {
         bold: false,
         italic: false,
         underline: false,
-        x: 275,
-        y: 275,
+        x: gElCanvas.width / 2,
+        y: gElCanvas.height / 2,
     })
+    console.log(gElCanvas.height, gElCanvas.width)
     renderMeme(gMeme)
 }

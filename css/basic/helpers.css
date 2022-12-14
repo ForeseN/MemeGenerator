@@ -71,3 +71,9 @@
     font-family: 'Bebas Neue', cursive;
     letter-spacing: 0.4rem;
 }
+
+@media screen and (min-width: 700px) {
+    .pc-hide {
+        display: none !important;
+    }
+}
