@@ -1,0 +1,7 @@
+:root {
+    --primary-color: #101010;
+    --secondary-color: #202020;
+    --tertiary-color: #303030;
+    --quaternary-color: #0083e2;
+    --container-height: calc(100% - 40px);
+}

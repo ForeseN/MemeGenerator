@@ -26,7 +26,7 @@ var gMeme
 function createMeme() {
     gMeme = {
         selectedImgId: 5,
-        selectedLineIdx: 0,
+        selectedLineIdx: null,
         url: './meme-imgs-square/1.jpg',
         lines: [
             {

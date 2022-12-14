@@ -10,7 +10,7 @@
         integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="./css/style.css">
     <title>MemeGenerator</title>
 </head>
 
@@ -18,17 +18,20 @@
     <!-- NAVBAR -->
     <nav>
         <ul>
-            <li class="font-600">Meme Generator <i class="fa-solid fa-angles-right"></i></li>
-            <li><input type="text" class="font-600" id="project-name" placeholder="Untitled Project"></li>
-            <li><button class="btn util-btn"><i class="fa-solid fa-upload"></i></button></li>
+            <li class="font-600 logo mob-hide">Meme Generator</li>
+            <!-- <li class="font-600">Meme Generator <i class="fa-solid fa-angles-right"></i></li> -->
+            <!-- <li><input type="text" class="font-600 mob-hide" id="project-name" placeholder="Untitled Project"></li> -->
+
         </ul>
         <ul>
+            <li><button class="btn util-btn"><i class="fa-solid fa-upload"></i></button></li>
             <li><button class="btn util-btn"><i class="fa-solid fa-backward"></i></button></li>
             <li><button class="btn util-btn"><i class="fa-solid fa-gear"></i></button></li>
-            <li><button class="btn round-btn share-btn"><i class="fa-solid fa-share-from-square"></i> Share</button>
+            <li><button class="btn round-btn share-btn"><i class="fa-solid fa-share-from-square"></i> <span
+                        class="mob-hide">Share</span></button>
             </li>
-            <li><button class="btn round-btn export-btn">Export Project</button></li>
-            <!-- <li class="font-600">Sign In</li> -->
+            <li><button class="btn round-btn export-btn"><i class="fa-solid fa-download"></i><span class="mob-hide">
+                        Export Project</span></button></li>
         </ul>
     </nav>
 
@@ -39,61 +42,16 @@
             <div class="aside-grid">
                 <div class="modules">
                     <ul>
-                        <li><button class="btn util-btn active"><i class="fa-solid fa-image"></i></button></li>
+                        <li><button class="btn util-btn active" onclick="onModuleGallery(this)"><i
+                                    class="fa-solid fa-image"></i></button></li>
                         <li><button class="btn util-btn" onclick="onModuleText(this)"><i
                                     class="fa-solid fa-font"></i></button></li>
                         <li><button class="btn util-btn"><i class="fa-solid fa-icons"></i></button></li>
                     </ul>
                 </div>
 
-                <!-- Injected By Javascript -->
-                <!-- Media -->
                 <div class="tab-container scrollbar-hidden">
-                    <div class="text-module">
-                        <input type="text" name="" id="add-text-input" class="add-text-input">
-                        <button class="btn round-btn add-text-btn" onclick="onAddText()">Add Text</button>
-                        <div class="font-area">
-                            <label for="font" class="text-white">Font</label>
-                            <select class="form-control">
-                                <option>Impact</option>
-                                <option>Arial</option>
-                            </select>
-                            <select class="form-control">
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                                <option>5</option>
-                            </select>
-                            <div class="font-buttons">
-                                <button class="btn" onclick="onBold()"><i class="fa-solid fa-bold"></i></button>
-                                <button class="btn" onclick="onItalic()"><i class="fa-solid fa-italic"></i></button>
-                                <button class="btn" onclick="onUnderline()"><i
-                                        class="fa-solid fa-underline"></i></button>
-                                <button class="btn" onclick="onAlignLeft()"><i
-                                        class="fa-solid fa-align-left"></i></button>
-                                <button class="btn" onclick="onAlignCenter()"><i
-                                        class="fa-solid fa-align-justify"></i></button>
-                                <button class="btn" onclick="onAlignRight()"><i
-                                        class="fa-solid fa-align-right"></i></button>
-                            </div>
-                            <div class="font-colors">
-                                <div class="flex justify-space-between align-items-center">
-                                    <label for="text-color" class="text-white">Text Color</label>
-                                    <input type="color" name="" id="text-color" value="#FFFFFF">
-                                </div>
-                                <div class="flex justify-space-between align-items-center">
-
-                                    <label for="text-outline" class="text-white">Text Outline</label>
-                                    <input type="color" name="" id="text-outline">
-                                </div>
-                            </div>
-                        </div>
-                        <!-- <button class="btn" onclick="onAddText(this.value)">Add</button>
-                        <button class="btn" onclick="onIncFont()">Increase Font</button>
-                        <button class="btn" onclick="onDecFont()">Decrease Font</button>
-                        <button class="btn" onclick="onSwitchLines()">Switch Lines</button> -->
-                    </div>
+                    <!-- Injected By Javascript -->
                 </div>
             </div>
 
@@ -105,10 +63,6 @@
             <!-- GALLERY -->
             <div class="gallery">
                 <div class="gallery-grid grid-container">
-                    <!-- <img src="meme-imgs-square/1.jpg" alt="" srcset="">
-            <img src="meme-imgs-square/2.jpg" alt="" srcset="">
-            <img src="meme-imgs-square/3.jpg" alt="" srcset="">
-            <img src="meme-imgs-square/4.jpg" alt="" srcset=""> -->
                 </div>
             </div>
 
@@ -126,6 +80,7 @@
     <script src="js/services/utils-service.js"></script>
     <script src="js/services/gallery-controller.js"></script>
     <script src="js/services/meme-service.js"></script>
+    <script src="js/modules.js"></script>
     <script src="js/memeController.js"></script>
 </body>
 

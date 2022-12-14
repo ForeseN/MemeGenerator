@@ -3,6 +3,8 @@
 let gElCanvas
 let gCtx
 
+const EPSILON = 10
+
 const TOUCH_EVS = ['touchstart', 'touchmove', 'touchend']
 
 function onInit() {
@@ -15,7 +17,7 @@ function onInit() {
     // console.log(meme)
     renderMeme(meme)
     renderGallery()
-    // renderAsideGallery()
+    renderAsideGallery()
 }
 
 function defaultConfig() {
@@ -33,6 +35,9 @@ function renderMeme(meme) {
     img.onload = () => {
         renderImg(img)
         renderTextOnMeme(meme)
+        if (meme.selectedLineIdx != null) {
+            markSelectedLine(meme.lines[meme.selectedLineIdx])
+        }
     }
 }
 
@@ -43,16 +48,8 @@ function renderTextOnMeme(meme) {
 }
 
 function isClickedText(line, pos) {
-    const { txt, size, font, align, bold, italic, x, y } = line
-    gCtx.font = `${bold ? 'bold' : 'normal'} ${
-        italic ? 'italic' : 'normal'
-    } ${size}px ${font}`
-    const textMeasurements = gCtx.measureText(txt)
-    const width = textMeasurements.width
-    const height =
-        textMeasurements.actualBoundingBoxAscent +
-        textMeasurements.actualBoundingBoxDescent
-    // console.log(width, height)
+    const width = getLineWidth(line)
+    const height = getLineHeight(line)
     return (
         pos.x > line.x - width / 2 &&
         pos.x < line.x + width / 2 &&
@@ -61,6 +58,42 @@ function isClickedText(line, pos) {
     )
 }
 
+function getLineWidth(line) {
+    const { txt, size, font, align, bold, italic, x, y } = line
+    gCtx.font = `${bold ? 'bold' : 'normal'} ${
+        italic ? 'italic' : 'normal'
+    } ${size}px ${font}`
+    const textMeasurements = gCtx.measureText(txt)
+    const width = textMeasurements.width
+    return width
+}
+function getLineHeight(line) {
+    const { txt, size, font, align, bold, italic, x, y } = line
+    gCtx.font = `${bold ? 'bold' : 'normal'} ${
+        italic ? 'italic' : 'normal'
+    } ${size}px ${font}`
+    const textMeasurements = gCtx.measureText(txt)
+    const height =
+        textMeasurements.actualBoundingBoxAscent +
+        textMeasurements.actualBoundingBoxDescent
+    return height
+}
+function markSelectedLine(line) {
+    const width = getLineWidth(line)
+    const height = getLineHeight(line)
+    const startX = line.x - width / 2
+    const endX = line.x + width / 2 - startX
+    const startY = line.y - height / 2
+    const endY = line.y + height / 2 - startY
+    gCtx.beginPath()
+    gCtx.strokeStyle = 'black'
+    gCtx.strokeRect(
+        startX - EPSILON,
+        startY - EPSILON,
+        endX + 2 * EPSILON,
+        endY + 2 * EPSILON
+    )
+}
 // ---------------------- ON FUNCTIONS  ----------------------
 
 function onAddText() {
@@ -110,6 +143,17 @@ function onSwitchLines() {
     setMeme(meme)
 }
 
+function onTextColorChange(value) {
+    const meme = getCurrMeme()
+    meme.lines[meme.selectedLineIdx].fillColor = value
+    renderMeme(meme)
+}
+function onTextOutlineColorChange(value) {
+    const meme = getCurrMeme()
+    meme.lines[meme.selectedLineIdx].strokeColor = value
+    renderMeme(meme)
+}
+
 function onDown(ev) {
     console.clear()
     const pos = getEvPos(ev)
@@ -120,6 +164,7 @@ function onDown(ev) {
     meme.lines.forEach((line, idx) => {
         if (isClickedText(line, pos)) {
             meme.selectedLineIdx = idx
+            renderMeme(getCurrMeme())
         }
     })
 
@@ -137,6 +182,13 @@ function onModuleText(elBtn) {
     renderModuleText()
 }
 
+function onModuleGallery(elBtn) {
+    removeActiveModules()
+    elBtn.classList.add('active')
+    console.log('WH')
+    renderAsideGallery()
+}
+
 function removeActiveModules() {
     const btns = document.querySelectorAll('.modules button')
     ;[...btns].forEach(btn => {
@@ -144,8 +196,6 @@ function removeActiveModules() {
     })
 }
 // ---------------------- RENDER MODULES ----------------------
-
-function renderModuleText() {}
 
 // ---------------------- DRAW & RENDER ----------------------
 
