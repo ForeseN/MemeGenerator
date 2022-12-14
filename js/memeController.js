@@ -12,6 +12,7 @@ function onInit() {
     // console.log(meme)
     renderMeme(meme)
     renderGallery()
+    renderAsideGallery()
 }
 
 function defaultConfig() {
@@ -71,6 +72,26 @@ function onSwitchLines() {
     meme.selectedLineIdx = (meme.selectedLineIdx + 1) % meme.lines.length
     console.log(meme.selectedLineIdx)
     setMeme(meme)
+}
+
+// ----------------------  ON MODULES   ----------------------
+
+function onModuleText(elBtn) {
+    removeActiveModules()
+    elBtn.classList.add('active')
+    renderTextModule()
+}
+
+function removeActiveModules() {
+    const btns = document.querySelectorAll('.modules button')
+    ;[...btns].forEach(btn => {
+        btn.classList.remove('active')
+    })
+}
+// ---------------------- RENDER MODULES ----------------------
+
+function renderTextModule() {
+    
 }
 
 // ---------------------- DRAW & RENDER ----------------------

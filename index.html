@@ -15,6 +15,7 @@
 </head>
 
 <body onload="onInit()">
+    <!-- NAVBAR -->
     <nav>
         <ul>
             <li class="font-600">Meme Generator <i class="fa-solid fa-angles-right"></i></li>
@@ -29,24 +30,58 @@
             <li class="font-600">Sign In</li>
         </ul>
     </nav>
-    <div class="gallery">
-        <div class="gallery-grid grid-container">
-            <!-- <img src="meme-imgs-square/1.jpg" alt="" srcset="">
+
+    <!-- Main -->
+    <div class="container">
+        <!-- ASIDE -->
+        <aside>
+            <div class="aside-grid">
+                <div class="modules">
+                    <ul>
+                        <li><button class="btn util-btn active"><i class="fa-solid fa-image"></i></button></li>
+                        <li><button class="btn util-btn" onclick="onModuleText(this)"><i
+                                    class="fa-solid fa-font"></i></button></li>
+                        <li><button class="btn util-btn"><i class="fa-solid fa-icons"></i></button></li>
+                    </ul>
+                </div>
+
+                <!-- Injected By Javascript -->
+                <!-- Media -->
+                <div class="tab-container scrollbar-hidden">
+                    <div class="media grid-2-columns"></div>
+                </div>
+            </div>
+
+        </aside>
+
+
+
+        <main>
+            <!-- GALLERY -->
+            <div class="gallery">
+                <div class="gallery-grid grid-container">
+                    <!-- <img src="meme-imgs-square/1.jpg" alt="" srcset="">
             <img src="meme-imgs-square/2.jpg" alt="" srcset="">
             <img src="meme-imgs-square/3.jpg" alt="" srcset="">
             <img src="meme-imgs-square/4.jpg" alt="" srcset=""> -->
-        </div>
+                </div>
+            </div>
+
+            <!-- EDITOR -->
+            <div class="editor hide">
+                <div class="canvas-container">
+                    <canvas id="my-canvas" height="550" width="550"></canvas>
+                    <input type="text" name="" id="add-text-input">
+                    <button onclick="onAddText(this.value)">Add</button>
+                    <button onclick="onIncFont()">Increase Font</button>
+                    <button onclick="onDecFont()">Decrease Font</button>
+                    <button onclick="onSwitchLines()">Switch Lines</button>
+                </div>
+            </div>
+        </main>
     </div>
-    <div class="editor hide">
-        <div class="canvas-container">
-            <canvas id="my-canvas" height="450" width="450"></canvas>
-            <input type="text" name="" id="add-text-input">
-            <button onclick="onAddText(this.value)">Add</button>
-            <button onclick="onIncFont()">Increase Font</button>
-            <button onclick="onDecFont()">Decrease Font</button>
-            <button onclick="onSwitchLines()">Switch Lines</button>
-        </div>
-    </div>
+
+
     <script src="js/services/utils-service.js"></script>
     <script src="js/services/gallery-controller.js"></script>
     <script src="js/services/meme-service.js"></script>
