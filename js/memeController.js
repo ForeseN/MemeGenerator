@@ -159,6 +159,13 @@ function prepareMemeForDownload() {
     setMeme(meme)
     renderMeme(meme)
 }
+
+function openEditor() {
+    hideElement('.gallery')
+    showElement('.editor')
+    onModuleText()
+}
+
 // ---------------------- ON FUNCTIONS  ----------------------
 
 function onAddText() {
@@ -268,6 +275,16 @@ function onBack() {
     hideElement('.editor')
     showElement('.gallery')
     renderGallery()
+}
+
+function onSurpriseMe() {
+    surpriseMeme()
+    openEditor()
+    renderMeme(getCurrMeme())
+}
+
+function onSearch(value) {
+    console.log(value)
 }
 
 function onDown(ev) {
@@ -534,9 +551,7 @@ function initMobile() {
 
 // The next 2 functions handle IMAGE UPLOADING to img tag from file system:
 function onImgInput(ev) {
-    hideElement('.gallery')
-    showElement('.editor')
-    onModuleText()
+    openEditor()
     loadImageFromInput(ev, renderImg)
 }
 

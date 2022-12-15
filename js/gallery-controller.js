@@ -2,9 +2,7 @@
 
 function onImgSelect(id) {
     renderMeme(getMeme(id))
-    hideElement('.gallery')
-    showElement('.editor')
-    onModuleText()
+    openEditor()
 }
 
 function renderGallery() {
@@ -25,4 +23,8 @@ function renderAsideGallery() {
     strHTML.unshift(getModuleHeader('media'))
     strHTML.push(`</div>`)
     document.querySelector('.tab-container').innerHTML = strHTML.join('')
+}
+
+function popularCategories(){
+    
 }

@@ -105,7 +105,7 @@ function renderModuleSearch() {
     document.querySelector('.tab-container').innerHTML = `
     ${getModuleHeader('Search')}
     <div class="gallery-actions">
-    <input type="search" name="" id="" placeholder="Search Memes" class="font-600">
+    <input type="search" name="" id="" placeholder="Search Memes" class="font-600" oninput="onSearch(this.value)">
     <h3 class="font-600">Popular Searches</h3>
     <div class="categories">
         <ul>
