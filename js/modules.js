@@ -5,7 +5,7 @@ function renderModuleText() {
     <div class="text-module">
     ${getModuleHeader('text')}
         <input type="text" name="" id="add-text-input" class="add-text-input"
-            placeholder="When you realize...">
+            placeholder="When you realize..." oninput="onChangeText(this.value)">
         <button class="btn round-btn add-text-btn" onclick="onAddText()">Add Text</button>
         <div class="font-area">
             <label for="font" class="text-white">Font</label>

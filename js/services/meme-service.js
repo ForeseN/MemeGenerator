@@ -70,7 +70,7 @@ function getDefaultTextSettings(txt, x, y) {
     return {
         txt: txt,
         size: fontSize,
-        font: 'impact-1',
+        font: 'Impact',
         align: 'center',
         fillColor: 'white',
         strokeColor: 'black',

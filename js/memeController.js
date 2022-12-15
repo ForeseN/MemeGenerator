@@ -80,7 +80,7 @@ function isClickedText(line, pos) {
 }
 
 function loadFont() {
-    var f = new FontFace('impact-1', 'url(./font/unicode.impact.ttf)')
+    var f = new FontFace('Impact', 'url(./font/unicode.impact.ttf)')
     f.load().then(function (font) {
         // Ready to use the font in a canvas context
         console.log('font ready')
@@ -283,6 +283,17 @@ function onFontSizeChange(value) {
     renderMeme(meme)
 }
 
+function onChangeText(value) {
+    console.log(value)
+    const meme = getCurrMeme()
+    if (meme.selectedLineIdx == null) return
+    console.log(meme.selectedLineIdx)
+
+    meme.lines[meme.selectedLineIdx].txt = value
+    setMeme(meme)
+    renderMeme(meme)
+}
+
 function onBack() {
     hideElement('.editor')
     showElement('.gallery')
@@ -311,6 +322,7 @@ function onDown(ev) {
     // console.clear()
     const pos = getEvPos(ev)
     gStartPos = pos
+
     const meme = getCurrMeme()
     meme.selectedLineIdx = null
     meme.lines.forEach((line, idx) => {
@@ -347,7 +359,6 @@ function onMove(ev) {
     moveLine(meme.lines[meme.selectedLineIdx], dx, dy)
     // Save the last pos , we remember where we`ve been and move accordingly
     gStartPos = pos
-    // The canvas is render again after every move
     setMeme(meme)
     renderMeme(meme)
 }

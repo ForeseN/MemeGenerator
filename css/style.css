@@ -116,9 +116,26 @@ main {
 .empty-gallery {
     color: white;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    width: 50%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+.empty-gallery > * {
+    flex-basis: 50%;
+}
+
+.empty-gallery i {
+    border-radius: 10px;
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+    font-size: 25rem;
+    color: var(--quinary-color);
+}
+
+.sad-smile-wrapper {
+    caret-color: transparent;
+    align-self: center;
 }
 .empty-gallery h1 {
     font-size: 4rem;
