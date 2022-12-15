@@ -70,11 +70,11 @@ function getDefaultTextSettings(txt, x, y) {
     return {
         txt: txt,
         size: fontSize,
-        font: 'Impact',
+        font: 'impact-1',
         align: 'center',
         fillColor: 'white',
         strokeColor: 'black',
-        bold: true,
+        bold: false,
         italic: false,
         underline: false,
         x: x,
@@ -121,19 +121,9 @@ function setMeme(meme) {
 
 function addText(txt) {
     const fontSize = getDefaultFontSize()
-    gMeme.lines.push({
-        txt: txt,
-        size: fontSize,
-        font: 'Impact',
-        align: 'center',
-        fillColor: 'white',
-        strokeColor: 'black',
-        bold: true,
-        italic: false,
-        underline: false,
-        x: gElCanvas.width / 2,
-        y: gElCanvas.height / 2,
-    })
+    gMeme.lines.push(
+        getDefaultTextSettings(txt, gElCanvas.width / 2, gElCanvas.height / 2)
+    )
     console.log(gElCanvas.height, gElCanvas.width)
     renderMeme(gMeme)
 }
@@ -142,40 +132,24 @@ function surpriseMeme() {
     const image = getRandomItem(gImgs)
     const linesOfText = getRandomInt(1, 3) // 3 is exclusive
 
-    const fontSize = getDefaultFontSize()
     gMeme = {
         selectedImgId: image.id,
         selectedLineIdx: null,
         url: image.url,
         lines: [],
     }
-    gMeme.lines.push({
-        txt: getRandomItem(gTxts),
-        size: fontSize,
-        font: 'Impact',
-        align: 'center',
-        fillColor: 'white',
-        strokeColor: 'black',
-        bold: true,
-        italic: false,
-        underline: false,
-        x: gElCanvas.width / 2,
-        y: 50,
-    })
+    gMeme.lines.push(
+        getDefaultTextSettings(getRandomItem(gTxts), gElCanvas.width / 2, 50)
+    )
+
     if (linesOfText > 1) {
-        gMeme.lines.push({
-            txt: getRandomItem(gTxts),
-            size: fontSize,
-            font: 'Impact',
-            align: 'center',
-            fillColor: 'white',
-            strokeColor: 'black',
-            bold: true,
-            italic: false,
-            underline: false,
-            x: gElCanvas.width / 2,
-            y: gElCanvas.height - 50,
-        })
+        gMeme.lines.push(
+            getDefaultTextSettings(
+                getRandomItem(gTxts),
+                gElCanvas.width / 2,
+                gElCanvas.height - 50
+            )
+        )
     }
 }
 

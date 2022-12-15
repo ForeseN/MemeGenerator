@@ -16,6 +16,7 @@ function onInit() {
     defaultConfig()
     addListeners()
     onModuleSearch()
+    loadFont()
 
     if (isMobileDevice()) initMobile()
 
@@ -34,7 +35,7 @@ function defaultConfig() {
     gCtx.fillStyle = 'white'
     gCtx.textAlign = 'center'
     gCtx.textBaseline = 'middle'
-    gCtx.lineWidth = 1
+    gCtx.lineWidth = 4
 }
 
 function renderMeme(meme) {
@@ -76,6 +77,17 @@ function isClickedText(line, pos) {
         pos.y > line.y - height / 2 &&
         pos.y < line.y + height / 2
     )
+}
+
+function loadFont() {
+    var f = new FontFace('impact-1', 'url(./font/unicode.impact.ttf)')
+    f.load().then(function (font) {
+        // Ready to use the font in a canvas context
+        console.log('font ready')
+
+        // Add font on the html page
+        document.fonts.add(font)
+    })
 }
 
 function getLineWidth(line) {
@@ -425,14 +437,17 @@ function drawText(line) {
     gCtx.lineJoin = 'miter'
     gCtx.miterLimit = 2
     // defaultConfig()
-    if (isMobileDevice()) {
-        gCtx.lineWidth = 4
-        gCtx.strokeText(txt, x, y)
-        gCtx.fillText(txt, x, y)
-    } else {
-        gCtx.fillText(txt, x, y)
-        gCtx.strokeText(txt, x, y)
-    }
+
+    gCtx.strokeText(txt, x, y)
+    gCtx.fillText(txt, x, y)
+    // if (isMobileDevice()) {
+    //     gCtx.lineWidth = 4
+    //     gCtx.strokeText(txt, x, y)
+    //     gCtx.fillText(txt, x, y)
+    // } else {
+    //     gCtx.fillText(txt, x, y)
+    //     gCtx.strokeText(txt, x, y)
+    // }
     defaultConfig() // revert settings
 }
 
