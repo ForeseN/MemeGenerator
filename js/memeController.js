@@ -284,7 +284,14 @@ function onSurpriseMe() {
 }
 
 function onSearch(value) {
-    console.log(value)
+    const images = getUnfilteredImages()
+    const filteredImages = images.filter(image => {
+        return image.keywords.find(keyword => {
+            return keyword.includes(value.toLowerCase())
+        })
+    })
+    setFilteredImgs(filteredImages)
+    renderGallery()
 }
 
 function onDown(ev) {

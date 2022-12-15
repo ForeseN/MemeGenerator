@@ -6,7 +6,7 @@ function onImgSelect(id) {
 }
 
 function renderGallery() {
-    const imgs = getImages()
+    const imgs = getFilteredImages()
     let strHTML = imgs.map(img => {
         return `<img src=${img.url} alt="" srcset="" onclick="onImgSelect(${img.id})">`
     })
@@ -14,7 +14,7 @@ function renderGallery() {
 }
 
 function renderAsideGallery() {
-    const imgs = getImages()
+    const imgs = getFilteredImages()
 
     let strHTML = imgs.map(img => {
         return `<img src=${img.url} alt="" srcset="" onclick="onImgSelect(${img.id})">`
@@ -25,6 +25,4 @@ function renderAsideGallery() {
     document.querySelector('.tab-container').innerHTML = strHTML.join('')
 }
 
-function popularCategories(){
-    
-}
+function popularCategories() {}

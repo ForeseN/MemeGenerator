@@ -29,12 +29,13 @@ main {
 }
 
 .grid-container {
-    overflow-y: auto;
-    overflow-x: hidden;
+    /* overflow-y: auto;
+    overflow-x: hidden; */
     display: grid;
     /* height: var(--container-height); */
-    max-height: Calc(var(--container-height) - 40px);
+    /* max-height: Calc(var(--container-height) - 40px); */
     grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    height: 100%;
     gap: 25px;
 }
 .container img {
@@ -61,10 +62,10 @@ main {
 }
 
 .gallery {
-    /* overflow-y: auto;
-    overflow-x: hidden; */
+    overflow-y: auto;
+    overflow-x: hidden;
     /* height: var(--container-height); */
-    /* max-height: Calc(var(--container-height) - 40px); */
+    max-height: Calc(var(--container-height) - 40px);
     margin: 2rem;
     margin-top: 1rem;
     /* display: grid;

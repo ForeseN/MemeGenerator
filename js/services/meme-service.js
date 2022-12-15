@@ -24,6 +24,7 @@ var gImgs = [
     { id: 17, url: './meme-imgs-square/17.jpg', keywords: ['funny', 'dog'] },
     { id: 18, url: './meme-imgs-square/18.jpg', keywords: ['funny', 'dog'] },
 ]
+var gFilteredImgs = gImgs
 
 var gTxts = [
     'Life is better in bikini',
@@ -88,8 +89,18 @@ function createDownloadedMeme(src) {
         lines: [],
     }
 }
-function getImages() {
+
+function setFilteredImgs(images) {
+    gFilteredImgs = images
+}
+
+function getUnfilteredImages() {
     return gImgs
+}
+
+function getFilteredImages() {
+    // if (gFilteredImgs == null || gFilteredImgs.length === 0) return gImgs
+    return gFilteredImgs
 }
 
 function getMeme(id) {
