@@ -7,6 +7,9 @@ const EPSILON = 10
 
 const TOUCH_EVS = ['touchstart', 'touchmove', 'touchend']
 
+let gIsDragging
+let gStartPos
+
 function onInit() {
     gElCanvas = document.getElementById('my-canvas')
     gCtx = gElCanvas.getContext('2d')
@@ -249,15 +252,17 @@ function onFontSizeChange(value) {
 }
 
 function onDown(ev) {
-    console.clear()
+    gIsDragging = true
+    // console.clear()
     const pos = getEvPos(ev)
-    console.log(pos)
+    gStartPos = pos
     const meme = getCurrMeme()
     meme.selectedLineIdx = null
     meme.lines.forEach((line, idx) => {
         if (isClickedText(line, pos)) {
             meme.selectedLineIdx = idx
             renderMeme(getCurrMeme())
+            onModuleText()
             applyTextModuleStyles(line)
         }
     })
@@ -265,8 +270,30 @@ function onDown(ev) {
     renderMeme(getCurrMeme())
 }
 
-function onUp(ev) {}
-function onMove(ev) {}
+function onUp(ev) {
+    gIsDragging = false
+}
+function onMove(ev) {
+    if (!gIsDragging) return
+
+    const pos = getEvPos(ev)
+    // Calc the delta , the diff we moved
+    const dx = pos.x - gStartPos.x
+    const dy = pos.y - gStartPos.y
+    const meme = getCurrMeme()
+
+    moveLine(meme.lines[meme.selectedLineIdx], dx, dy)
+    // Save the last pos , we remember where we`ve been and move accordingly
+    gStartPos = pos
+    // The canvas is render again after every move
+    setMeme(meme)
+    renderMeme(meme)
+}
+
+function moveLine(line, dx, dy) {
+    line.x += dx
+    line.y += dy
+}
 
 // ----------------------  ON MODULES   ----------------------
 
