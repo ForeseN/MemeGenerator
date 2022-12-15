@@ -28,7 +28,8 @@ main {
 }
 
 .grid-container {
-    overflow: auto;
+    overflow-y: auto;
+    overflow-x: hidden;
     display: grid;
     /* height: var(--container-height); */
     max-height: Calc(var(--container-height) - 40px);

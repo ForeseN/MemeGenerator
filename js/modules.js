@@ -9,16 +9,28 @@ function renderModuleText() {
         <button class="btn round-btn add-text-btn" onclick="onAddText()">Add Text</button>
         <div class="font-area">
             <label for="font" class="text-white">Font</label>
-            <select class="form-control">
-                <option>Impact</option>
-                <option>Arial</option>
+            <select class="form-control" onchange="onFontChange(this.value)">
+                <option style="font-family: impact, sans-serif;">Impact</option>
+                <option style="font-family: Arial, sans-serif;">Arial</option>
+                <option style="font-family: Times New Roman, sans-serif;">Times New Roman</option>
+                <option style="font-family: Courier New, sans-serif;">Courier New</option>
+                <option style="font-family: serif, sans-serif;">serif</option>
+                <option style="font-family: sans-serif, sans-serif;">sans-serif</option>
             </select>
-            <select class="form-control">
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
+            <select class="form-control" onchange="onFontSizeChange()">
+                <option>8</option>
+                <option>10</option>
+                <option>12</option>
+                <option>14</option>
+                <option>18</option>
+                <option>24</option>
+                <option>30</option>
+                <option>36</option>
+                <option selected>42</option>
+                <option>48</option>
+                <option>64</option>
+                <option>72</option>
+                <option>96</option>
             </select>
             <div class="font-buttons">
                 <button class="btn" onclick="onBold()"><i class="fa-solid fa-bold"></i></button>

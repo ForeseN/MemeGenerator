@@ -192,6 +192,14 @@ function onTextOutlineColorChange(value) {
     renderMeme(meme)
 }
 
+function onFontChange(value) {
+    const meme = getCurrMeme()
+    if (meme.selectedLineIdx == null) return
+    meme.lines[meme.selectedLineIdx].font = value
+    setMeme(meme)
+    renderMeme(meme)
+}
+
 function onDown(ev) {
     console.clear()
     const pos = getEvPos(ev)

@@ -25,6 +25,7 @@ var gMeme
 
 function createMeme() {
     // const { width, height } = getCanvasMetrics()
+    const fontSize = isMobileDevice() ? 26 : 42
     gMeme = {
         selectedImgId: 1,
         selectedLineIdx: null,
@@ -32,7 +33,7 @@ function createMeme() {
         lines: [
             {
                 txt: 'YOU KNOW NOTHING',
-                size: 40,
+                size: fontSize,
                 font: 'impact',
                 align: 'center',
                 fillColor: 'white',
@@ -45,7 +46,7 @@ function createMeme() {
             },
             {
                 txt: 'JOHN SNOW',
-                size: 40,
+                size: fontSize,
                 font: 'impact',
                 align: 'center',
                 fillColor: 'white',
