@@ -40,7 +40,7 @@ function renderModuleText() {
                 <button class="btn align-left-btn" onclick="onAlignLeft()"><i
                         class="fa-solid fa-align-left"></i></button>
                 <button class="btn align-center-btn" onclick="onAlignCenter()"><i
-                        class="fa-solid fa-align-justify"></i></button>
+                        class="fa-solid fa-align-center"></i></button>
                 <button class="btn align-right-btn" onclick="onAlignRight()"><i
                         class="fa-solid fa-align-right"></i></button>
             </div>

@@ -133,7 +133,8 @@ function TextModuleStylesClearSlate() {
 
 function applyTextModuleStyles(line) {
     TextModuleStylesClearSlate()
-    const { size, font, align, bold, italic, underline } = line
+    const { txt, size, font, align, bold, italic, underline } = line
+    document.querySelector('.add-text-input').value = txt
     document.querySelector('.font-family-select').value = font
     document.querySelector('.font-size-select').value = size
     if (bold) document.querySelector('.bold-btn').classList.add('active')
@@ -150,6 +151,13 @@ function applyTextModuleStyles(line) {
     }
 
     document.querySelector('.font-family-select')
+}
+
+function prepareMemeForDownload() {
+    const meme = getCurrMeme()
+    meme.selectedLineIdx = null
+    setMeme(meme)
+    renderMeme(meme)
 }
 // ---------------------- ON FUNCTIONS  ----------------------
 
@@ -219,10 +227,14 @@ function onShare() {
 }
 
 function onDownload() {
-    let link = document.createElement('a')
-    link.download = 'meme.png'
-    link.href = gElCanvas.toDataURL('image/png')
-    link.click()
+    prepareMemeForDownload()
+    // Hopefully the preparation is done!
+    setTimeout(() => {
+        let link = document.createElement('a')
+        link.download = 'meme.png'
+        link.href = gElCanvas.toDataURL('image/png')
+        link.click(), 100
+    })
 }
 
 function onTextColorChange(value) {
@@ -253,6 +265,8 @@ function onFontSizeChange(value) {
 }
 
 function onBack() {
+    hideElement('.editor')
+    showElement('.gallery')
     renderGallery()
 }
 
@@ -264,6 +278,8 @@ function onDown(ev) {
     meme.selectedLineIdx = null
     meme.lines.forEach((line, idx) => {
         if (isClickedText(line, pos)) {
+            console.log(idx, meme.selectedLineIdx)
+            if (meme.selectedLineIdx === idx) putCaret(line)
             meme.selectedLineIdx = idx
             renderMeme(getCurrMeme())
             onModuleText()
@@ -271,10 +287,14 @@ function onDown(ev) {
             gIsDragging = true
         }
     })
+    if (meme.selectedLineIdx == null) onModuleText()
     defaultConfig()
     renderMeme(getCurrMeme())
 }
 
+function putCaret(line) {
+    console.log('YES')
+}
 function onUp(ev) {
     gIsDragging = false
 }
@@ -441,6 +461,9 @@ function addTouchListeners() {
     gElCanvas.addEventListener('touchmove', onMove)
     gElCanvas.addEventListener('touchstart', onDown)
     gElCanvas.addEventListener('touchend', onUp)
+}
+function addKeyboardListeners() {
+    gElCanvas.addEventListener('keypress', onKeyDown())
 }
 
 function resizeCanvas() {

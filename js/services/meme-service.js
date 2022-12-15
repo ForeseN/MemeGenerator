@@ -21,6 +21,7 @@ var gImgs = [
     { id: 17, url: './meme-imgs-square/17.jpg', keywords: ['funny', 'dog'] },
     { id: 18, url: './meme-imgs-square/18.jpg', keywords: ['funny', 'dog'] },
 ]
+gImgs.sort((_, __) => 0.5 - Math.random())
 var gMeme
 
 function createMeme() {
@@ -89,8 +90,8 @@ function setMeme(meme) {
 function addText(txt) {
     gMeme.lines.push({
         txt: txt,
-        size: 40,
-        font: 'impact',
+        size: 42,
+        font: 'Impact',
         align: 'center',
         fillColor: 'white',
         strokeColor: 'black',

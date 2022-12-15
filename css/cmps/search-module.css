@@ -5,6 +5,10 @@
     margin: 0 auto;
 }
 
+.gallery-actions input[type='search']:hover,
+.custom-file-input:hover {
+    background: var(--tertiary-color);
+}
 .gallery-actions input[type='search'] {
     border: 3px solid var(--secondary-color);
     /* border: 3px solid var(--secondary-color); */
@@ -19,7 +23,7 @@
 }
 
 .custom-file-input {
-    background: var(--tertiary-color);
+    background: var(--secondary-color);
     padding: 1rem;
     border-radius: 6px;
     cursor: pointer;

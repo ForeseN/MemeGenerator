@@ -3,6 +3,7 @@
     --secondary-color: #202020;
     --tertiary-color: #303030;
     --quaternary-color: #0083e2;
+    --quinary-color: #606060;
     --container-height: calc(100vh - 40px);
     --small: 700px;
 }

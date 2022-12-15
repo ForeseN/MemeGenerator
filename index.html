@@ -21,7 +21,8 @@
     <!-- <li class="font-600 logo mob-hide">Meme Generator</li> -->
     <nav>
         <ul>
-            <li class="font-600 logo mob-hide">Meme Generator <i class="fa-solid fa-angles-right"></i></li>
+            <li class="font-600 logo mob-hide" onclick="onBack()">Meme Generator <i
+                    class="fa-solid fa-angles-right"></i></li>
             <!-- <li><input type="text" class="font-600 mob-hide" id="project-name" placeholder="Untitled Project"></li> -->
 
         </ul>
@@ -75,7 +76,10 @@
         <main>
             <!-- GALLERY -->
             <div class="gallery">
-                <h3>Trending Now</h3>
+                <div class="gallery-header">
+                    <h3>Trending Now</h3>
+                    <button class="btn round-btn">Surpirse Me</button>
+                </div>
 
                 <div class="gallery-grid grid-container scrollbar-hidden">
                 </div>
