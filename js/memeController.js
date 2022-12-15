@@ -30,7 +30,7 @@ function onInit() {
 }
 
 function defaultConfig() {
-    gCtx.font = '40px impact'
+    gCtx.font = '36px impact'
     gCtx.strokeStyle = 'black'
     gCtx.fillStyle = 'white'
     gCtx.textAlign = 'center'
@@ -318,6 +318,10 @@ function onSearch(value) {
     renderGallery()
 }
 
+function onSave() {
+    const meme = getCurrMeme()
+}
+
 function onDown(ev) {
     // console.clear()
     const pos = getEvPos(ev)
@@ -341,9 +345,6 @@ function onDown(ev) {
     renderMeme(getCurrMeme())
 }
 
-function putCaret(line) {
-    console.log('YES')
-}
 function onUp(ev) {
     gIsDragging = false
 }

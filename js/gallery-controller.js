@@ -17,7 +17,7 @@ function renderGallery() {
 }
 
 function renderAsideGallery() {
-    const imgs = getFilteredImages()
+    const imgs = getUnfilteredImages()
 
     let strHTML = imgs.map(img => {
         return `<img src=${img.url} alt="" srcset="" onclick="onImgSelect(${img.id})">`
@@ -31,7 +31,7 @@ function renderAsideGallery() {
 function renderEmptyGallery() {
     const strHTML = `
     <div class="empty-gallery">
-        <div>
+        <div class="empty-gallery-content">
             <h1>Oops!</h1>
             <h2>We can't seem to find the meme you're looking for.</h2>
             <p>Here are some popular searches instead:</p>
@@ -49,7 +49,7 @@ function renderEmptyGallery() {
                 </ul>
             </div>
         </div>
-        <div class="sad-smile-wrapper">
+        <div class="sad-smile-wrapper tablet-hide">
             <i class="fa-regular fa-face-sad-tear"></i>
         </div>
     </div>`

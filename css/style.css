@@ -119,6 +119,7 @@ main {
     width: 100%;
     display: flex;
     flex-direction: row;
+    position: relative;
 }
 .empty-gallery > * {
     flex-basis: 50%;
@@ -131,6 +132,11 @@ main {
     text-align: center;
     font-size: 25rem;
     color: var(--quinary-color);
+    /* position: absolute;
+    top: 60%;
+    left: 60%;
+    transform: translate(-50%, -50%);
+    z-index: 1; */
 }
 
 .sad-smile-wrapper {
@@ -180,5 +186,14 @@ main {
     }
     .editor {
         align-items: flex-start;
+    }
+}
+
+@media screen and (max-width: 1250px) {
+    .tablet-hide {
+        display: none !important;
+    }
+    .empty-gallery .empty-gallery-content {
+        flex-basis: 100%;
     }
 }

@@ -25,8 +25,8 @@ function renderModuleText() {
                 <option>18</option>
                 <option>24</option>
                 <option>30</option>
-                <option>36</option>
-                <option selected>42</option>
+                <option selected>36</option>
+                <option>42</option>
                 <option>48</option>
                 <option>64</option>
                 <option>72</option>
