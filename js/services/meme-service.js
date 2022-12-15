@@ -26,7 +26,7 @@ var gMeme
 function createMeme() {
     // const { width, height } = getCanvasMetrics()
     gMeme = {
-        selectedImgId: 5,
+        selectedImgId: 1,
         selectedLineIdx: null,
         url: './meme-imgs-square/1.jpg',
         lines: [
@@ -60,6 +60,15 @@ function createMeme() {
     }
     return gMeme
 }
+
+function createDownloadedMeme(src) {
+    gMeme = {
+        selectedImgId: null,
+        selectedLineIdx: null,
+        url: src,
+        lines: [],
+    }
+}
 function getImages() {
     return gImgs
 }
@@ -88,7 +97,7 @@ function addText(txt) {
         align: 'center',
         fillColor: 'white',
         strokeColor: 'black',
-        bold: false,
+        bold: true,
         italic: false,
         underline: false,
         x: gElCanvas.width / 2,

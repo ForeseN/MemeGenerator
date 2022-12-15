@@ -139,24 +139,46 @@ function onUnderline() {
     renderMeme(meme)
 }
 
-function onIncFont() {
-    const meme = getCurrMeme()
-    meme.lines[meme.selectedLineIdx].size += 2
-    setMeme(meme)
-    renderMeme(meme)
-}
-function onDecFont() {
-    const meme = getCurrMeme()
-    meme.lines[meme.selectedLineIdx].size -= 2
-    setMeme(meme)
-    renderMeme(meme)
+// function onIncFont() {
+//     const meme = getCurrMeme()
+//     meme.lines[meme.selectedLineIdx].size += 2
+//     setMeme(meme)
+//     renderMeme(meme)
+// }
+// function onDecFont() {
+//     const meme = getCurrMeme()
+//     meme.lines[meme.selectedLineIdx].size -= 2
+//     setMeme(meme)
+//     renderMeme(meme)
+// }
+
+// function onSwitchLines() {
+//     const meme = getCurrMeme()
+//     meme.selectedLineIdx = (meme.selectedLineIdx + 1) % meme.lines.length
+//     console.log(meme.selectedLineIdx)
+//     setMeme(meme)
+// }
+
+function onShare() {
+    const imgDataUrl = gElCanvas.toDataURL('image/jpeg') // Gets the canvas content as an image format
+
+    // A function to be called if request succeeds
+    function onSuccess(uploadedImgUrl) {
+        // Encode the instance of certain characters in the url
+        const encodedUploadedImgUrl = encodeURIComponent(uploadedImgUrl)
+        window.open(
+            `https://www.facebook.com/sharer/sharer.php?u=${encodedUploadedImgUrl}&t=${encodedUploadedImgUrl}`
+        )
+    }
+    // Send the image to the server
+    doUploadImg(imgDataUrl, onSuccess)
 }
 
-function onSwitchLines() {
-    const meme = getCurrMeme()
-    meme.selectedLineIdx = (meme.selectedLineIdx + 1) % meme.lines.length
-    console.log(meme.selectedLineIdx)
-    setMeme(meme)
+function onDownload() {
+    let link = document.createElement('a')
+    link.download = 'meme.png'
+    link.href = gElCanvas.toDataURL('image/png')
+    link.click()
 }
 
 function onTextColorChange(value) {
@@ -260,6 +282,7 @@ function drawText(line) {
     gCtx.textAlign = align
     gCtx.lineJoin = 'miter'
     gCtx.miterLimit = 2
+    // defaultConfig()
     if (isMobileDevice()) {
         gCtx.lineWidth = 4
         gCtx.strokeText(txt, x, y)
@@ -345,8 +368,8 @@ function resizeCanvas() {
     const pageWidth = getPageWidth()
     // console.log(pageWidth)
     if (pageWidth > 1080) {
-        gElCanvas.width = 450
-        gElCanvas.height = 450
+        gElCanvas.width = 550
+        gElCanvas.height = 550
     }
     if (pageWidth < 1080 && pageWidth > 580) {
         gElCanvas.width = 400
@@ -366,7 +389,7 @@ function resizeCanvas() {
 function getCanvasMetrics() {
     const pageWidth = getPageWidth()
     if (pageWidth > 1080) {
-        return { width: 450, height: 450 }
+        return { width: 550, height: 550 }
     }
     if (pageWidth < 1080 && pageWidth > 580) {
         return { width: 400, height: 400 }
@@ -387,4 +410,29 @@ function getPageWidth() {
 function initMobile() {
     removeActiveModules()
     hideElement('.tab-container')
+}
+
+// The next 2 functions handle IMAGE UPLOADING to img tag from file system:
+function onImgInput(ev) {
+    hideElement('.gallery')
+    showElement('.editor')
+    onModuleText()
+    loadImageFromInput(ev, renderImg)
+}
+
+// CallBack func will run on success load of the img
+function loadImageFromInput(ev, onImageReady) {
+    const reader = new FileReader()
+    // After we read the file
+    reader.onload = event => {
+        let img = new Image() // Create a new html img element
+        img.src = event.target.result // Set the img src to the img file we read
+        // Run the callBack func, To render the img on the canvas
+        img.onload = () => {
+            createDownloadedMeme(img.src)
+            onImageReady(img)
+        }
+    }
+
+    reader.readAsDataURL(ev.target.files[0]) // Read the file we picked
 }

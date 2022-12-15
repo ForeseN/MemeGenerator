@@ -22,7 +22,10 @@ nav ul li {
     padding: 0.2rem;
     margin: 0 0.1rem;
 }
-
+nav ul li label {
+    padding: 0.1rem 0.4rem;
+    margin: 0rem;
+}
 nav ul li input {
     background: transparent;
     outline: none;
@@ -54,8 +57,10 @@ nav ul li input:hover {
     padding-right: 2rem;
     padding-left: 2rem;
     padding-top: 0.3rem;
-    padding-bottom: 0.3rem;
+    padding-bottom: 0.4rem;
     font-weight: 600;
+    text-decoration: none;
+    color: black;
 }
 
 @media screen and (max-width: 700px) {

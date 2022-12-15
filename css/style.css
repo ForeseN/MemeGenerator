@@ -18,7 +18,8 @@
 
 .container {
     display: flex;
-    height: var(--container-height);
+    max-height: var(--container-height);
+    min-height: var(--container-height);
     /* flex: 1 1 auto; */
 }
 main {
@@ -27,8 +28,11 @@ main {
 }
 
 .grid-container {
+    overflow: auto;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    /* height: var(--container-height); */
+    max-height: Calc(var(--container-height) - 40px);
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
     gap: 25px;
     margin: 25px;
 }
@@ -81,8 +85,15 @@ main {
 
 .gallery-actions ul {
     list-style: none;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* display: grid;
+    grid-template-columns: repeat(3, 1fr); */
+}
+
+.gallery-actions ul li {
+    margin: 0 1rem;
 }
 
 @media screen and (max-width: 700px) {

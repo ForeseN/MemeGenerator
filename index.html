@@ -22,18 +22,21 @@
     <nav>
         <ul>
             <li class="font-600 logo mob-hide">Meme Generator <i class="fa-solid fa-angles-right"></i></li>
-            <li><input type="text" class="font-600 mob-hide" id="project-name" placeholder="Untitled Project"></li>
+            <!-- <li><input type="text" class="font-600 mob-hide" id="project-name" placeholder="Untitled Project"></li> -->
 
         </ul>
         <ul>
-            <li><button class="btn util-btn"><i class="fa-solid fa-arrow-up-from-bracket"></i></button></li>
+            <li><label for="file-upload" class="btn util-btn"><i class="fa-solid fa-arrow-up-from-bracket"></i>
+                </label>
+            </li>
             <li><button class="btn util-btn"><i class="fa-solid fa-backward"></i></button></li>
             <li><button class="btn util-btn"><i class="fa-solid fa-gear"></i></button></li>
-            <li><button class="btn round-btn share-btn"><i class="fa-solid fa-share-from-square"></i> <span
-                        class="mob-hide">Share</span></button>
+            <li><button class="btn round-btn share-btn" onclick="onShare()"><i
+                        class="fa-solid fa-share-from-square"></i> <span class="mob-hide">Share</span></button>
             </li>
-            <li><button class="btn round-btn export-btn"><i class="fa-solid fa-download"></i><span class="mob-hide">
-                        Export Project</span></button></li>
+            <li><a href="#" class="btn round-btn export-btn" onclick="onDownload(this)"><i
+                        class="fa-solid fa-download"></i><span class="mob-hide">
+                        Export Project</span></a></li>
         </ul>
     </nav>
 
@@ -70,7 +73,7 @@
         <main>
             <!-- GALLERY -->
             <div class="gallery">
-                <div class="gallery-actions">
+                <!-- <div class="gallery-actions">
                     <input type="search" name="" id="" placeholder="Search..." class="font-600">
                     <div class="categories">
                         <ul>
@@ -80,15 +83,12 @@
                             <li>Political</li>
                             <li>Happy</li>
                             <li>Celeb</li>
-                            <li>Animals</li>
-                            <li>Bad</li>
-                            <li>Dark</li>
                         </ul>
                     </div>
                     <label type="file" name="" for="file-upload" class="custom-file-input">Upload <i
-                            class="fa-solid fa-arrow-up-from-bracket"></i></label>
-                    <input type="file" name="" id="file-upload" hidden>
-                </div>
+                            class="fa-solid fa-arrow-up-from-bracket"></i></label> -->
+                <input type="file" name="" id="file-upload" onchange="onImgInput(event)" hidden>
+                <!-- </div> -->
                 <div class="gallery-grid grid-container">
                 </div>
             </div>
@@ -105,8 +105,9 @@
 
 
     <script src="js/services/utils-service.js"></script>
-    <script src="js/gallery-controller.js"></script>
     <script src="js/services/meme-service.js"></script>
+    <script src="js/services/upload-service.js"></script>
+    <script src="js/gallery-controller.js"></script>
     <script src="js/modules.js"></script>
     <script src="js/memeController.js"></script>
 </body>

@@ -151,6 +151,10 @@ aside {
     margin-bottom: 1rem;
     text-align: center;
     padding-bottom: 0.5rem;
+    position: sticky;
+    background: var(--primary-color);
+    z-index: 1;
+    top: 0;
 }
 .stickers-label {
     margin-top: 1rem;
@@ -187,10 +191,6 @@ aside {
         padding: 0.5rem 0.8rem;
     }
     .module-header {
-        background: var(--primary-color);
-        position: sticky;
-        z-index: 1;
-        top: 0;
         font-size: 0.8rem;
         padding: 0;
     }
