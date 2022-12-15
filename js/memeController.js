@@ -284,6 +284,7 @@ function onSurpriseMe() {
 }
 
 function onSearch(value) {
+    document.querySelector('.search-input').value = value
     const images = getUnfilteredImages()
     const filteredImages = images.filter(image => {
         return image.keywords.find(keyword => {

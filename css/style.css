@@ -110,6 +110,31 @@ main {
     padding: 0.4rem 0rem;
 }
 
+.no-grid {
+    display: block !important;
+}
+.empty-gallery {
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 50%;
+}
+.empty-gallery h1 {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+}
+.empty-gallery h2 {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+}
+.empty-gallery p {
+    font-size: 1.2rem;
+}
+
+.empty-gallery .categories ul li {
+    color: #18e1d6;
+}
 @media screen and (max-width: 700px) {
     body {
         /* overflow-y: hidden; */

@@ -2,27 +2,27 @@
 
 const DEFAULT_MOBILE_FONT_SIZE = 24
 const DEFAULT_PC_FONT_SIZE = 36
-// politic, dog, celeb, happy, cute, cat, power
+// politic, dogs celeb, happy, cute, cat, power, baby
 var gKeywordSearchCountMap = { funny: 12, cat: 16, baby: 2 }
 var gImgs = [
-    { id: 1, url: './meme-imgs-square/1.jpg', keywords: ['politic', 'dog', 'celeb'] },
-    { id: 2, url: './meme-imgs-square/2.jpg', keywords: ['happy', 'dog', 'cute'] },
-    { id: 3, url: './meme-imgs-square/3.jpg', keywords: ['cute', 'dog', 'happy'] },
-    { id: 4, url: './meme-imgs-square/4.jpg', keywords: ['cute', 'cat', 'happy'] },
-    { id: 5, url: './meme-imgs-square/5.jpg', keywords: ['funny', 'cute', 'power'] },
+    { id: 1, url: './meme-imgs-square/1.jpg', keywords: ['politic', 'dogs', 'celebs'] },
+    { id: 2, url: './meme-imgs-square/2.jpg', keywords: ['happy', 'dogs', 'cute'] },
+    { id: 3, url: './meme-imgs-square/3.jpg', keywords: ['cute', 'dogs', 'baby'] },
+    { id: 4, url: './meme-imgs-square/4.jpg', keywords: ['cute', 'cats', 'happy'] },
+    { id: 5, url: './meme-imgs-square/5.jpg', keywords: ['baby', 'cute', 'power'] },
     { id: 6, url: './meme-imgs-square/6.jpg', keywords: ['funny', 'power'] },
-    { id: 7, url: './meme-imgs-square/7.jpg', keywords: ['funny', 'cute', 'happy'] },
+    { id: 7, url: './meme-imgs-square/7.jpg', keywords: ['funny', 'cute', 'baby'] },
     { id: 8, url: './meme-imgs-square/8.jpg', keywords: ['funny', 'power'] },
-    { id: 9, url: './meme-imgs-square/9.jpg', keywords: ['funny', 'cute', 'power'] },
-    { id: 10, url: './meme-imgs-square/10.jpg', keywords: ['funny', 'power', 'celeb'] },
-    { id: 11, url: './meme-imgs-square/11.jpg', keywords: ['celeb', 'power'] },
+    { id: 9, url: './meme-imgs-square/9.jpg', keywords: ['funny', 'baby', 'power'] },
+    { id: 10, url: './meme-imgs-square/10.jpg', keywords: ['politic', 'power', 'celeb'] },
+    { id: 11, url: './meme-imgs-square/11.jpg', keywords: ['celebs', 'power'] },
     { id: 12, url: './meme-imgs-square/12.jpg', keywords: ['funny', 'power'] },
-    { id: 13, url: './meme-imgs-square/13.jpg', keywords: ['funny', 'dog'] },
-    { id: 14, url: './meme-imgs-square/14.jpg', keywords: ['funny', 'dog'] },
-    { id: 15, url: './meme-imgs-square/15.jpg', keywords: ['funny', 'what'] },
-    { id: 16, url: './meme-imgs-square/16.jpg', keywords: ['funny', 'dog'] },
-    { id: 17, url: './meme-imgs-square/17.jpg', keywords: ['funny', 'dog'] },
-    { id: 18, url: './meme-imgs-square/18.jpg', keywords: ['funny', 'dog'] },
+    { id: 13, url: './meme-imgs-square/13.jpg', keywords: ['power', 'celebs'] },
+    { id: 14, url: './meme-imgs-square/14.jpg', keywords: ['power', 'celebs'] },
+    { id: 15, url: './meme-imgs-square/15.jpg', keywords: ['power', 'celebs'] },
+    { id: 16, url: './meme-imgs-square/16.jpg', keywords: ['funny'] },
+    { id: 17, url: './meme-imgs-square/17.jpg', keywords: ['celebs', 'politic'] },
+    { id: 18, url: './meme-imgs-square/18.jpg', keywords: ['funny', 'cute'] },
 ]
 var gFilteredImgs = gImgs
 

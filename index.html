@@ -91,7 +91,25 @@
                     <button class="btn round-btn" onclick="onSurpriseMe()">Surprise Me</button>
                 </div>
 
-                <div class="gallery-grid grid-container">
+                <div class="gallery-grid grid-container no-grid">
+                    <div class="empty-gallery">
+                        <h1>Oops!</h1>
+                        <h2>We can't seem to find the meme you're looking for.</h2>
+                        <p>Here are some popular searches instead:</p>
+                        <div class="categories">
+
+                            <ul>
+                                <li onclick="onSearch(this.innerText)">Dogs</li>
+                                <li onclick="onSearch(this.innerText)">Cats</li>
+                                <li onclick="onSearch(this.innerText)">Funny</li>
+                                <li onclick="onSearch(this.innerText)">Politic</li>
+                                <li onclick="onSearch(this.innerText)">Happy</li>
+                                <li onclick="onSearch(this.innerText)">Celeb</li>
+                                <li onclick="onSearch(this.innerText)">Cute</li>
+                                <li onclick="onSearch(this.innerText)">Baby</li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
 

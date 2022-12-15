@@ -29,6 +29,10 @@ function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min) + min) // The maximum is exclusive and the minimum is inclusive
 }
 
-function getRandomItem(items){
-    return items[Math.floor(Math.random()*items.length)];
+function getRandomItem(items) {
+    return items[Math.floor(Math.random() * items.length)]
+}
+
+function breakGrid() {
+    document.querySelector('.grid-container').classList.add('no-grid')
 }

@@ -105,24 +105,30 @@ function renderModuleSearch() {
     document.querySelector('.tab-container').innerHTML = `
     ${getModuleHeader('Search')}
     <div class="gallery-actions">
-    <input type="search" name="" id="" placeholder="Search Memes" class="font-600" oninput="onSearch(this.value)">
+    <input type="search" name="" id="" placeholder="Search Memes" class="font-600 search-input" oninput="onSearch(this.value)">
     <h3 class="font-600">Popular Searches</h3>
     <div class="categories">
-        <ul>
-            <li>Dogs</li>
-            <li>Cats</li>
-            <li>Funny</li>
-            <li>Politic</li>
-            <li>Happy</li>
-            <li>Celeb</li>
-            <li>Gaming</li>
-            <li>Spongebob</li>
-            <li>Bad</li>
-            <li>Sad</li>
-        </ul>
+
+        ${getCategories()}
     </div>
     <label type="file" name="" for="file-upload" class="custom-file-input">Upload <i
             class="fa-solid fa-arrow-up-from-bracket"></i></label>
     <input type="file" name="" id="file-upload" onchange="onImgInput(event)" hidden>
+</div>`
+}
+
+function getCategories() {
+    return `<div class="categories">
+
+    <ul>
+        <li onclick="onSearch(this.innerText)">Dogs</li>
+        <li onclick="onSearch(this.innerText)">Cats</li>
+        <li onclick="onSearch(this.innerText)">Funny</li>
+        <li onclick="onSearch(this.innerText)">Politic</li>
+        <li onclick="onSearch(this.innerText)">Happy</li>
+        <li onclick="onSearch(this.innerText)">Celeb</li>
+        <li onclick="onSearch(this.innerText)">Cute</li>
+        <li onclick="onSearch(this.innerText)">Baby</li>
+    </ul>
 </div>`
 }

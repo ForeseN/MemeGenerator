@@ -7,6 +7,8 @@ function onImgSelect(id) {
 
 function renderGallery() {
     const imgs = getFilteredImages()
+    return
+    // if (imgs.length === 0) return renderEmptyGallery()
     let strHTML = imgs.map(img => {
         return `<img src=${img.url} alt="" srcset="" onclick="onImgSelect(${img.id})">`
     })
@@ -24,5 +26,7 @@ function renderAsideGallery() {
     strHTML.push(`</div>`)
     document.querySelector('.tab-container').innerHTML = strHTML.join('')
 }
+
+function renderEmptyGallery() {}
 
 function popularCategories() {}
