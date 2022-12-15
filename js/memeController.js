@@ -15,8 +15,9 @@ function onInit() {
     gCtx = gElCanvas.getContext('2d')
     defaultConfig()
     addListeners()
+    onModuleSearch()
 
-    // if (isMobileDevice()) initMobile()
+    if (isMobileDevice()) initMobile()
 
     resizeCanvas()
 
@@ -251,8 +252,11 @@ function onFontSizeChange(value) {
     renderMeme(meme)
 }
 
+function onBack() {
+    renderGallery()
+}
+
 function onDown(ev) {
-    gIsDragging = true
     // console.clear()
     const pos = getEvPos(ev)
     gStartPos = pos
@@ -264,6 +268,7 @@ function onDown(ev) {
             renderMeme(getCurrMeme())
             onModuleText()
             applyTextModuleStyles(line)
+            gIsDragging = true
         }
     })
     defaultConfig()
@@ -318,6 +323,13 @@ function onModuleStickers(elBtn) {
     renderModuleStickers()
 }
 
+function onModuleSearch(elBtn) {
+    if (!elBtn) elBtn = document.querySelector('.search-btn')
+    showElement('.tab-container')
+    removeActiveModules()
+    elBtn.classList.add('active')
+    renderModuleSearch()
+}
 function removeActiveModules() {
     const btns = document.querySelectorAll('.modules button')
     ;[...btns].forEach(btn => {
@@ -337,6 +349,7 @@ function getModuleHeader(txt) {
         <button class="btn pc-hide close-module" onclick="onCloseModule()"><i class="fa-solid fa-xmark fa-1x"></i></button>
     </div>`
 }
+
 // ---------------------- RENDER MODULES ----------------------
 
 // ---------------------- DRAW & RENDER ----------------------

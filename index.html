@@ -29,7 +29,7 @@
             <li><label for="file-upload" class="btn util-btn"><i class="fa-solid fa-arrow-up-from-bracket"></i>
                 </label>
             </li>
-            <li><button class="btn util-btn"><i class="fa-solid fa-backward"></i></button></li>
+            <li><button class="btn util-btn" onclick="onBack()"><i class="fa-solid fa-backward"></i></button></li>
             <li><button class="btn util-btn"><i class="fa-solid fa-gear"></i></button></li>
             <li><button class="btn round-btn share-btn" onclick="onShare()"><i
                         class="fa-solid fa-share-from-square"></i> <span class="mob-hide">Share</span></button>
@@ -47,7 +47,9 @@
             <div class="aside-grid">
                 <div class="modules">
                     <ul>
-                        <li><button class="btn util-btn active" onclick="onModuleGallery(this)"><i
+                        <li><button class="btn util-btn active search-btn" onclick="onModuleSearch(this)"><i
+                                    class="fa-solid fa-magnifying-glass"></i></button></li>
+                        <li><button class="btn util-btn" onclick="onModuleGallery(this)"><i
                                     class="fa-solid fa-image"></i></button></li>
                         <li><button class="btn util-btn txt-btn" onclick="onModuleText(this)"><i
                                     class="fa-solid fa-font"></i></button></li>
@@ -73,22 +75,8 @@
         <main>
             <!-- GALLERY -->
             <div class="gallery">
-                <!-- <div class="gallery-actions">
-                    <input type="search" name="" id="" placeholder="Search..." class="font-600">
-                    <div class="categories">
-                        <ul>
-                            <li>Dogs</li>
-                            <li>Cats</li>
-                            <li>Funny</li>
-                            <li>Political</li>
-                            <li>Happy</li>
-                            <li>Celeb</li>
-                        </ul>
-                    </div>
-                    <label type="file" name="" for="file-upload" class="custom-file-input">Upload <i
-                            class="fa-solid fa-arrow-up-from-bracket"></i></label> -->
-                <input type="file" name="" id="file-upload" onchange="onImgInput(event)" hidden>
-                <!-- </div> -->
+                <h3>Trending Now</h3>
+
                 <div class="gallery-grid grid-container scrollbar-hidden">
                 </div>
             </div>

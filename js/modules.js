@@ -100,3 +100,29 @@ function renderModuleStickers() {
     strHTMLs.push('</div>')
     document.querySelector('.tab-container').innerHTML = strHTMLs.join('')
 }
+
+function renderModuleSearch() {
+    document.querySelector('.tab-container').innerHTML = `
+    ${getModuleHeader('Search')}
+    <div class="gallery-actions">
+    <input type="search" name="" id="" placeholder="Search Memes" class="font-600">
+    <h3 class="font-600">Popular Searches</h3>
+    <div class="categories">
+        <ul>
+            <li>Dogs</li>
+            <li>Cats</li>
+            <li>Funny</li>
+            <li>Politic</li>
+            <li>Happy</li>
+            <li>Celeb</li>
+            <li>Gaming</li>
+            <li>Spongebob</li>
+            <li>Bad</li>
+            <li>Sad</li>
+        </ul>
+    </div>
+    <label type="file" name="" for="file-upload" class="custom-file-input">Upload <i
+            class="fa-solid fa-arrow-up-from-bracket"></i></label>
+    <input type="file" name="" id="file-upload" onchange="onImgInput(event)" hidden>
+</div>`
+}
