@@ -2,7 +2,9 @@
 
 const DEFAULT_MOBILE_FONT_SIZE = 24
 const DEFAULT_PC_FONT_SIZE = 36
-// politic, dogs celeb, happy, cute, cat, power, baby
+
+let gSavedMemes
+
 var gKeywordSearchCountMap = { funny: 12, cat: 16, baby: 2 }
 var gImgs = [
     { id: 1, url: './meme-imgs-square/1.jpg', keywords: ['politic', 'dogs', 'celebs'] },
@@ -104,9 +106,11 @@ function getFilteredImages() {
 }
 
 function getMeme(id) {
+    console.log(id)
     const img = gImgs.find(img => img.id === id)
     gMeme = createMeme()
     gMeme.selectedImgId = id
+    console.log(img)
     gMeme.url = img.url
     return gMeme
 }
@@ -155,4 +159,21 @@ function surpriseMeme() {
 
 function getDefaultFontSize() {
     return isMobileDevice() ? DEFAULT_MOBILE_FONT_SIZE : DEFAULT_PC_FONT_SIZE
+}
+
+function loadSavedMemes() {
+    gSavedMemes = loadFromStorage(SAVED_MEMES_KEY)
+    if (!gSavedMemes) {
+        gSavedMemes = []
+    }
+}
+
+function getSavedMeme(idx) {
+    console.log(idx)
+    openEditor()
+    return gSavedMemes[idx]
+}
+
+function getSavedMemes() {
+    return gSavedMemes
 }

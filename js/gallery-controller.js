@@ -1,6 +1,7 @@
 'use strict'
 
 function onImgSelect(id) {
+    console.log(id)
     renderMeme(getMeme(id))
     openEditor()
 }

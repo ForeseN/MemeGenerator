@@ -132,3 +132,17 @@ function getCategories() {
     </ul>
 </div>`
 }
+
+function renderModuleSavedMemes() {
+    const memes = getSavedMemes()
+    // console.log(imgs)
+
+    let strHTML = memes.map((meme, idx) => {
+        console.log(meme)
+        return `<img src=${meme.imageSrc} alt="" srcset="" onclick="renderMeme(getSavedMeme(${idx}))">`
+    })
+    strHTML.unshift('<div class="media grid-2-columns">')
+    strHTML.unshift(getModuleHeader('Saved memes'))
+    strHTML.push(`</div>`)
+    document.querySelector('.tab-container').innerHTML = strHTML.join('')
+}

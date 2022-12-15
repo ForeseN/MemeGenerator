@@ -16,6 +16,7 @@ function onInit() {
     defaultConfig()
     addListeners()
     onModuleSearch()
+    loadSavedMemes()
     loadFont()
 
     if (isMobileDevice()) initMobile()
@@ -47,7 +48,7 @@ function renderMeme(meme) {
         if (meme.selectedLineIdx != null) {
             markSelectedLine(meme.lines[meme.selectedLineIdx])
         }
-
+        setMeme(meme)
         // resizeCanvas()
     }
 }
@@ -165,7 +166,7 @@ function applyTextModuleStyles(line) {
     document.querySelector('.font-family-select')
 }
 
-function prepareMemeForDownload() {
+function removeSelectedLine() {
     const meme = getCurrMeme()
     meme.selectedLineIdx = null
     setMeme(meme)
@@ -246,8 +247,8 @@ function onShare() {
 }
 
 function onDownload() {
-    prepareMemeForDownload()
-    // Hopefully the preparation is done!
+    removeSelectedLine()
+    // Hopefully selected line is removed
     setTimeout(() => {
         let link = document.createElement('a')
         link.download = 'meme.png'
@@ -319,7 +320,15 @@ function onSearch(value) {
 }
 
 function onSave() {
-    const meme = getCurrMeme()
+    removeSelectedLine()
+    // Hopefully selected line is removed
+    setTimeout(() => {
+        const meme = getCurrMeme()
+        const savedMemes = getSavedMemes()
+        meme.imageSrc = gElCanvas.toDataURL('image/jpeg')
+        savedMemes.push(meme)
+        saveToStorage(SAVED_MEMES_KEY, savedMemes)
+    }, 100)
 }
 
 function onDown(ev) {
@@ -398,6 +407,13 @@ function onModuleSearch(elBtn) {
     removeActiveModules()
     elBtn.classList.add('active')
     renderModuleSearch()
+}
+function onModuleSavedMemes(elBtn) {
+    if (!elBtn) elBtn = document.querySelector('.saved-memes-btn')
+    showElement('.tab-container')
+    removeActiveModules()
+    elBtn.classList.add('active')
+    renderModuleSavedMemes()
 }
 function removeActiveModules() {
     const btns = document.querySelectorAll('.modules button')
