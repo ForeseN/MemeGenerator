@@ -13,7 +13,6 @@ let gStartPos
 function onInit() {
     gElCanvas = document.getElementById('my-canvas')
     gCtx = gElCanvas.getContext('2d')
-    defaultConfig()
     addListeners()
     onModuleSearch()
     loadSavedMemes()
@@ -23,11 +22,9 @@ function onInit() {
 
     resizeCanvas()
 
-    const meme = getMeme(3)
-    // console.log(meme)
-    renderMeme(meme)
+    // const meme = getMeme(3)
+    defaultConfig()
     renderGallery()
-    // renderAsideGallery()
 }
 
 function defaultConfig() {
