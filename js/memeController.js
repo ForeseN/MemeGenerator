@@ -231,19 +231,31 @@ function onUnderline() {
 //     setMeme(meme)
 // }
 
-function onShare() {
-    const imgDataUrl = gElCanvas.toDataURL('image/jpeg') // Gets the canvas content as an image format
-
-    // A function to be called if request succeeds
-    function onSuccess(uploadedImgUrl) {
-        // Encode the instance of certain characters in the url
-        const encodedUploadedImgUrl = encodeURIComponent(uploadedImgUrl)
-        window.open(
-            `https://www.facebook.com/sharer/sharer.php?u=${encodedUploadedImgUrl}&t=${encodedUploadedImgUrl}`
-        )
+async function onShare() {
+    const imgDataUrl = gElCanvas.toDataURL('image/jpeg')
+    const blob = await (await fetch(imgDataUrl)).blob()
+    const filesArray = [
+        new File([blob], 'animation.png', {
+            type: blob.type,
+            lastModified: new Date().getTime(),
+        }),
+    ]
+    const shareData = {
+        files: filesArray,
     }
-    // Send the image to the server
-    doUploadImg(imgDataUrl, onSuccess)
+    navigator.share(shareData)
+    // Working Facebook Share
+    // const imgDataUrl = gElCanvas.toDataURL('image/jpeg') // Gets the canvas content as an image format
+    // // A function to be called if request succeeds
+    // function onSuccess(uploadedImgUrl) {
+    //     // Encode the instance of certain characters in the url
+    //     const encodedUploadedImgUrl = encodeURIComponent(uploadedImgUrl)
+    //     window.open(
+    //         `https://www.facebook.com/sharer/sharer.php?u=${encodedUploadedImgUrl}&t=${encodedUploadedImgUrl}`
+    //     )
+    // }
+    // // Send the image to the server
+    // doUploadImg(imgDataUrl, onSuccess)
 }
 
 function onDownload() {
@@ -328,6 +340,7 @@ function onSave() {
         meme.imageSrc = gElCanvas.toDataURL('image/jpeg')
         savedMemes.push(meme)
         saveToStorage(SAVED_MEMES_KEY, savedMemes)
+        onModuleSavedMemes()
     }, 100)
 }
 
@@ -425,14 +438,6 @@ function removeActiveModules() {
 function onCloseModule() {
     removeActiveModules()
     hideElement('.tab-container')
-}
-
-function getModuleHeader(txt) {
-    return `
-    
-        <div class="module-header">${txt}
-        <button class="btn pc-hide close-module" onclick="onCloseModule()"><i class="fa-solid fa-xmark fa-1x"></i></button>
-    </div>`
 }
 
 // ---------------------- RENDER MODULES ----------------------

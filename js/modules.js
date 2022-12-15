@@ -1,5 +1,13 @@
 'use strict'
 
+function getModuleHeader(txt) {
+    return `
+    
+        <div class="module-header">${txt}
+        <button class="btn pc-hide close-module" onclick="onCloseModule()"><i class="fa-solid fa-xmark fa-1x"></i></button>
+    </div>`
+}
+
 function renderModuleText() {
     document.querySelector('.tab-container').innerHTML = `
     <div class="text-module">
@@ -105,7 +113,17 @@ function renderModuleSearch() {
     document.querySelector('.tab-container').innerHTML = `
     ${getModuleHeader('Search')}
     <div class="gallery-actions">
-    <input type="search" name="" id="" placeholder="Search Memes" class="font-600 search-input" oninput="onSearch(this.value)">
+    <input type="search" list="categories" name="" id="" placeholder="Search Memes" class="font-600 search-input" oninput="onSearch(this.value)">
+    <datalist id="categories">
+        <option value="Dogs">
+        <option value="Cats">
+        <option value="Funny">
+        <option value="Baby">
+        <option value="Politic">
+        <option value="Happy">
+        <option value="Celeb">
+        <option value="Cute">
+    </datalist>
     <h3 class="font-600">Popular Searches</h3>
     <div class="categories">
 
@@ -113,7 +131,6 @@ function renderModuleSearch() {
     </div>
     <label type="file" name="" for="file-upload" class="custom-file-input">Upload <i
             class="fa-solid fa-arrow-up-from-bracket"></i></label>
-    <input type="file" name="" id="file-upload" onchange="onImgInput(event)" hidden>
 </div>`
 }
 
@@ -135,14 +152,26 @@ function getCategories() {
 
 function renderModuleSavedMemes() {
     const memes = getSavedMemes()
-    // console.log(imgs)
+    if (memes.length === 0) return renderEmptySavedMemes()
 
     let strHTML = memes.map((meme, idx) => {
         console.log(meme)
         return `<img src=${meme.imageSrc} alt="" srcset="" onclick="renderMeme(getSavedMeme(${idx}))">`
     })
-    strHTML.unshift('<div class="media grid-2-columns">')
+    strHTML.unshift('<div class="media saved-media">')
     strHTML.unshift(getModuleHeader('Saved memes'))
     strHTML.push(`</div>`)
     document.querySelector('.tab-container').innerHTML = strHTML.join('')
+}
+
+function renderEmptySavedMemes() {
+    const strHTML = `
+    ${getModuleHeader('Saved Memes')}
+    <div class="empty-saved-memes">
+        <h3>Haven't Saved Any Memes Yet?</h3>
+        <p>This is where your memes should be. Design it. Save it. Laugh at it!</p>
+        <button class="btn primary-btn" onclick="onSurpriseMe()">Try A Sample <i
+                class="fa-solid fa-flask"></i></button>
+    </div>`
+    document.querySelector('.tab-container').innerHTML = strHTML
 }

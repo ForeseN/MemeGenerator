@@ -14,11 +14,17 @@ aside {
     height: 100%;
 }
 
+.modules {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-right: 1px solid var(--secondary-color);
+}
 .modules ul {
     color: white;
     list-style: none;
     padding: 0;
-    border-right: 1px solid var(--secondary-color);
+
     height: 100%;
 }
 .modules button {
@@ -80,6 +86,16 @@ aside {
         order: -1;
         height: 30vh;
         overflow: scroll;
+    }
+
+    .modules {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .modules .help-btn {
+        width: unset;
+        padding: 0.5rem 0.8rem;
     }
 
     .modules ul {

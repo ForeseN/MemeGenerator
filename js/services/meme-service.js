@@ -7,7 +7,7 @@ let gSavedMemes
 
 var gKeywordSearchCountMap = { funny: 12, cat: 16, baby: 2 }
 var gImgs = [
-    { id: 1, url: './meme-imgs-square/1.jpg', keywords: ['politic', 'dogs', 'celebs'] },
+    { id: 1, url: './meme-imgs-square/1.jpg', keywords: ['politic', 'celebs'] },
     { id: 2, url: './meme-imgs-square/2.jpg', keywords: ['happy', 'dogs', 'cute'] },
     { id: 3, url: './meme-imgs-square/3.jpg', keywords: ['cute', 'dogs', 'baby'] },
     { id: 4, url: './meme-imgs-square/4.jpg', keywords: ['cute', 'cats', 'happy'] },

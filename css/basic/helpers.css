@@ -90,6 +90,14 @@
 .text-bigger {
     font-size: 1.8rem;
 }
+
+.primary-btn {
+    font-size: 0.9rem;
+    padding: 0.5rem 1rem;
+    background: var(--secondary-color);
+    border-radius: 6px;
+    color: white;
+}
 @media screen and (min-width: 700px) {
     .pc-hide {
         display: none !important;
