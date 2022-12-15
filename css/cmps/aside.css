@@ -111,7 +111,12 @@ aside {
     border-radius: 6px;
     background: var(--secondary-color);
     color: white;
-    padding: 0.2rem 0.7rem;
+    padding: 0.5rem 0.7rem;
+    display: inline-flex;
+    align-items: center;
+}
+.font-buttons button.active {
+    background: #0083e2;
 }
 
 .font-colors {

@@ -9,7 +9,7 @@ function renderModuleText() {
         <button class="btn round-btn add-text-btn" onclick="onAddText()">Add Text</button>
         <div class="font-area">
             <label for="font" class="text-white">Font</label>
-            <select class="form-control" onchange="onFontChange(this.value)">
+            <select class="font-family-select" onchange="onFontChange(this.value)">
                 <option style="font-family: impact, sans-serif;">Impact</option>
                 <option style="font-family: Arial, sans-serif;">Arial</option>
                 <option style="font-family: Times New Roman, sans-serif;">Times New Roman</option>
@@ -17,7 +17,7 @@ function renderModuleText() {
                 <option style="font-family: serif, sans-serif;">serif</option>
                 <option style="font-family: sans-serif, sans-serif;">sans-serif</option>
             </select>
-            <select class="form-control" onchange="onFontSizeChange()">
+            <select class="font-size-select" onchange="onFontSizeChange(this.value)">
                 <option>8</option>
                 <option>10</option>
                 <option>12</option>
@@ -33,15 +33,15 @@ function renderModuleText() {
                 <option>96</option>
             </select>
             <div class="font-buttons">
-                <button class="btn" onclick="onBold()"><i class="fa-solid fa-bold"></i></button>
-                <button class="btn" onclick="onItalic()"><i class="fa-solid fa-italic"></i></button>
-                <button class="btn" onclick="onUnderline()"><i
+                <button class="btn bold-btn" onclick="onBold()"><i class="fa-solid fa-bold"></i></button>
+                <button class="btn italic-btn" onclick="onItalic()"><i class="fa-solid fa-italic"></i></button>
+                <button class="btn underline-btn" onclick="onUnderline()"><i
                         class="fa-solid fa-underline"></i></button>
-                <button class="btn" onclick="onAlignLeft()"><i
+                <button class="btn align-left-btn" onclick="onAlignLeft()"><i
                         class="fa-solid fa-align-left"></i></button>
-                <button class="btn" onclick="onAlignCenter()"><i
+                <button class="btn align-center-btn" onclick="onAlignCenter()"><i
                         class="fa-solid fa-align-justify"></i></button>
-                <button class="btn" onclick="onAlignRight()"><i
+                <button class="btn align-right-btn" onclick="onAlignRight()"><i
                         class="fa-solid fa-align-right"></i></button>
             </div>
             <div class="font-colors">
@@ -57,7 +57,7 @@ function renderModuleText() {
                         oninput="onTextOutlineColorChange(this.value)">
                 </div>
             </div>
-            <button class="btn round-btn default">Default Settings</button>
+            <button class="btn round-btn default" onclick="onTextDefaultSettings()">Default Settings</button>
         </div>
     </div>
     `

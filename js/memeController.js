@@ -110,6 +110,43 @@ function markSelectedLine(line) {
         endY + 2 * EPSILON
     )
 }
+
+function onTextDefaultSettings() {
+    const meme = getCurrMeme()
+    if (meme.selectedLineIdx == null) return
+    const line = meme.lines[meme.selectedLineIdx]
+    meme.lines[meme.selectedLineIdx] = getDefaultTextSettings(line.txt, line.x, line.y)
+    applyTextModuleStyles(meme.lines[meme.selectedLineIdx])
+    setMeme(meme)
+    renderMeme(meme)
+}
+
+function TextModuleStylesClearSlate() {
+    document.querySelectorAll('.font-buttons button').forEach(btn => {
+        btn.classList.remove('active')
+    })
+}
+
+function applyTextModuleStyles(line) {
+    TextModuleStylesClearSlate()
+    const { size, font, align, bold, italic, underline } = line
+    document.querySelector('.font-family-select').value = font
+    document.querySelector('.font-size-select').value = size
+    if (bold) document.querySelector('.bold-btn').classList.add('active')
+    if (italic) document.querySelector('.italic-btn').classList.add('active')
+    if (underline) document.querySelector('.underline-btn').classList.add('active')
+    if (align === 'center') {
+        document.querySelector('.align-center-btn').classList.add('active')
+    }
+    if (align === 'left') {
+        document.querySelector('.align-left-btn').classList.add('active')
+    }
+    if (align === 'right') {
+        document.querySelector('.align-right-btn').classList.add('active')
+    }
+
+    document.querySelector('.font-family-select')
+}
 // ---------------------- ON FUNCTIONS  ----------------------
 
 function onAddText() {
@@ -120,18 +157,21 @@ function onAddText() {
 }
 
 function onBold() {
+    document.querySelector('.bold-btn').classList.toggle('active')
     const meme = getCurrMeme()
     meme.lines[meme.selectedLineIdx].bold = !meme.lines[meme.selectedLineIdx].bold
     setMeme(meme)
     renderMeme(meme)
 }
 function onItalic() {
+    document.querySelector('.italic-btn').classList.toggle('active')
     const meme = getCurrMeme()
     meme.lines[meme.selectedLineIdx].italic = !meme.lines[meme.selectedLineIdx].italic
     setMeme(meme)
     renderMeme(meme)
 }
 function onUnderline() {
+    document.querySelector('.underline-btn').classList.toggle('active')
     const meme = getCurrMeme()
     meme.lines[meme.selectedLineIdx].underline =
         !meme.lines[meme.selectedLineIdx].underline
@@ -200,6 +240,14 @@ function onFontChange(value) {
     renderMeme(meme)
 }
 
+function onFontSizeChange(value) {
+    const meme = getCurrMeme()
+    if (meme.selectedLineIdx == null) return
+    meme.lines[meme.selectedLineIdx].size = value
+    setMeme(meme)
+    renderMeme(meme)
+}
+
 function onDown(ev) {
     console.clear()
     const pos = getEvPos(ev)
@@ -210,6 +258,7 @@ function onDown(ev) {
         if (isClickedText(line, pos)) {
             meme.selectedLineIdx = idx
             renderMeme(getCurrMeme())
+            applyTextModuleStyles(line)
         }
     })
     defaultConfig()

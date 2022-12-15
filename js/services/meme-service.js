@@ -31,37 +31,33 @@ function createMeme() {
         selectedLineIdx: null,
         url: './meme-imgs-square/1.jpg',
         lines: [
-            {
-                txt: 'YOU KNOW NOTHING',
-                size: fontSize,
-                font: 'impact',
-                align: 'center',
-                fillColor: 'white',
-                strokeColor: 'black',
-                bold: true,
-                italic: false,
-                underline: false,
-                x: gElCanvas.width / 2,
-                y: 50,
-            },
-            {
-                txt: 'JOHN SNOW',
-                size: fontSize,
-                font: 'impact',
-                align: 'center',
-                fillColor: 'white',
-                strokeColor: 'black',
-                bold: true,
-                italic: false,
-                underline: false,
-                x: gElCanvas.width / 2,
-                y: gElCanvas.height - 50,
-            },
+            getDefaultTextSettings('YOU KNOW NOTHING', gElCanvas.width / 2, 50),
+            getDefaultTextSettings(
+                'JOHN SNOW',
+                gElCanvas.width / 2,
+                gElCanvas.height - 50
+            ),
         ],
     }
     return gMeme
 }
 
+function getDefaultTextSettings(txt, x, y) {
+    const fontSize = isMobileDevice() ? 26 : 42
+    return {
+        txt: txt,
+        size: fontSize,
+        font: 'Impact',
+        align: 'center',
+        fillColor: 'white',
+        strokeColor: 'black',
+        bold: true,
+        italic: false,
+        underline: false,
+        x: x,
+        y: y,
+    }
+}
 function createDownloadedMeme(src) {
     gMeme = {
         selectedImgId: null,
