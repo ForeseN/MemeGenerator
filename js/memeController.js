@@ -3,14 +3,17 @@
 let gElCanvas
 let gCtx
 
-const RESIZE_BALL_RADIUS = 5
+const RESIZE_BALL_RADIUS = 7
 const EPSILON = 10
+const RESIZE_CONSTANT = 5
 
 const TOUCH_EVS = ['touchstart', 'touchmove', 'touchend']
 
 let gIsDragging
 let gIsResizing
 let gStartPos
+let gCurrentResizeCorner
+let gCurrentLineMetrics
 
 function onInit() {
     gElCanvas = document.getElementById('my-canvas')
@@ -90,31 +93,25 @@ function loadFont() {
 
 function getLineWidth(line) {
     const { txt, size, font, align, bold, italic, x, y } = line
-    gCtx.font = `${bold ? 'bold' : 'normal'} ${
-        italic ? 'italic' : 'normal'
-    } ${size}px ${font}`
+    gCtx.font = `${bold ? 'bold' : 'normal'} ${italic ? 'italic' : 'normal'} ${size}px ${font}`
     const textMeasurements = gCtx.measureText(txt)
-    const width = textMeasurements.width
-    return width
+    return textMeasurements.width
 }
 function getLineHeight(line) {
     const { txt, size, font, align, bold, italic, x, y } = line
-    gCtx.font = `${bold ? 'bold' : 'normal'} ${
-        italic ? 'italic' : 'normal'
-    } ${size}px ${font}`
+    gCtx.font = `${bold ? 'bold' : 'normal'} ${italic ? 'italic' : 'normal'} ${size}px ${font}`
     const textMeasurements = gCtx.measureText(txt)
     const height =
-        textMeasurements.actualBoundingBoxAscent +
-        textMeasurements.actualBoundingBoxDescent
+        textMeasurements.actualBoundingBoxAscent + textMeasurements.actualBoundingBoxDescent
     return height
 }
 function markSelectedLine(line) {
     const width = getLineWidth(line)
     const height = getLineHeight(line)
     const startX = line.x - width / 2
-    const endX = line.x + width / 2 - startX
+    const rectWidth = line.x + width / 2 - startX
     const startY = line.y - height / 2
-    const endY = line.y + height / 2 - startY
+    const rectHeight = line.y + height / 2 - startY
     // gCtx.save()
     gCtx.lineWidth = 2
     gCtx.beginPath()
@@ -122,8 +119,8 @@ function markSelectedLine(line) {
     gCtx.strokeRect(
         startX - EPSILON,
         startY - EPSILON,
-        endX + 2 * EPSILON,
-        endY + 2 * EPSILON
+        rectWidth + 2 * EPSILON,
+        rectHeight + 2 * EPSILON
     )
 
     gCtx.lineWidth = 1
@@ -138,13 +135,7 @@ function markSelectedLine(line) {
 
     // Left Bottom
     gCtx.beginPath()
-    gCtx.arc(
-        startX - EPSILON,
-        line.y + height / 2 + EPSILON,
-        RESIZE_BALL_RADIUS,
-        0,
-        Math.PI * 2
-    )
+    gCtx.arc(startX - EPSILON, line.y + height / 2 + EPSILON, RESIZE_BALL_RADIUS, 0, Math.PI * 2)
     gCtx.fill()
     gCtx.stroke()
 
@@ -253,8 +244,7 @@ function onItalic() {
 function onUnderline() {
     document.querySelector('.underline-btn').classList.toggle('active')
     const meme = getCurrMeme()
-    meme.lines[meme.selectedLineIdx].underline =
-        !meme.lines[meme.selectedLineIdx].underline
+    meme.lines[meme.selectedLineIdx].underline = !meme.lines[meme.selectedLineIdx].underline
     setMeme(meme)
     renderMeme(meme)
 }
@@ -404,54 +394,34 @@ function isClickedOnResize(line, clickedPos) {
     const endY = line.y + height / 2 - startY
 
     const resizeBallsCor = [
-        { ballX: startX - EPSILON, ballY: startY - EPSILON },
-        { ballX: startX - EPSILON, ballY: line.y + height / 2 + EPSILON },
-        { ballX: line.x + width / 2 + EPSILON, ballY: line.y - height / 2 - EPSILON },
-        { ballX: line.x + width / 2 + EPSILON, ballY: line.y + height / 2 + EPSILON },
+        { ballX: startX - EPSILON, ballY: startY - EPSILON, corner: 'left-top' },
+        {
+            ballX: startX - EPSILON,
+            ballY: line.y + height / 2 + EPSILON,
+            corner: 'left-bottom',
+        },
+        {
+            ballX: line.x + width / 2 + EPSILON,
+            ballY: line.y - height / 2 - EPSILON,
+            corner: 'right-top',
+        },
+        {
+            ballX: line.x + width / 2 + EPSILON,
+            ballY: line.y + height / 2 + EPSILON,
+            corner: 'right-bottom',
+        },
     ]
 
-    // console.clear()
-    let isClickedOnBall = false
+    let corner = ''
     resizeBallsCor.forEach(cor => {
-        // console.log(cor.ballX)
-        let distance = Math.sqrt(
-            (cor.ballX - clickedPos.x) ** 2 + (cor.ballY - clickedPos.y) ** 2
-        )
-        console.log(distance)
-        if (distance <= RESIZE_BALL_RADIUS) isClickedOnBall = true
+        let distance = Math.sqrt((cor.ballX - clickedPos.x) ** 2 + (cor.ballY - clickedPos.y) ** 2)
+        if (distance <= RESIZE_BALL_RADIUS) corner = cor.corner
     })
-    return isClickedOnBall
-
-    // Left Top
-    // let ballX = startX - EPSILON
-    // let ballY = startY - EPSILON
-    // let distance = Math.sqrt((ballX - clickedPos.x) ** 2 + (ballY - clickedPos.y) ** 2)
-    // console.log(distance)
-    // if (distance <= RESIZE_BALL_RADIUS) return true
-
-    // //  Left Bottom
-    // ballX = startX - EPSILON
-    // ballY = line.y + height / 2 + EPSILON
-    // distance = Math.sqrt((ballX - clickedPos.x) ** 2 + (ballY - clickedPos.y) ** 2)
-    // if (distance <= RESIZE_BALL_RADIUS) return true
-
-    // //  Right Bottom
-    // ballX = line.x + width / 2 + EPSILON
-    // ballY = line.y - height / 2 - EPSILON
-    // distance = Math.sqrt((ballX - clickedPos.x) ** 2 + (ballY - clickedPos.y) ** 2)
-    // if (distance <= RESIZE_BALL_RADIUS) return true
-
-    // //  Right Top
-    // ballX = line.x + width / 2 + EPSILON
-    // ballY = line.y + height / 2 + EPSILON
-    // distance = Math.sqrt((ballX - clickedPos.x) ** 2 + (ballY - clickedPos.y) ** 2)
-    // if (distance <= RESIZE_BALL_RADIUS) return true
-    // Calc the distance between two dots
-    //If its smaller then the radius of the circle we are inside
-    // return false
+    return corner
 }
 
 function onDown(ev) {
+    document.body.style.cursor = 'grabbing'
     // console.clear()
     const pos = getEvPos(ev)
     gStartPos = pos
@@ -467,10 +437,12 @@ function onDown(ev) {
             applyTextModuleStyles(line)
             gIsDragging = true
         }
-        if (isClickedOnResize(line, pos)) {
+        const corner = isClickedOnResize(line, pos)
+        if (corner) {
             meme.selectedLineIdx = idx
-            console.log('CLICKED')
             gIsResizing = true
+            gCurrentResizeCorner = corner
+            gCurrentLineMetrics = { width: getLineWidth(line), height: getLineHeight(line) }
         }
     })
 
@@ -482,6 +454,9 @@ function onDown(ev) {
 function onUp(ev) {
     gIsDragging = false
     gIsResizing = false
+    gCurrentResizeCorner = ''
+    gCurrentLineMetrics = {}
+    document.body.style.cursor = 'auto'
 }
 
 function onDrag(ev) {
@@ -499,18 +474,22 @@ function onDrag(ev) {
 }
 
 function onResize(ev) {
-    console.log('YERS')
-    // const pos = getEvPos(ev)
+    // console.log('YES')
+    const meme = getCurrMeme()
+    const line = meme.lines[meme.selectedLineIdx]
+
+    // if (gCurrentResizeCorner=='')
+
+    const pos = getEvPos(ev)
     // // Calc the delta , the diff we moved
-    // const dx = pos.x - gStartPos.x
-    // const dy = pos.y - gStartPos.y
+    const dx = pos.x - gStartPos.x
     // const meme = getCurrMeme()
 
-    // resizeLine(meme.lines[meme.selectedLineIdx], dx, dy)
+    resizeLine(line, dx)
     // // Save the last pos , we remember where we`ve been and move accordingly
-    // gStartPos = pos
-    // setMeme(meme)
-    // renderMeme(meme)
+    gStartPos = pos
+    setMeme(meme)
+    renderMeme(meme)
 }
 
 function onMove(ev) {
@@ -518,8 +497,12 @@ function onMove(ev) {
     if (gIsResizing) onResize(ev)
 }
 
-function resizeLine(line, dx, dy) {
-    line.size--
+function resizeLine(line, dx) {
+    if (gCurrentResizeCorner === 'left-top' || gCurrentResizeCorner === 'left-bottom') {
+        dx = -dx
+    }
+    line.size += dx / RESIZE_CONSTANT
+    line.size = Math.max(line.size, 15)
 }
 function moveLine(line, dx, dy) {
     line.x += dx
@@ -580,19 +563,7 @@ function onCloseModule() {
 // ---------------------- DRAW & RENDER ----------------------
 
 function drawText(line) {
-    const {
-        txt,
-        size,
-        font,
-        align,
-        fillColor,
-        strokeColor,
-        bold,
-        italic,
-        underline,
-        x,
-        y,
-    } = line
+    const { txt, size, font, align, fillColor, strokeColor, bold, italic, underline, x, y } = line
 
     gCtx.font = `
     ${bold ? 'bold' : 'normal'}
