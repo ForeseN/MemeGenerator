@@ -106,6 +106,30 @@ function getLineHeight(line) {
         textMeasurements.actualBoundingBoxAscent + textMeasurements.actualBoundingBoxDescent
     return height
 }
+
+function markRotatedLine(line) {
+    const width = getLineWidth(line)
+    const height = getLineHeight(line)
+    const startX = line.x - width / 2
+    const rectWidth = line.x + width / 2 - startX
+    const startY = line.y - height / 2
+    const rectHeight = line.y + height / 2 - startY
+    gCtx.beginPath()
+    gCtx.save()
+    gCtx.translate(startX + rectWidth / 2, startY + rectHeight / 2)
+    gCtx.rotate(line.rotateValue)
+    gCtx.strokeRect(
+        -(rectWidth / 2 + EPSILON),
+        -(rectHeight / 2 + EPSILON),
+        rectWidth + 2 * EPSILON,
+        rectHeight + 2 * EPSILON
+    )
+    gCtx.textAlign = 'center'
+    // gCtx.strokeText(txt, 0, 0)
+    // gCtx.fillText(txt, 0, 0)
+    gCtx.restore()
+    defaultConfig()
+}
 function markSelectedLine(line) {
     const width = getLineWidth(line)
     const height = getLineHeight(line)
@@ -115,6 +139,7 @@ function markSelectedLine(line) {
     const rectHeight = line.y + height / 2 - startY
     // gCtx.save()
     gCtx.lineWidth = 2
+    if (line.rotateValue != 0) return markRotatedLine(line)
     gCtx.beginPath()
     gCtx.strokeStyle = 'black'
     gCtx.strokeRect(

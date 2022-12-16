@@ -69,3 +69,7 @@ h5,
 h6 {
     overflow-wrap: break-word;
 }
+
+button {
+    caret-color: transparent;
+}

@@ -19,7 +19,6 @@ function renderGallery() {
     document.querySelector('.gallery-grid').innerHTML = strHTML.join('')
 }
 
-
 function renderEmptyGallery() {
     const strHTML = `
     <div class="empty-gallery">

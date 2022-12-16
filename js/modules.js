@@ -168,7 +168,7 @@ function renderModuleSavedMemes() {
 
     let strHTML = memes.map((meme, idx) => {
         console.log(meme)
-        return `<img src=${meme.imageSrc} alt="" srcset="" onclick="renderMeme(getSavedMeme(${idx}))">`
+        return `<img src=${meme.imageSrc} alt="" srcset="" onclick="loadSavedMeme(getSavedMeme(${idx}))">`
     })
     strHTML.unshift('<div class="media saved-media">')
     strHTML.unshift(getModuleHeader('Saved memes'))

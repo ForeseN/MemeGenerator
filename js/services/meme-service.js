@@ -180,11 +180,18 @@ function loadSavedMemes() {
 }
 
 function getSavedMeme(idx) {
-    console.log(idx)
     openEditor()
     return gSavedMemes[idx]
 }
 
 function getSavedMemes() {
     return gSavedMemes
+}
+
+function loadSavedMeme(meme) {
+    resizeCanvas(meme.url)
+    // DO NOT DELETE 2 RENDER MEMES OTHERWISE THINGS BREAK :(
+    renderMeme(meme)
+    setMeme(meme)
+    renderMeme(getCurrMeme())
 }
