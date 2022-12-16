@@ -90,11 +90,7 @@ function createMeme(id, url) {
         url: url,
         lines: [
             getDefaultTextSettings('YOU KNOW NOTHING', gElCanvas.width / 2, marginY),
-            getDefaultTextSettings(
-                'JOHN SNOW',
-                gElCanvas.width / 2,
-                gElCanvas.height - marginY
-            ),
+            getDefaultTextSettings('JOHN SNOW', gElCanvas.width / 2, gElCanvas.height - marginY),
         ],
     }
     return gMeme
@@ -112,6 +108,7 @@ function getDefaultTextSettings(txt, x, y) {
         bold: false,
         italic: false,
         underline: false,
+        rotateValue: 0,
         x: x,
         y: y,
     }
@@ -151,9 +148,7 @@ function setMeme(meme) {
 }
 
 function addText(txt) {
-    gMeme.lines.push(
-        getDefaultTextSettings(txt, gElCanvas.width / 2, gElCanvas.height / 2)
-    )
+    gMeme.lines.push(getDefaultTextSettings(txt, gElCanvas.width / 2, gElCanvas.height / 2))
     console.log(gElCanvas.height, gElCanvas.width)
     renderMeme(gMeme)
 }
@@ -163,17 +158,11 @@ function surpriseMeme() {
     const linesOfText = getRandomInt(1, 3) // 3 is exclusive
     const meme = getMeme(image.id)
     meme.lines = []
-    gMeme.lines.push(
-        getDefaultTextSettings(getRandomItem(gTxts), gElCanvas.width / 2, 50)
-    )
+    gMeme.lines.push(getDefaultTextSettings(getRandomItem(gTxts), gElCanvas.width / 2, 50))
 
     if (linesOfText > 1) {
         gMeme.lines.push(
-            getDefaultTextSettings(
-                getRandomItem(gTxts),
-                gElCanvas.width / 2,
-                gElCanvas.height - 50
-            )
+            getDefaultTextSettings(getRandomItem(gTxts), gElCanvas.width / 2, gElCanvas.height - 50)
         )
     }
     setMeme(meme)

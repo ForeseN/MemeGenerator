@@ -558,12 +558,14 @@ function onRotate(ev) {
 }
 
 function rotateLine(line, dx, dy) {
-    gCtx.save()
-    gCtx.translate(newx, newy)
-    gCtx.rotate(-Math.PI / 2)
-    gCtx.textAlign = 'center'
-    gCtx.fillText('Your Label Here', labelXposition, 0)
-    gCtx.restore()
+    line.rotateValue += dx / 80
+    // console.log('ROTATING')
+    // gCtx.save()
+    // gCtx.translate(newx, newy)
+    // gCtx.rotate(-Math.PI / 2)
+    // gCtx.textAlign = 'center'
+    // gCtx.fillText('Your Label Here', labelXposition, 0)
+    // gCtx.restore()
 }
 function onMove(ev) {
     if (gIsDragging) onDrag(ev)
@@ -638,7 +640,20 @@ function onCloseModule() {
 // ---------------------- DRAW & RENDER ----------------------
 
 function drawText(line) {
-    const { txt, size, font, align, fillColor, strokeColor, bold, italic, underline, x, y } = line
+    const {
+        txt,
+        size,
+        font,
+        align,
+        fillColor,
+        strokeColor,
+        bold,
+        italic,
+        underline,
+        rotateValue,
+        x,
+        y,
+    } = line
 
     gCtx.font = `
     ${bold ? 'bold' : 'normal'}
@@ -650,24 +665,28 @@ function drawText(line) {
     gCtx.textAlign = align
     gCtx.lineJoin = 'miter'
     gCtx.miterLimit = 2
-    // defaultConfig()
-
-    gCtx.strokeText(txt, x, y)
-    gCtx.fillText(txt, x, y)
-    // if (isMobileDevice()) {
-    //     gCtx.lineWidth = 4
-    //     gCtx.strokeText(txt, x, y)
-    //     gCtx.fillText(txt, x, y)
-    // } else {
-    //     gCtx.fillText(txt, x, y)
-    //     gCtx.strokeText(txt, x, y)
-    // }
+    if (rotateValue != 0) {
+        drawRotatedText(txt, x, y, rotateValue)
+    } else {
+        gCtx.strokeText(txt, x, y)
+        gCtx.fillText(txt, x, y)
+    }
     defaultConfig() // revert settings
 }
 
 function renderImg(img) {
     // Draw the img on the canvas
     gCtx.drawImage(img, 0, 0, gElCanvas.width, gElCanvas.height)
+}
+
+function drawRotatedText(txt, x, y, rotateValue) {
+    gCtx.save()
+    gCtx.translate(x, y)
+    gCtx.rotate(rotateValue)
+    gCtx.textAlign = 'center'
+    gCtx.strokeText(txt, 0, 0)
+    gCtx.fillText(txt, 0, 0)
+    gCtx.restore()
 }
 
 function getEvPos(ev) {
@@ -813,3 +832,12 @@ function loadImageFromInput(ev, onImageReady) {
 
     reader.readAsDataURL(ev.target.files[0]) // Read the file we picked
 }
+
+// TODO
+// add help modal
+// add settings modal (png/jpeg)
+// add save btn
+// check for me modules to add
+// fix every layout (700 to 850...)
+// add hebrew support
+// clean all code!!!
