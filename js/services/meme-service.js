@@ -38,7 +38,7 @@ var gImgs = []
 // ]
 
 function loadImages() {
-    for (let i = 26; i < 57; i++) {
+    for (let i = 26; i < 55; i++) {
         gImgs.push({
             id: i,
             url: `./meme-imgs/${i}.jpg`,
@@ -178,7 +178,6 @@ function loadSavedMemes() {
 }
 
 function getSavedMeme(idx) {
-    openEditor()
     return gSavedMemes[idx]
 }
 
@@ -188,8 +187,32 @@ function getSavedMemes() {
 
 function loadSavedMeme(meme) {
     resizeCanvas(meme.url)
+    openEditor()
     // DO NOT DELETE 2 RENDER MEMES OTHERWISE THINGS BREAK :(
     renderMeme(meme)
     setMeme(meme)
+    renderMeme(getCurrMeme())
+}
+const gExampleMemes = []
+for (let i = 1; i < 5; i++) {
+    gExampleMemes.push({
+        id: i,
+        url: `./meme-examples/${i}.png`,
+        keywords: [],
+    })
+}
+
+function getExampleMemeImages() {
+    return gExampleMemes
+}
+
+function loadExampleMeme(id) {
+    // DO NOT DELETE 2 RENDER MEMES OTHERWISE THINGS BREAK :(
+    const image = gExampleMemes[id]
+    const meme = createMeme(null, image.url)
+    meme.lines = []
+    openEditor()
+    setMeme(meme)
+    renderMeme(meme)
     renderMeme(getCurrMeme())
 }

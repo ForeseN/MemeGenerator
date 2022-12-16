@@ -649,6 +649,12 @@ function onModuleSavedMemes(elBtn) {
     elBtn.classList.add('active')
     renderModuleSavedMemes()
 }
+function onModuleExamples(elBtn) {
+    showElement('.tab-container')
+    removeActiveModules()
+    elBtn.classList.add('active')
+    renderModuleExamples()
+}
 function removeActiveModules() {
     const btns = document.querySelectorAll('.modules button')
     ;[...btns].forEach(btn => {
@@ -862,8 +868,9 @@ function loadImageFromInput(ev, onImageReady) {
 // TODO
 // add help modal
 // add settings modal (png/jpeg)
-// add save btn
 // check for me modules to add
 // fix every layout (700 to 850...)
 // add hebrew support
 // clean all code!!!
+// add a new meme format
+// add favicon

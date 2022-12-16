@@ -102,3 +102,31 @@
     color: white;
     width: 100%;
 }
+
+.change-meme-format-btns h2 {
+    margin-top: 3rem;
+    margin-bottom: 1rem;
+    color: white;
+}
+.change-meme-format-btns .gap {
+    gap: 15px;
+}
+.text-inside,
+.text-outside {
+    flex-basis: 100%;
+    padding: 0.8rem;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.text-inside:hover,
+.text-outside:hover {
+    background: var(--tertiary-color);
+}
+
+.text-inside p,
+.text-outside p {
+    padding-top: 0.6rem;
+}

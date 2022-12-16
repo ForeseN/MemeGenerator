@@ -79,6 +79,18 @@ function renderModuleText() {
             </div>
             <button class="btn round-btn default" onclick="onTextDefaultSettings()">Default Settings</button>
         </div>
+        <div class="change-meme-format-btns">
+        <h2>Meme Format</h2>
+        <div class="grid-2-columns gap">
+        <button class="btn primary-btn text-inside"><img src="imgs/text-inside.svg" alt="">
+            <p>Text Inside</p>
+
+        </button>
+        <button class="btn primary-btn text-outside"><img src="imgs/text-outside.svg" alt="">
+            <p>Text Outside</p>
+        </button>
+        </div>
+    </div>
     </div>
     `
 }
@@ -186,4 +198,24 @@ function renderEmptySavedMemes() {
                 class="fa-solid fa-flask"></i></button>
     </div>`
     document.querySelector('.tab-container').innerHTML = strHTML
+}
+
+function renderModuleExamples() {
+    const images = getExampleMemeImages()
+    // console.log(memes)
+
+    let strHTML = images.map((image, idx) => {
+        return `<img src=${image.url} alt="" srcset="" onclick="loadExampleMeme(${image.id - 1})">`
+    })
+    console.log(strHTML)
+    strHTML.unshift('<div class="media saved-media">')
+    strHTML.unshift(`
+    <div class="empty-saved-memes">
+        <h3>Need Some Inspiration?</h3>
+        <p>Take a look at the hottest memes right now!</p>
+    </div>
+    `)
+    strHTML.unshift(getModuleHeader('Examples'))
+    strHTML.push(`</div>`)
+    document.querySelector('.tab-container').innerHTML = strHTML.join('')
 }
