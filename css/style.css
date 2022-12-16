@@ -83,7 +83,7 @@ main {
     overflow-y: auto;
     overflow-x: hidden;
     /* height: var(--container-height); */
-    max-height: Calc(var(--container-height) - 40px);
+    max-height: Calc(var(--container-height) - 37px);
     margin: 2rem;
     margin-top: 1rem;
     /* display: grid;

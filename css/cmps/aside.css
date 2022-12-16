@@ -1,7 +1,7 @@
 aside {
     background: var(--primary-color);
-    min-width: 400px;
-    max-width: 400px;
+    min-width: 360px;
+    max-width: 360px;
     /* width: 500px; */
     box-shadow: 5px 0px 6px 0px black;
     position: relative;
