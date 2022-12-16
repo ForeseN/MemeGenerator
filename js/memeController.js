@@ -403,34 +403,52 @@ function isClickedOnResize(line, clickedPos) {
     const startY = line.y - height / 2
     const endY = line.y + height / 2 - startY
 
+    const resizeBallsCor = [
+        { ballX: startX - EPSILON, ballY: startY - EPSILON },
+        { ballX: startX - EPSILON, ballY: line.y + height / 2 + EPSILON },
+        { ballX: line.x + width / 2 + EPSILON, ballY: line.y - height / 2 - EPSILON },
+        { ballX: line.x + width / 2 + EPSILON, ballY: line.y + height / 2 + EPSILON },
+    ]
+
+    // console.clear()
+    let isClickedOnBall = false
+    resizeBallsCor.forEach(cor => {
+        // console.log(cor.ballX)
+        let distance = Math.sqrt(
+            (cor.ballX - clickedPos.x) ** 2 + (cor.ballY - clickedPos.y) ** 2
+        )
+        console.log(distance)
+        if (distance <= RESIZE_BALL_RADIUS) isClickedOnBall = true
+    })
+    return isClickedOnBall
+
     // Left Top
-    let ballX = startX - EPSILON
-    let ballY = startY - EPSILON
-    let distance = Math.sqrt(
-        (ballX - clickedPos.x) ** 2 + (startY - EPSILON - clickedPos.y) ** 2
-    )
-    if (distance <= RESIZE_BALL_RADIUS) return true
+    // let ballX = startX - EPSILON
+    // let ballY = startY - EPSILON
+    // let distance = Math.sqrt((ballX - clickedPos.x) ** 2 + (ballY - clickedPos.y) ** 2)
+    // console.log(distance)
+    // if (distance <= RESIZE_BALL_RADIUS) return true
 
-    //  Left Bottom
-    ballX = startX - EPSILON
-    ballY = line.y + height / 2 + EPSILON
-    distance = Math.sqrt((ballX - clickedPos.x) ** 2 + (ballY - clickedPos.y) ** 2)
-    if (distance <= RESIZE_BALL_RADIUS) return true
+    // //  Left Bottom
+    // ballX = startX - EPSILON
+    // ballY = line.y + height / 2 + EPSILON
+    // distance = Math.sqrt((ballX - clickedPos.x) ** 2 + (ballY - clickedPos.y) ** 2)
+    // if (distance <= RESIZE_BALL_RADIUS) return true
 
-    //  Right Bottom
-    ballX = line.x + width / 2 + EPSILON
-    ballY = line.y - height / 2 - EPSILON
-    distance = Math.sqrt((ballX - clickedPos.x) ** 2 + (ballY - clickedPos.y) ** 2)
-    if (distance <= RESIZE_BALL_RADIUS) return true
+    // //  Right Bottom
+    // ballX = line.x + width / 2 + EPSILON
+    // ballY = line.y - height / 2 - EPSILON
+    // distance = Math.sqrt((ballX - clickedPos.x) ** 2 + (ballY - clickedPos.y) ** 2)
+    // if (distance <= RESIZE_BALL_RADIUS) return true
 
-    //  Right Top
-    ballX = line.x + width / 2 + EPSILON
-    ballY = line.y + height / 2 + EPSILON
-    distance = Math.sqrt((ballX - clickedPos.x) ** 2 + (ballY - clickedPos.y) ** 2)
-    if (distance <= RESIZE_BALL_RADIUS) return true
+    // //  Right Top
+    // ballX = line.x + width / 2 + EPSILON
+    // ballY = line.y + height / 2 + EPSILON
+    // distance = Math.sqrt((ballX - clickedPos.x) ** 2 + (ballY - clickedPos.y) ** 2)
+    // if (distance <= RESIZE_BALL_RADIUS) return true
     // Calc the distance between two dots
     //If its smaller then the radius of the circle we are inside
-    return false
+    // return false
 }
 
 function onDown(ev) {
@@ -450,10 +468,12 @@ function onDown(ev) {
             gIsDragging = true
         }
         if (isClickedOnResize(line, pos)) {
+            meme.selectedLineIdx = idx
             console.log('CLICKED')
             gIsResizing = true
         }
     })
+
     if (meme.selectedLineIdx == null) onModuleText()
     defaultConfig()
     renderMeme(getCurrMeme())
@@ -478,12 +498,29 @@ function onDrag(ev) {
     renderMeme(meme)
 }
 
-function onResize(ev) {}
+function onResize(ev) {
+    console.log('YERS')
+    // const pos = getEvPos(ev)
+    // // Calc the delta , the diff we moved
+    // const dx = pos.x - gStartPos.x
+    // const dy = pos.y - gStartPos.y
+    // const meme = getCurrMeme()
+
+    // resizeLine(meme.lines[meme.selectedLineIdx], dx, dy)
+    // // Save the last pos , we remember where we`ve been and move accordingly
+    // gStartPos = pos
+    // setMeme(meme)
+    // renderMeme(meme)
+}
+
 function onMove(ev) {
     if (gIsDragging) onDrag(ev)
     if (gIsResizing) onResize(ev)
 }
 
+function resizeLine(line, dx, dy) {
+    line.size--
+}
 function moveLine(line, dx, dy) {
     line.x += dx
     line.y += dy
