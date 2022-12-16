@@ -89,8 +89,12 @@ function createMeme(id, url) {
         selectedLineIdx: null,
         url: url,
         lines: [
-            getDefaultTextSettings('YOU KNOW NOTHING', gElCanvas.width / 2, marginY),
-            getDefaultTextSettings('JOHN SNOW', gElCanvas.width / 2, gElCanvas.height - marginY),
+            getDefaultTextSettings('ADD YOUR TEXT HERE', gElCanvas.width / 2, marginY),
+            getDefaultTextSettings(
+                'ADD YOUR TEXT HERE',
+                gElCanvas.width / 2,
+                gElCanvas.height - marginY
+            ),
         ],
     }
     return gMeme
