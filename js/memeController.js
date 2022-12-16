@@ -3,11 +3,13 @@
 let gElCanvas
 let gCtx
 
+const RESIZE_BALL_RADIUS = 5
 const EPSILON = 10
 
 const TOUCH_EVS = ['touchstart', 'touchmove', 'touchend']
 
 let gIsDragging
+let gIsResizing
 let gStartPos
 
 function onInit() {
@@ -57,16 +59,16 @@ function renderTextOnMeme(meme) {
 function isClickedText(line, pos) {
     const width = getLineWidth(line)
     const height = getLineHeight(line)
-    console.log(
-        pos.x,
-        line.x - width / 2,
-        pos.x,
-        line.x + width / 2,
-        pos.y,
-        line.y - height / 2,
-        pos.y,
-        line.y + height / 2
-    )
+    // console.log(
+    //     pos.x,
+    //     line.x - width / 2,
+    //     pos.x,
+    //     line.x + width / 2,
+    //     pos.y,
+    //     line.y - height / 2,
+    //     pos.y,
+    //     line.y + height / 2
+    // )
     return (
         pos.x > line.x - width / 2 &&
         pos.x < line.x + width / 2 &&
@@ -113,6 +115,8 @@ function markSelectedLine(line) {
     const endX = line.x + width / 2 - startX
     const startY = line.y - height / 2
     const endY = line.y + height / 2 - startY
+    // gCtx.save()
+    gCtx.lineWidth = 2
     gCtx.beginPath()
     gCtx.strokeStyle = 'black'
     gCtx.strokeRect(
@@ -121,6 +125,55 @@ function markSelectedLine(line) {
         endX + 2 * EPSILON,
         endY + 2 * EPSILON
     )
+
+    gCtx.lineWidth = 1
+    gCtx.fillStyle = '#0083e2'
+    gCtx.strokeStyle = 'white'
+
+    // Left Top
+    gCtx.beginPath()
+    gCtx.arc(startX - EPSILON, startY - EPSILON, RESIZE_BALL_RADIUS, 0, Math.PI * 2)
+    gCtx.fill()
+    gCtx.stroke()
+
+    // Left Bottom
+    gCtx.beginPath()
+    gCtx.arc(
+        startX - EPSILON,
+        line.y + height / 2 + EPSILON,
+        RESIZE_BALL_RADIUS,
+        0,
+        Math.PI * 2
+    )
+    gCtx.fill()
+    gCtx.stroke()
+
+    // Right Bottom
+    gCtx.beginPath()
+    gCtx.arc(
+        line.x + width / 2 + EPSILON,
+        line.y - height / 2 - EPSILON,
+        RESIZE_BALL_RADIUS,
+        0,
+        Math.PI * 2
+    )
+    gCtx.fill()
+    gCtx.stroke()
+
+    // Right Top
+    gCtx.beginPath()
+    gCtx.arc(
+        line.x + width / 2 + EPSILON,
+        line.y + height / 2 + EPSILON,
+        RESIZE_BALL_RADIUS,
+        0,
+        Math.PI * 2
+    )
+    gCtx.fill()
+    gCtx.stroke()
+
+    // gCtx.restore()
+    defaultConfig()
 }
 
 function onTextDefaultSettings() {
@@ -292,10 +345,10 @@ function onFontSizeChange(value) {
 }
 
 function onChangeText(value) {
-    console.log(value)
+    // console.log(value)
     const meme = getCurrMeme()
     if (meme.selectedLineIdx == null) return
-    console.log(meme.selectedLineIdx)
+    // console.log(meme.selectedLineIdx)
 
     meme.lines[meme.selectedLineIdx].txt = value
     setMeme(meme)
@@ -340,6 +393,46 @@ function onSave() {
     }, 100)
 }
 
+//Check if the click is inside the circle
+function isClickedOnResize(line, clickedPos) {
+    const width = getLineWidth(line)
+    const height = getLineHeight(line)
+
+    const startX = line.x - width / 2
+    const endX = line.x + width / 2 - startX
+    const startY = line.y - height / 2
+    const endY = line.y + height / 2 - startY
+
+    // Left Top
+    let ballX = startX - EPSILON
+    let ballY = startY - EPSILON
+    let distance = Math.sqrt(
+        (ballX - clickedPos.x) ** 2 + (startY - EPSILON - clickedPos.y) ** 2
+    )
+    if (distance <= RESIZE_BALL_RADIUS) return true
+
+    //  Left Bottom
+    ballX = startX - EPSILON
+    ballY = line.y + height / 2 + EPSILON
+    distance = Math.sqrt((ballX - clickedPos.x) ** 2 + (ballY - clickedPos.y) ** 2)
+    if (distance <= RESIZE_BALL_RADIUS) return true
+
+    //  Right Bottom
+    ballX = line.x + width / 2 + EPSILON
+    ballY = line.y - height / 2 - EPSILON
+    distance = Math.sqrt((ballX - clickedPos.x) ** 2 + (ballY - clickedPos.y) ** 2)
+    if (distance <= RESIZE_BALL_RADIUS) return true
+
+    //  Right Top
+    ballX = line.x + width / 2 + EPSILON
+    ballY = line.y + height / 2 + EPSILON
+    distance = Math.sqrt((ballX - clickedPos.x) ** 2 + (ballY - clickedPos.y) ** 2)
+    if (distance <= RESIZE_BALL_RADIUS) return true
+    // Calc the distance between two dots
+    //If its smaller then the radius of the circle we are inside
+    return false
+}
+
 function onDown(ev) {
     // console.clear()
     const pos = getEvPos(ev)
@@ -349,13 +442,16 @@ function onDown(ev) {
     meme.selectedLineIdx = null
     meme.lines.forEach((line, idx) => {
         if (isClickedText(line, pos)) {
-            console.log(idx, meme.selectedLineIdx)
-            if (meme.selectedLineIdx === idx) putCaret(line)
+            // console.log(idx, meme.selectedLineIdx)
             meme.selectedLineIdx = idx
             renderMeme(getCurrMeme())
             onModuleText()
             applyTextModuleStyles(line)
             gIsDragging = true
+        }
+        if (isClickedOnResize(line, pos)) {
+            console.log('CLICKED')
+            gIsResizing = true
         }
     })
     if (meme.selectedLineIdx == null) onModuleText()
@@ -365,10 +461,10 @@ function onDown(ev) {
 
 function onUp(ev) {
     gIsDragging = false
+    gIsResizing = false
 }
-function onMove(ev) {
-    if (!gIsDragging) return
 
+function onDrag(ev) {
     const pos = getEvPos(ev)
     // Calc the delta , the diff we moved
     const dx = pos.x - gStartPos.x
@@ -380,6 +476,12 @@ function onMove(ev) {
     gStartPos = pos
     setMeme(meme)
     renderMeme(meme)
+}
+
+function onResize(ev) {}
+function onMove(ev) {
+    if (gIsDragging) onDrag(ev)
+    if (gIsResizing) onResize(ev)
 }
 
 function moveLine(line, dx, dy) {
