@@ -13,7 +13,6 @@ let gIsDragging
 let gIsResizing
 let gStartPos
 let gCurrentResizeCorner
-let gCurrentLineMetrics
 
 function onInit() {
     gElCanvas = document.getElementById('my-canvas')
@@ -185,10 +184,21 @@ function TextModuleStylesClearSlate() {
 
 function applyTextModuleStyles(line) {
     TextModuleStylesClearSlate()
-    const { txt, size, font, align, bold, italic, underline } = line
+    let { txt, size, font, align, bold, italic, underline } = line
     document.querySelector('.add-text-input').value = txt
     document.querySelector('.font-family-select').value = font
+    // document.querySelector('.font-size-select').value = size
+    // console.log(document.querySelector('.font-size-select').text)
+    // console.log(document.querySelector('.font-size-select').value)
+    size = Math.trunc(size)
+    const elFontSelect = document.querySelector('.font-size-select')
+    elFontSelect.removeChild(elFontSelect.options[elFontSelect.options.length - 1])
+    var opt = document.createElement('option')
+    opt.value = size
+    opt.innerHTML = size
+    elFontSelect.appendChild(opt)
     document.querySelector('.font-size-select').value = size
+    // console.log(value, text)
     if (bold) document.querySelector('.bold-btn').classList.add('active')
     if (italic) document.querySelector('.italic-btn').classList.add('active')
     if (underline) document.querySelector('.underline-btn').classList.add('active')
@@ -329,7 +339,7 @@ function onFontChange(value) {
 function onFontSizeChange(value) {
     const meme = getCurrMeme()
     if (meme.selectedLineIdx == null) return
-    meme.lines[meme.selectedLineIdx].size = value
+    meme.lines[meme.selectedLineIdx].size = parseInt(value)
     setMeme(meme)
     renderMeme(meme)
 }
@@ -442,7 +452,6 @@ function onDown(ev) {
             meme.selectedLineIdx = idx
             gIsResizing = true
             gCurrentResizeCorner = corner
-            gCurrentLineMetrics = { width: getLineWidth(line), height: getLineHeight(line) }
         }
     })
 
@@ -455,7 +464,6 @@ function onUp(ev) {
     gIsDragging = false
     gIsResizing = false
     gCurrentResizeCorner = ''
-    gCurrentLineMetrics = {}
     document.body.style.cursor = 'auto'
 }
 
@@ -503,6 +511,7 @@ function resizeLine(line, dx) {
     }
     line.size += dx / RESIZE_CONSTANT
     line.size = Math.max(line.size, 15)
+    applyTextModuleStyles(line)
 }
 function moveLine(line, dx, dy) {
     line.x += dx
