@@ -1,8 +1,9 @@
 'use strict'
 
 function onImgSelect(id) {
-    console.log(id)
+    // DO NOT DELETE 2 RENDER MEMES OTHERWISE THINGS BREAK :(
     renderMeme(getMeme(id))
+    renderMeme(getCurrMeme())
     openEditor()
 }
 
@@ -12,8 +13,9 @@ function renderGallery() {
     // return
     if (imgs.length === 0) return renderEmptyGallery()
     let strHTML = imgs.map(img => {
-        return `<img src=${img.url} alt="" srcset="" onclick="onImgSelect(${img.id})">`
+        return `<div><img src=${img.url} alt="" srcset="" onclick="onImgSelect(${img.id})"></div>`
     })
+    strHTML.push('<div></div>')
     document.querySelector('.gallery-grid').innerHTML = strHTML.join('')
 }
 

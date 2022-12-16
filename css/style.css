@@ -31,16 +31,34 @@ main {
 .grid-container {
     /* overflow-y: auto;
     overflow-x: hidden; */
-    display: grid;
+    /* display: grid; */
     /* height: var(--container-height); */
     /* max-height: Calc(var(--container-height) - 40px); */
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    /* grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); */
     height: 100%;
-    gap: 25px;
+    /* gap: 25px; */
+    /* place-items: center; */
+    display: flex;
+    flex-flow: wrap;
+    gap: 1rem;
+}
+.grid-container > * {
+    flex-grow: 1;
+}
+
+.grid-container img {
+    height: 22vh;
+    min-width: 100%;
+    object-fit: cover;
+    vertical-align: bottom;
+}
+.grid-container div:last-of-type {
+    flex-grow: 10;
 }
 .container img {
     transition: transform 0.2s, box-shadow 0.1s;
     cursor: pointer;
+    border-radius: 6px;
 }
 
 .container img:hover {

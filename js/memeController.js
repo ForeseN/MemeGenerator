@@ -19,9 +19,7 @@ function onInit() {
     loadFont()
 
     if (isMobileDevice()) initMobile()
-
-    resizeCanvas()
-
+    // resizeCanvas()
     // const meme = getMeme(3)
     defaultConfig()
     renderGallery()
@@ -536,7 +534,7 @@ function addKeyboardListeners() {
     gElCanvas.addEventListener('keypress', onKeyDown())
 }
 
-function resizeCanvas() {
+function resizeCanvas(url) {
     // const elContainer = document.querySelector('.canvas-container')
     // console.log(elContainer.offsetWidth)
     // const oldCanvasWidth = gElCanvas.width
@@ -555,22 +553,27 @@ function resizeCanvas() {
     // gElCanvas = document.getElementById('my-canvas')
     // gElCanvas.width = gElCanvas.offsetWidth
     // gElCanvas.height = gElCanvas.offsetHeight
+
+    let img = new Image() // Create a new html img element
+    img.src = url
+
+    while (!img.width) {}
+
+    const ratio = img.height / img.width
+
     const pageWidth = getPageWidth()
     // console.log(pageWidth)
     if (pageWidth > 1080) {
-        gElCanvas.width = 550
-        gElCanvas.height = 550
+        gElCanvas.width = 650
     }
     if (pageWidth < 1080 && pageWidth > 580) {
         gElCanvas.width = 400
-        gElCanvas.height = 400
     }
     if (pageWidth < 580) {
-        // gElCanvas.width = 200
-        // gElCanvas.height = 200
-        gElCanvas.width = pageWidth * 0.95
-        gElCanvas.height = pageWidth * 0.95
+        gElCanvas.width = pageWidth * 0.9
     }
+    gElCanvas.height = gElCanvas.width * ratio
+    console.log('resizeCanvas() Done')
     // console.log(gElCanvas.height, gElCanvas.width)
     // getMeme(1)
     // renderMeme(getCurrMeme())
