@@ -312,6 +312,7 @@ function onSurpriseMe() {
     surpriseMeme()
     openEditor()
     renderMeme(getCurrMeme())
+    renderMeme(getCurrMeme())
 }
 
 function onSearch(value) {
@@ -400,7 +401,7 @@ function onModuleGallery(elBtn) {
     showElement('.tab-container')
     removeActiveModules()
     elBtn.classList.add('active')
-    renderAsideGallery()
+    renderModuleGallery()
 }
 function onModuleStickers(elBtn) {
     showElement('.tab-container')
@@ -557,7 +558,7 @@ function resizeCanvas(url) {
     let img = new Image() // Create a new html img element
     img.src = url
 
-    while (!img.width) {}
+    // while (!img.width) {}
 
     const ratio = img.height / img.width
 

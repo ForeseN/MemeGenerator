@@ -83,16 +83,17 @@ function createMeme(id, url) {
     // console.log(gElCanvas.height)
     // console.log('AFTER resizeCanvas()')
     resizeCanvas(url)
+    const marginY = isMobileDevice() ? 25 : 40
     gMeme = {
         selectedImgId: id,
         selectedLineIdx: null,
         url: url,
         lines: [
-            getDefaultTextSettings('YOU KNOW NOTHING', gElCanvas.width / 2, 50),
+            getDefaultTextSettings('YOU KNOW NOTHING', gElCanvas.width / 2, marginY),
             getDefaultTextSettings(
                 'JOHN SNOW',
                 gElCanvas.width / 2,
-                gElCanvas.height - 50
+                gElCanvas.height - marginY
             ),
         ],
     }
