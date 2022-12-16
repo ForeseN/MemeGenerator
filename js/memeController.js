@@ -6,6 +6,7 @@ let gCtx
 const RESIZE_BALL_RADIUS = 7
 const EPSILON = 10
 const RESIZE_CONSTANT = 5
+const ROTATE_BALL_RADIUS = 8
 
 const TOUCH_EVS = ['touchstart', 'touchmove', 'touchend']
 
@@ -13,6 +14,7 @@ let gIsDragging
 let gIsResizing
 let gStartPos
 let gCurrentResizeCorner
+let gIsRotating
 
 function onInit() {
     gElCanvas = document.getElementById('my-canvas')
@@ -124,7 +126,7 @@ function markSelectedLine(line) {
 
     gCtx.lineWidth = 1
     gCtx.fillStyle = '#0083e2'
-    gCtx.strokeStyle = 'white'
+    gCtx.strokeStyle = 'black'
 
     // Left Top
     gCtx.beginPath()
@@ -162,6 +164,19 @@ function markSelectedLine(line) {
     gCtx.fill()
     gCtx.stroke()
 
+    // Rotate Circle
+    gCtx.fillStyle = '#00e1d7'
+
+    gCtx.beginPath()
+    gCtx.moveTo(line.x, line.y + height / 2 + EPSILON)
+    gCtx.lineTo(line.x, rectHeight + line.y + 20)
+    gCtx.stroke()
+
+    gCtx.beginPath()
+    gCtx.arc(line.x, rectHeight + line.y + 20, ROTATE_BALL_RADIUS, 0, Math.PI * 2)
+    gCtx.fill()
+    gCtx.stroke()
+
     // gCtx.restore()
     defaultConfig()
 }
@@ -187,17 +202,18 @@ function applyTextModuleStyles(line) {
     let { txt, size, font, align, bold, italic, underline } = line
     document.querySelector('.add-text-input').value = txt
     document.querySelector('.font-family-select').value = font
-    // document.querySelector('.font-size-select').value = size
-    // console.log(document.querySelector('.font-size-select').text)
-    // console.log(document.querySelector('.font-size-select').value)
-    size = Math.trunc(size)
+
+    size = Math.trunc(size) // after resizing it comes as a decimal
     const elFontSelect = document.querySelector('.font-size-select')
+    // removing the last child
     elFontSelect.removeChild(elFontSelect.options[elFontSelect.options.length - 1])
+    // appending the new one
     var opt = document.createElement('option')
     opt.value = size
     opt.innerHTML = size
     elFontSelect.appendChild(opt)
     document.querySelector('.font-size-select').value = size
+
     // console.log(value, text)
     if (bold) document.querySelector('.bold-btn').classList.add('active')
     if (italic) document.querySelector('.italic-btn').classList.add('active')
@@ -399,9 +415,7 @@ function isClickedOnResize(line, clickedPos) {
     const height = getLineHeight(line)
 
     const startX = line.x - width / 2
-    const endX = line.x + width / 2 - startX
     const startY = line.y - height / 2
-    const endY = line.y + height / 2 - startY
 
     const resizeBallsCor = [
         { ballX: startX - EPSILON, ballY: startY - EPSILON, corner: 'left-top' },
@@ -430,6 +444,23 @@ function isClickedOnResize(line, clickedPos) {
     return corner
 }
 
+function isClickedOnRotate(line, clickedPos) {
+    const width = getLineWidth(line)
+    const height = getLineHeight(line)
+
+    const startX = line.x - width / 2
+    const rectWidth = line.x + width / 2 - startX
+    const startY = line.y - height / 2
+    const rectHeight = line.y + height / 2 - startY
+
+    gCtx.arc(line.x, rectHeight + line.y + 20, RESIZE_BALL_RADIUS + 1, 0, Math.PI * 2)
+
+    let distance = Math.sqrt(
+        (line.x - clickedPos.x) ** 2 + (rectHeight + line.y + 20 - clickedPos.y) ** 2
+    )
+    return distance <= ROTATE_BALL_RADIUS
+}
+
 function onDown(ev) {
     document.body.style.cursor = 'grabbing'
     // console.clear()
@@ -453,6 +484,11 @@ function onDown(ev) {
             gIsResizing = true
             gCurrentResizeCorner = corner
         }
+        if (isClickedOnRotate(line, pos)) {
+            meme.selectedLineIdx = idx
+            gIsRotating = true
+            console.log('YES')
+        }
     })
 
     if (meme.selectedLineIdx == null) onModuleText()
@@ -463,6 +499,7 @@ function onDown(ev) {
 function onUp(ev) {
     gIsDragging = false
     gIsResizing = false
+    gIsRotating = false
     gCurrentResizeCorner = ''
     document.body.style.cursor = 'auto'
 }
@@ -500,9 +537,38 @@ function onResize(ev) {
     renderMeme(meme)
 }
 
+function onRotate(ev) {
+    // console.log('YES')
+    const meme = getCurrMeme()
+    const line = meme.lines[meme.selectedLineIdx]
+
+    // if (gCurrentResizeCorner=='')
+
+    const pos = getEvPos(ev)
+    // // Calc the delta , the diff we moved
+    const dx = pos.x - gStartPos.x
+    const dy = pos.y - gStartPos.y
+    // const meme = getCurrMeme()
+
+    rotateLine(line, dx)
+    // // Save the last pos , we remember where we`ve been and move accordingly
+    gStartPos = pos
+    setMeme(meme)
+    renderMeme(meme)
+}
+
+function rotateLine(line, dx, dy) {
+    gCtx.save()
+    gCtx.translate(newx, newy)
+    gCtx.rotate(-Math.PI / 2)
+    gCtx.textAlign = 'center'
+    gCtx.fillText('Your Label Here', labelXposition, 0)
+    gCtx.restore()
+}
 function onMove(ev) {
     if (gIsDragging) onDrag(ev)
     if (gIsResizing) onResize(ev)
+    if (gIsRotating) onRotate(ev)
 }
 
 function resizeLine(line, dx) {
