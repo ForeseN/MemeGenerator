@@ -19,6 +19,7 @@ let gIsRotating
 function onInit() {
     gElCanvas = document.getElementById('my-canvas')
     gCtx = gElCanvas.getContext('2d')
+    loadImages()
     addListeners()
     onModuleSearch()
     loadSavedMemes()

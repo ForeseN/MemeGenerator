@@ -5,54 +5,48 @@ const DEFAULT_PC_FONT_SIZE = 36
 
 let gSavedMemes
 
+const KEYWORDS = ['politic', 'celeb', 'happy', 'cute', 'dogs', 'funny', 'baby', 'cats']
+
 var gKeywordSearchCountMap = { funny: 12, cat: 16, baby: 2 }
+var gImgs = []
 // var gImgs = [
-//     { id: 1, url: './meme-imgs-square/1.jpg', keywords: ['politic', 'celebs'] },
-//     { id: 2, url: './meme-imgs-square/2.jpg', keywords: ['happy', 'dogs', 'cute'] },
-//     { id: 3, url: './meme-imgs-square/3.jpg', keywords: ['cute', 'dogs', 'baby'] },
-//     { id: 4, url: './meme-imgs-square/4.jpg', keywords: ['cute', 'cats', 'happy'] },
-//     { id: 5, url: './meme-imgs-square/5.jpg', keywords: ['baby', 'cute', 'power'] },
-//     { id: 6, url: './meme-imgs-square/6.jpg', keywords: ['funny', 'power'] },
-//     { id: 7, url: './meme-imgs-square/7.jpg', keywords: ['funny', 'cute', 'baby'] },
-//     { id: 8, url: './meme-imgs-square/8.jpg', keywords: ['funny', 'power'] },
-//     { id: 9, url: './meme-imgs-square/9.jpg', keywords: ['funny', 'baby', 'power'] },
-//     { id: 10, url: './meme-imgs-square/10.jpg', keywords: ['politic', 'power', 'celeb'] },
-//     { id: 11, url: './meme-imgs-square/11.jpg', keywords: ['celebs', 'power'] },
-//     { id: 12, url: './meme-imgs-square/12.jpg', keywords: ['funny', 'power'] },
-//     { id: 13, url: './meme-imgs-square/13.jpg', keywords: ['power', 'celebs'] },
-//     { id: 14, url: './meme-imgs-square/14.jpg', keywords: ['power', 'celebs'] },
-//     { id: 15, url: './meme-imgs-square/15.jpg', keywords: ['power', 'celebs'] },
-//     { id: 16, url: './meme-imgs-square/16.jpg', keywords: ['funny'] },
-//     { id: 17, url: './meme-imgs-square/17.jpg', keywords: ['celebs', 'politic'] },
-//     { id: 18, url: './meme-imgs-square/18.jpg', keywords: ['funny', 'cute'] },
+//     { id: 1, url: './meme-imgs/01.jpg', keywords: ['politic', 'celebs'] },
+//     { id: 2, url: './meme-imgs/02.jpg', keywords: ['happy', 'dogs', 'cute'] },
+//     { id: 3, url: './meme-imgs/03.jpg', keywords: ['cute', 'dogs', 'baby'] },
+//     { id: 4, url: './meme-imgs/04.jpg', keywords: ['cute', 'cats', 'happy'] },
+//     { id: 5, url: './meme-imgs/05.jpg', keywords: ['baby', 'cute', 'power'] },
+//     { id: 6, url: './meme-imgs/06.jpg', keywords: ['funny', 'power'] },
+//     { id: 7, url: './meme-imgs/07.jpg', keywords: ['funny', 'cute', 'baby'] },
+//     { id: 8, url: './meme-imgs/08.jpg', keywords: ['funny', 'power'] },
+//     { id: 9, url: './meme-imgs/09.jpg', keywords: ['funny', 'baby', 'power'] },
+//     { id: 10, url: './meme-imgs/10.jpg', keywords: ['politic', 'power', 'celeb'] },
+//     { id: 11, url: './meme-imgs/11.jpg', keywords: ['celebs', 'power'] },
+//     { id: 12, url: './meme-imgs/12.jpg', keywords: ['funny', 'power'] },
+//     { id: 13, url: './meme-imgs/13.jpg', keywords: ['power', 'celebs'] },
+//     { id: 14, url: './meme-imgs/14.jpg', keywords: ['power', 'celebs'] },
+//     { id: 15, url: './meme-imgs/15.jpg', keywords: ['power', 'celebs'] },
+//     { id: 16, url: './meme-imgs/16.jpg', keywords: ['funny'] },
+//     { id: 17, url: './meme-imgs/17.jpg', keywords: ['celebs', 'politic'] },
+//     { id: 18, url: './meme-imgs/18.jpg', keywords: ['funny', 'cute'] },
+//     { id: 19, url: './meme-imgs/19.jpg', keywords: ['power', 'celebs'] },
+//     { id: 20, url: './meme-imgs/20.jpg', keywords: ['funny'] },
+//     { id: 21, url: './meme-imgs/21.jpg', keywords: ['celebs', 'politic'] },
+//     { id: 22, url: './meme-imgs/22.jpg', keywords: ['funny', 'cute'] },
+//     { id: 23, url: './meme-imgs/23.jpg', keywords: ['power', 'celebs'] },
+//     { id: 24, url: './meme-imgs/24.jpg', keywords: ['funny'] },
+//     { id: 25, url: './meme-imgs/25.jpg', keywords: ['celebs', 'politic'] },
 // ]
-var gImgs = [
-    { id: 1, url: './meme-imgs/01.jpg', keywords: ['politic', 'celebs'] },
-    { id: 2, url: './meme-imgs/02.jpg', keywords: ['happy', 'dogs', 'cute'] },
-    { id: 3, url: './meme-imgs/03.jpg', keywords: ['cute', 'dogs', 'baby'] },
-    { id: 4, url: './meme-imgs/04.jpg', keywords: ['cute', 'cats', 'happy'] },
-    { id: 5, url: './meme-imgs/05.jpg', keywords: ['baby', 'cute', 'power'] },
-    { id: 6, url: './meme-imgs/06.jpg', keywords: ['funny', 'power'] },
-    { id: 7, url: './meme-imgs/07.jpg', keywords: ['funny', 'cute', 'baby'] },
-    { id: 8, url: './meme-imgs/08.jpg', keywords: ['funny', 'power'] },
-    { id: 9, url: './meme-imgs/09.jpg', keywords: ['funny', 'baby', 'power'] },
-    { id: 10, url: './meme-imgs/10.jpg', keywords: ['politic', 'power', 'celeb'] },
-    { id: 11, url: './meme-imgs/11.jpg', keywords: ['celebs', 'power'] },
-    { id: 12, url: './meme-imgs/12.jpg', keywords: ['funny', 'power'] },
-    { id: 13, url: './meme-imgs/13.jpg', keywords: ['power', 'celebs'] },
-    { id: 14, url: './meme-imgs/14.jpg', keywords: ['power', 'celebs'] },
-    { id: 15, url: './meme-imgs/15.jpg', keywords: ['power', 'celebs'] },
-    { id: 16, url: './meme-imgs/16.jpg', keywords: ['funny'] },
-    { id: 17, url: './meme-imgs/17.jpg', keywords: ['celebs', 'politic'] },
-    { id: 18, url: './meme-imgs/18.jpg', keywords: ['funny', 'cute'] },
-    { id: 19, url: './meme-imgs/19.jpg', keywords: ['power', 'celebs'] },
-    { id: 20, url: './meme-imgs/20.jpg', keywords: ['funny'] },
-    { id: 21, url: './meme-imgs/21.jpg', keywords: ['celebs', 'politic'] },
-    { id: 22, url: './meme-imgs/22.jpg', keywords: ['funny', 'cute'] },
-    { id: 23, url: './meme-imgs/23.jpg', keywords: ['power', 'celebs'] },
-    { id: 24, url: './meme-imgs/24.jpg', keywords: ['funny'] },
-    { id: 25, url: './meme-imgs/25.jpg', keywords: ['celebs', 'politic'] },
-]
+
+function loadImages() {
+    for (let i = 26; i < 57; i++) {
+        gImgs.push({
+            id: i,
+            url: `./meme-imgs/${i}.jpg`,
+            keywords: [getRandomItem(KEYWORDS), getRandomItem(KEYWORDS), getRandomItem(KEYWORDS)],
+        })
+    }
+    gImgs.sort((_, __) => 0.5 - Math.random())
+}
 var gFilteredImgs = gImgs
 
 var gTxts = [
@@ -72,7 +66,7 @@ var gTxts = [
     'Beauty’s the purgation of superfluities',
     'Knowledge shrinks as wisdom grows',
 ]
-// gImgs.sort((_, __) => 0.5 - Math.random())
+
 var gMeme
 
 function createMeme(id, url) {
