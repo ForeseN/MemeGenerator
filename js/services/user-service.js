@@ -1,6 +1,6 @@
 'use strict'
 
-let gUserPref = { format: 'jpeg', lang: 'english' }
+let gUserPref = { format: 'jpeg', lang: 'en' }
 
 function getUserPref() {
     return gUserPref

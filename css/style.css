@@ -16,3 +16,7 @@
 @import './cmps/saved-memes-module.css';
 @import './cmps/modal.css';
 @import './cmps/main-content.css';
+
+body.rtl {
+    direction: rtl;
+}

@@ -9,7 +9,7 @@
     position: fixed;
     top: 50%;
     left: 50%;
-    padding-right: 15rem;
+    padding-inline-end: 15rem;
     transform: translate(-50%, -50%);
     border: 2px solid #2b2b2c;
     border-radius: 6px;

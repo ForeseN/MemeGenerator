@@ -49,6 +49,7 @@ function renderMeme(meme) {
             markSelectedLine(meme.lines[meme.selectedLineIdx])
         }
         setMeme(meme)
+        doTrans()
         // resizeCanvas()
     }
 }
@@ -253,8 +254,7 @@ function applyTextModuleStyles(line) {
     if (align === 'right') {
         document.querySelector('.align-right-btn').classList.add('active')
     }
-
-    document.querySelector('.font-family-select')
+    doTrans()
 }
 
 function removeSelectedLine() {
@@ -268,6 +268,7 @@ function openEditor() {
     hideElement('.gallery')
     showElement('.editor')
     onModuleText()
+    doTrans()
 }
 
 // ---------------------- ON FUNCTIONS  ----------------------
@@ -444,6 +445,7 @@ function onBack() {
     hideElement('.editor')
     showElement('.gallery')
     renderGallery()
+    doTrans()
 }
 
 function onSurpriseMe() {
@@ -463,6 +465,7 @@ function onSearch(value) {
     })
     setFilteredImgs(filteredImages)
     renderGallery()
+    doTrans()
 }
 
 function onSave() {
@@ -475,6 +478,7 @@ function onSave() {
         savedMemes.push(meme)
         saveToStorage(SAVED_MEMES_KEY, savedMemes)
         onModuleSavedMemes()
+        doTrans()
     }, 100)
 }
 
@@ -668,6 +672,7 @@ function onModuleText(elBtn) {
     removeActiveModules()
     elBtn.classList.add('active')
     renderModuleText()
+    doTrans()
 }
 
 function onModuleGallery(elBtn) {
@@ -675,12 +680,14 @@ function onModuleGallery(elBtn) {
     removeActiveModules()
     elBtn.classList.add('active')
     renderModuleGallery()
+    doTrans()
 }
 function onModuleStickers(elBtn) {
     showElement('.tab-container')
     removeActiveModules()
     elBtn.classList.add('active')
     renderModuleStickers()
+    doTrans()
 }
 
 function onModuleSearch(elBtn) {
@@ -689,6 +696,7 @@ function onModuleSearch(elBtn) {
     removeActiveModules()
     elBtn.classList.add('active')
     renderModuleSearch()
+    doTrans()
 }
 function onModuleSavedMemes(elBtn) {
     if (!elBtn) elBtn = document.querySelector('.saved-memes-btn')
@@ -696,12 +704,14 @@ function onModuleSavedMemes(elBtn) {
     removeActiveModules()
     elBtn.classList.add('active')
     renderModuleSavedMemes()
+    doTrans()
 }
 function onModuleExamples(elBtn) {
     showElement('.tab-container')
     removeActiveModules()
     elBtn.classList.add('active')
     renderModuleExamples()
+    doTrans()
 }
 
 function onModuleHelp(elBtn) {
@@ -709,22 +719,23 @@ function onModuleHelp(elBtn) {
     removeActiveModules()
     elBtn.classList.add('active')
     renderModuleHelp()
+    doTrans()
 }
 
 function renderModuleHelp() {
     document.querySelector('.tab-container').innerHTML = `
     ${getModuleHeader('Help')}
     <div class="help-module">
-                        <h3>Need Some Help?</h3>
-                        <p>You can contact me via one of my socials</p>
-                        <div class="socials">
-                            <a href="https://www.facebook.com/yaron.kashayev/" target="_blank" class="btn"><img src="imgs/facebook.png" alt=""></a>
-                            <a href="https://www.linkedin.com/in/yaron-shapira/" target="_blank" class="btn"><img src="imgs/linkedin.png" alt=""></a>
-                            <a href="https://www.instagram.com/yaron_shapira_k/" target="_blank" class="btn"><img src="imgs/instagram.png" alt=""></a>
-                            <a href="https://github.com/ForeseN" target="_blank" class="btn"><img src="imgs/github.png" alt=""></a>
-                        </div>
-                        <p class="copyright">&copy; 2022, Yaron Shapira</p>
-                    </div>
+        <h3 data-trans="help-module-header">Need Some Help?</h3>
+        <p data-trans="help-module-p">You can contact me via one of my socials</p>
+        <div class="socials">
+            <a href="https://www.facebook.com/yaron.kashayev/" target="_blank" class="btn"><img src="imgs/facebook.png" alt=""></a>
+            <a href="https://www.linkedin.com/in/yaron-shapira/" target="_blank" class="btn"><img src="imgs/linkedin.png" alt=""></a>
+            <a href="https://www.instagram.com/yaron_shapira_k/" target="_blank" class="btn"><img src="imgs/instagram.png" alt=""></a>
+            <a href="https://github.com/ForeseN" target="_blank" class="btn"><img src="imgs/github.png" alt=""></a>
+        </div>
+        <p class="copyright">&copy; 2022, <span data-trans="full-name">Yaron Shapira</span></p>
+    </div>
     `
 }
 function removeActiveModules() {
@@ -843,25 +854,6 @@ function addKeyboardListeners() {
 }
 
 function resizeCanvas(url) {
-    // const elContainer = document.querySelector('.canvas-container')
-    // console.log(elContainer.offsetWidth)
-    // const oldCanvasWidth = gElCanvas.width
-    // const oldCanvasHeight = gElCanvas.height
-    // gElCanvas.width = elContainer.offsetWidth - 20
-    // gElCanvas.height = elContainer.offsetHeight - 20
-    // const hWidth = gElCanvas.width / oldCanvasWidth
-    // const hHeight = gElCanvas.width / oldCanvasHeight
-    // console.log(gElCanvas.width)
-    // const meme = getCurrMeme()
-    // meme.lines.forEach(line => {
-    //     line.x *= hWidth
-    //     line.y *= hHeight
-    // })
-    // renderMeme(getCurrMeme())
-    // gElCanvas = document.getElementById('my-canvas')
-    // gElCanvas.width = gElCanvas.offsetWidth
-    // gElCanvas.height = gElCanvas.offsetHeight
-
     let img = new Image() // Create a new html img element
     img.src = url
 
@@ -916,6 +908,7 @@ function initMobile() {
 // The next 2 functions handle IMAGE UPLOADING to img tag from file system:
 function onImgInput(ev) {
     openEditor()
+    doTrans()
     loadImageFromInput(ev, renderImg)
 }
 
@@ -930,6 +923,7 @@ function loadImageFromInput(ev, onImageReady) {
         img.onload = () => {
             createDownloadedMeme(img.src)
             onImageReady(img)
+            doTrans()
         }
     }
 
@@ -949,6 +943,7 @@ function onOpenSettings() {
 function openModal() {
     showElement('.modal')
     showElement('.black-overlay')
+    doTrans()
 }
 
 function onChangeUserPrefFormat(elBtn) {
@@ -968,15 +963,21 @@ function onChangeUserPrefLanguage(elBtn) {
     elBtn.classList.add('active')
 
     const userPref = getUserPref()
-    userPref.lang = elBtn.innerText.toLowerCase()
+    if (userPref.lang !== elBtn.dataset.lang) {
+        toggleRTL()
+    }
+    userPref.lang = elBtn.dataset.lang
     setUserPref(userPref)
-    setLang(userPref.lang.at(0) + userPref.lang.at(1))
+    setLang(userPref.lang)
     doTrans()
+}
+
+function toggleRTL() {
+    document.body.classList.toggle('rtl')
 }
 
 // TODO
 // check every layout
 // add hebrew support
 // clean all code!!!
-// add a new meme format
 // add favicon
