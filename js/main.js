@@ -94,7 +94,12 @@ function loadImageFromInput(ev, onImageReady) {
 
 async function onShare() {
     if (!getCurrMeme()) return
-    const imgDataUrl = gElCanvas.toDataURL('image/jpeg')
+    let imgDataUrl
+    removeSelectedLine()
+    setTimeout(() => {
+        imgDataUrl = gElCanvas.toDataURL('image/jpeg')
+    }, 100)
+
     const blob = await (await fetch(imgDataUrl)).blob()
     const filesArray = [
         new File([blob], 'animation.png', {
