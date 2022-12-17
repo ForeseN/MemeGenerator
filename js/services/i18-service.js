@@ -187,22 +187,16 @@ const gRTL = ['he']
 var gCurrLang = 'en'
 
 function getTrans(transKey) {
-    // done: if key is unknown return 'UNKNOWN'
     const key = gTrans[transKey]
     if (!key) return 'UNKNOWN'
 
-    // done: get from gTrans
     var translation = key[gCurrLang]
 
-    // done: If translation not found - use english
     if (!translation) translation = key.en
     return translation
 }
 
 function doTrans() {
-    // done:
-    // var els = document.querySelectorAll('[data-trans]'
-    // for each el:
     //    get the data-trans and use getTrans to replace the innerText
     var els = document.querySelectorAll('[data-trans]')
     els.forEach(el => {
@@ -211,7 +205,7 @@ function doTrans() {
 
         el.innerText = translation
 
-        // done: support placeholder
+        // support placeholder
         if (el.placeholder) el.placeholder = translation
     })
 }

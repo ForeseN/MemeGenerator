@@ -35,5 +35,3 @@ function renderEmptyGallery() {
     document.querySelector('.gallery-grid').innerHTML = strHTML
     document.querySelector('.gallery-grid').classList.add('no-grid')
 }
-
-function popularCategories() {}

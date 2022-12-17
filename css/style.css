@@ -17,6 +17,3 @@
 @import './cmps/modal.css';
 @import './cmps/main-content.css';
 
-body.rtl {
-    direction: rtl;
-}

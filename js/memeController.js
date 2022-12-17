@@ -63,16 +63,6 @@ function renderTextOnMeme(meme) {
 function isClickedText(line, pos) {
     const width = getLineWidth(line)
     const height = getLineHeight(line)
-    // console.log(
-    //     pos.x,
-    //     line.x - width / 2,
-    //     pos.x,
-    //     line.x + width / 2,
-    //     pos.y,
-    //     line.y - height / 2,
-    //     pos.y,
-    //     line.y + height / 2
-    // )
     return (
         pos.x > line.x - width / 2 &&
         pos.x < line.x + width / 2 &&
@@ -125,8 +115,6 @@ function markRotatedLine(line) {
         rectHeight + 2 * EPSILON
     )
     gCtx.textAlign = 'center'
-    // gCtx.strokeText(txt, 0, 0)
-    // gCtx.fillText(txt, 0, 0)
     gCtx.restore()
     defaultConfig()
 }
@@ -137,7 +125,6 @@ function markSelectedLine(line) {
     const rectWidth = line.x + width / 2 - startX
     const startY = line.y - height / 2
     const rectHeight = line.y + height / 2 - startY
-    // gCtx.save()
     gCtx.lineWidth = 2
     if (line.rotateValue != 0) return markRotatedLine(line)
     gCtx.beginPath()
@@ -202,18 +189,7 @@ function markSelectedLine(line) {
     gCtx.fill()
     gCtx.stroke()
 
-    // gCtx.restore()
     defaultConfig()
-}
-
-function onTextDefaultSettings() {
-    const meme = getCurrMeme()
-    if (meme.selectedLineIdx == null) return
-    const line = meme.lines[meme.selectedLineIdx]
-    meme.lines[meme.selectedLineIdx] = getDefaultTextSettings(line.txt, line.x, line.y)
-    applyTextModuleStyles(meme.lines[meme.selectedLineIdx])
-    setMeme(meme)
-    renderMeme(meme)
 }
 
 function TextModuleStylesClearSlate() {
@@ -273,6 +249,16 @@ function openEditor() {
 
 // ---------------------- ON FUNCTIONS  ----------------------
 
+function onTextDefaultSettings() {
+    const meme = getCurrMeme()
+    if (meme.selectedLineIdx == null) return
+    const line = meme.lines[meme.selectedLineIdx]
+    meme.lines[meme.selectedLineIdx] = getDefaultTextSettings(line.txt, line.x, line.y)
+    applyTextModuleStyles(meme.lines[meme.selectedLineIdx])
+    setMeme(meme)
+    renderMeme(meme)
+}
+
 function onAddText() {
     const addTextInput = document.querySelector('.add-text-input')
     const txt = addTextInput.value
@@ -301,26 +287,6 @@ function onUnderline() {
     setMeme(meme)
     renderMeme(meme)
 }
-
-// function onIncFont() {
-//     const meme = getCurrMeme()
-//     meme.lines[meme.selectedLineIdx].size += 2
-//     setMeme(meme)
-//     renderMeme(meme)
-// }
-// function onDecFont() {
-//     const meme = getCurrMeme()
-//     meme.lines[meme.selectedLineIdx].size -= 2
-//     setMeme(meme)
-//     renderMeme(meme)
-// }
-
-// function onSwitchLines() {
-//     const meme = getCurrMeme()
-//     meme.selectedLineIdx = (meme.selectedLineIdx + 1) % meme.lines.length
-//     console.log(meme.selectedLineIdx)
-//     setMeme(meme)
-// }
 
 async function onShare() {
     if (!getCurrMeme()) return
@@ -482,58 +448,6 @@ function onSave() {
     }, 100)
 }
 
-//Check if the click is inside the circle
-function isClickedOnResize(line, clickedPos) {
-    const width = getLineWidth(line)
-    const height = getLineHeight(line)
-
-    const startX = line.x - width / 2
-    const startY = line.y - height / 2
-
-    const resizeBallsCor = [
-        { ballX: startX - EPSILON, ballY: startY - EPSILON, corner: 'left-top' },
-        {
-            ballX: startX - EPSILON,
-            ballY: line.y + height / 2 + EPSILON,
-            corner: 'left-bottom',
-        },
-        {
-            ballX: line.x + width / 2 + EPSILON,
-            ballY: line.y - height / 2 - EPSILON,
-            corner: 'right-top',
-        },
-        {
-            ballX: line.x + width / 2 + EPSILON,
-            ballY: line.y + height / 2 + EPSILON,
-            corner: 'right-bottom',
-        },
-    ]
-
-    let corner = ''
-    resizeBallsCor.forEach(cor => {
-        let distance = Math.sqrt((cor.ballX - clickedPos.x) ** 2 + (cor.ballY - clickedPos.y) ** 2)
-        if (distance <= RESIZE_BALL_RADIUS) corner = cor.corner
-    })
-    return corner
-}
-
-function isClickedOnRotate(line, clickedPos) {
-    const width = getLineWidth(line)
-    const height = getLineHeight(line)
-
-    const startX = line.x - width / 2
-    const rectWidth = line.x + width / 2 - startX
-    const startY = line.y - height / 2
-    const rectHeight = line.y + height / 2 - startY
-
-    gCtx.arc(line.x, rectHeight + line.y + 20, RESIZE_BALL_RADIUS + 1, 0, Math.PI * 2)
-
-    let distance = Math.sqrt(
-        (line.x - clickedPos.x) ** 2 + (rectHeight + line.y + 20 - clickedPos.y) ** 2
-    )
-    return distance <= ROTATE_BALL_RADIUS
-}
-
 function onDown(ev) {
     document.body.style.cursor = 'grabbing'
     // console.clear()
@@ -592,26 +506,21 @@ function onDrag(ev) {
 }
 
 function onResize(ev) {
-    // console.log('YES')
     const meme = getCurrMeme()
     const line = meme.lines[meme.selectedLineIdx]
-
-    // if (gCurrentResizeCorner=='')
 
     const pos = getEvPos(ev)
     // // Calc the delta , the diff we moved
     const dx = pos.x - gStartPos.x
-    // const meme = getCurrMeme()
 
     resizeLine(line, dx)
-    // // Save the last pos , we remember where we`ve been and move accordingly
+    // Save the last pos , we remember where we`ve been and move accordingly
     gStartPos = pos
     setMeme(meme)
     renderMeme(meme)
 }
 
 function onRotate(ev) {
-    // console.log('YES')
     const meme = getCurrMeme()
     const line = meme.lines[meme.selectedLineIdx]
 
@@ -621,7 +530,6 @@ function onRotate(ev) {
     // // Calc the delta , the diff we moved
     const dx = pos.x - gStartPos.x
     const dy = pos.y - gStartPos.y
-    // const meme = getCurrMeme()
 
     rotateLine(line, dx)
     // // Save the last pos , we remember where we`ve been and move accordingly
@@ -632,13 +540,6 @@ function onRotate(ev) {
 
 function rotateLine(line, dx, dy) {
     line.rotateValue += -dx / 80
-    // console.log('ROTATING')
-    // gCtx.save()
-    // gCtx.translate(newx, newy)
-    // gCtx.rotate(-Math.PI / 2)
-    // gCtx.textAlign = 'center'
-    // gCtx.fillText('Your Label Here', labelXposition, 0)
-    // gCtx.restore()
 }
 function onMove(ev) {
     if (gIsDragging) onDrag(ev)
@@ -664,6 +565,58 @@ function moveLine(line, dx, dy) {
     line.y += dy
 }
 
+// ----------------------  IS CLICKED   ----------------------
+//Check if the click is inside the circle
+function isClickedOnResize(line, clickedPos) {
+    const width = getLineWidth(line)
+    const height = getLineHeight(line)
+
+    const startX = line.x - width / 2
+    const startY = line.y - height / 2
+
+    const resizeBallsCor = [
+        { ballX: startX - EPSILON, ballY: startY - EPSILON, corner: 'left-top' },
+        {
+            ballX: startX - EPSILON,
+            ballY: line.y + height / 2 + EPSILON,
+            corner: 'left-bottom',
+        },
+        {
+            ballX: line.x + width / 2 + EPSILON,
+            ballY: line.y - height / 2 - EPSILON,
+            corner: 'right-top',
+        },
+        {
+            ballX: line.x + width / 2 + EPSILON,
+            ballY: line.y + height / 2 + EPSILON,
+            corner: 'right-bottom',
+        },
+    ]
+
+    let corner = ''
+    resizeBallsCor.forEach(cor => {
+        let distance = Math.sqrt((cor.ballX - clickedPos.x) ** 2 + (cor.ballY - clickedPos.y) ** 2)
+        if (distance <= RESIZE_BALL_RADIUS) corner = cor.corner
+    })
+    return corner
+}
+
+function isClickedOnRotate(line, clickedPos) {
+    const width = getLineWidth(line)
+    const height = getLineHeight(line)
+
+    const startX = line.x - width / 2
+    const rectWidth = line.x + width / 2 - startX
+    const startY = line.y - height / 2
+    const rectHeight = line.y + height / 2 - startY
+
+    gCtx.arc(line.x, rectHeight + line.y + 20, RESIZE_BALL_RADIUS + 1, 0, Math.PI * 2)
+
+    let distance = Math.sqrt(
+        (line.x - clickedPos.x) ** 2 + (rectHeight + line.y + 20 - clickedPos.y) ** 2
+    )
+    return distance <= ROTATE_BALL_RADIUS
+}
 // ----------------------  ON MODULES   ----------------------
 
 function onModuleText(elBtn) {
@@ -853,6 +806,7 @@ function addKeyboardListeners() {
     gElCanvas.addEventListener('keypress', onKeyDown())
 }
 
+// ----------------------     MISC     ----------------------
 function resizeCanvas(url) {
     let img = new Image() // Create a new html img element
     img.src = url
@@ -873,10 +827,6 @@ function resizeCanvas(url) {
         gElCanvas.width = pageWidth * 0.9
     }
     gElCanvas.height = gElCanvas.width * ratio
-    console.log('resizeCanvas() Done')
-    // console.log(gElCanvas.height, gElCanvas.width)
-    // getMeme(1)
-    // renderMeme(getCurrMeme())
 }
 
 function getCanvasMetrics() {
@@ -930,6 +880,8 @@ function loadImageFromInput(ev, onImageReady) {
     reader.readAsDataURL(ev.target.files[0]) // Read the file we picked
 }
 
+// ----------------------   MODAL   ----------------------
+
 function onCloseModal() {
     hideElement('.modal')
     hideElement('.black-overlay')
@@ -975,9 +927,3 @@ function onChangeUserPrefLanguage(elBtn) {
 function toggleRTL() {
     document.body.classList.toggle('rtl')
 }
-
-// TODO
-// check every layout
-// add hebrew support
-// clean all code!!!
-// add favicon
