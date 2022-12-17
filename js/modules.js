@@ -8,6 +8,8 @@ function getModuleHeader(txt) {
     </div>`
 }
 
+// resize and rotate mouse out
+
 function renderModuleGallery() {
     const imgs = getUnfilteredImages()
 

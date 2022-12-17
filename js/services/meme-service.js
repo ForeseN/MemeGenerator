@@ -121,6 +121,7 @@ function surpriseMeme() {
     const image = getRandomItem(gImgs)
     const linesOfText = getRandomInt(1, 3) // 3 is exclusive
     const meme = getMeme(image.id)
+    console.log(image, linesOfText, meme)
     meme.lines = []
     gMeme.lines.push(getDefaultTextSettings(getRandomItem(gTxts), gElCanvas.width / 2, 50))
 

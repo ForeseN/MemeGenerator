@@ -208,6 +208,7 @@ function onTextDefaultSettings() {
     if (meme.selectedLineIdx == null) return
     const line = meme.lines[meme.selectedLineIdx]
     meme.lines[meme.selectedLineIdx] = getDefaultTextSettings(line.txt, line.x, line.y)
+    meme.lines[meme.selectedLineIdx].align = null
     applyTextModuleStyles(meme.lines[meme.selectedLineIdx])
     setMeme(meme)
     renderMeme(meme)
