@@ -95,7 +95,7 @@ function loadImageFromInput(ev, onImageReady) {
 async function onShare() {
     if (!getCurrMeme()) return
 
-    removeSelectedLine()
+    // removeSelectedLine()
     const imgDataUrl = gElCanvas.toDataURL('image/jpeg')
     const blob = await (await fetch(imgDataUrl)).blob()
     const filesArray = [
