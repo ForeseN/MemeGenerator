@@ -322,6 +322,7 @@ function onUnderline() {
 // }
 
 async function onShare() {
+    if (!getCurrMeme()) return
     const imgDataUrl = gElCanvas.toDataURL('image/jpeg')
     const blob = await (await fetch(imgDataUrl)).blob()
     const filesArray = [
@@ -334,6 +335,7 @@ async function onShare() {
         files: filesArray,
     }
     navigator.share(shareData)
+
     // Working Facebook Share
     // const imgDataUrl = gElCanvas.toDataURL('image/jpeg') // Gets the canvas content as an image format
     // // A function to be called if request succeeds
@@ -349,6 +351,7 @@ async function onShare() {
 }
 
 function onDownload() {
+    if (!getCurrMeme()) return
     removeSelectedLine()
     const userPref = getUserPref()
     // Hopefully selected line is removed
@@ -388,10 +391,8 @@ function onFontSizeChange(value) {
 }
 
 function onChangeText(value) {
-    // console.log(value)
     const meme = getCurrMeme()
     if (meme.selectedLineIdx == null) return
-    // console.log(meme.selectedLineIdx)
 
     meme.lines[meme.selectedLineIdx].txt = value
     setMeme(meme)
@@ -969,6 +970,8 @@ function onChangeUserPrefLanguage(elBtn) {
     const userPref = getUserPref()
     userPref.lang = elBtn.innerText.toLowerCase()
     setUserPref(userPref)
+    setLang(userPref.lang.at(0) + userPref.lang.at(1))
+    doTrans()
 }
 
 // TODO
