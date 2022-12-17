@@ -3,7 +3,7 @@
 function getModuleHeader(txt) {
     return `
     
-        <div class="module-header" data-trans="${txt}">${txt}
+        <div class="module-header"><span data-trans="${txt}">${txt}</span>
         <button class="btn pc-hide close-module" onclick="onCloseModule()"><i class="fa-solid fa-xmark fa-1x"></i></button>
     </div>`
 }
