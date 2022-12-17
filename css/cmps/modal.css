@@ -50,3 +50,18 @@
 .modal button:not(.active):not(.close):hover {
     background: var(--tertiary-color);
 }
+
+@media screen and (max-width: 800px) {
+    .modal {
+        padding: 2rem;
+        max-height: 300px;
+    }
+    .modal .mini-grid {
+        grid-template-columns: repeat(2, 1fr);
+        place-items: unset;
+    }
+    .modal .mini-grid p {
+        grid-column: 1 / span 2;
+        text-align: left;
+    }
+}
