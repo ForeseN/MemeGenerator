@@ -16,18 +16,9 @@ let gStartPos
 let gCurrentResizeCorner
 let gIsRotating
 
-function onInit() {
+function loadCanvas() {
     gElCanvas = document.getElementById('my-canvas')
     gCtx = gElCanvas.getContext('2d')
-    loadImages()
-    addListeners()
-    onModuleSearch()
-    loadSavedMemes()
-    loadFont()
-
-    if (isMobileDevice()) initMobile()
-    defaultConfig()
-    renderGallery()
 }
 
 function defaultConfig() {
@@ -39,46 +30,9 @@ function defaultConfig() {
     gCtx.lineWidth = 4
 }
 
-function renderMeme(meme) {
-    let img = new Image() // Create a new html img element
-    img.src = meme.url // Set the img src
-    img.onload = () => {
-        renderImg(img)
-        renderTextOnMeme(meme)
-        if (meme.selectedLineIdx != null) {
-            markSelectedLine(meme.lines[meme.selectedLineIdx])
-        }
-        setMeme(meme)
-        doTrans()
-        // resizeCanvas()
-    }
-}
-
 function renderTextOnMeme(meme) {
     meme.lines.forEach(line => {
         drawText(line)
-    })
-}
-
-function isClickedText(line, pos) {
-    const width = getLineWidth(line)
-    const height = getLineHeight(line)
-    return (
-        pos.x > line.x - width / 2 &&
-        pos.x < line.x + width / 2 &&
-        pos.y > line.y - height / 2 &&
-        pos.y < line.y + height / 2
-    )
-}
-
-function loadFont() {
-    var f = new FontFace('Impact', 'url(./font/unicode.impact.ttf)')
-    f.load().then(function (font) {
-        // Ready to use the font in a canvas context
-        console.log('font ready')
-
-        // Add font on the html page
-        document.fonts.add(font)
     })
 }
 
@@ -286,48 +240,6 @@ function onUnderline() {
     meme.lines[meme.selectedLineIdx].underline = !meme.lines[meme.selectedLineIdx].underline
     setMeme(meme)
     renderMeme(meme)
-}
-
-async function onShare() {
-    if (!getCurrMeme()) return
-    const imgDataUrl = gElCanvas.toDataURL('image/jpeg')
-    const blob = await (await fetch(imgDataUrl)).blob()
-    const filesArray = [
-        new File([blob], 'animation.png', {
-            type: blob.type,
-            lastModified: new Date().getTime(),
-        }),
-    ]
-    const shareData = {
-        files: filesArray,
-    }
-    navigator.share(shareData)
-
-    // Working Facebook Share
-    // const imgDataUrl = gElCanvas.toDataURL('image/jpeg') // Gets the canvas content as an image format
-    // // A function to be called if request succeeds
-    // function onSuccess(uploadedImgUrl) {
-    //     // Encode the instance of certain characters in the url
-    //     const encodedUploadedImgUrl = encodeURIComponent(uploadedImgUrl)
-    //     window.open(
-    //         `https://www.facebook.com/sharer/sharer.php?u=${encodedUploadedImgUrl}&t=${encodedUploadedImgUrl}`
-    //     )
-    // }
-    // // Send the image to the server
-    // doUploadImg(imgDataUrl, onSuccess)
-}
-
-function onDownload() {
-    if (!getCurrMeme()) return
-    removeSelectedLine()
-    const userPref = getUserPref()
-    // Hopefully selected line is removed
-    setTimeout(() => {
-        let link = document.createElement('a')
-        link.download = `meme.${userPref.format}`
-        link.href = gElCanvas.toDataURL(`image/${userPref.format}`)
-        link.click(), 100
-    })
 }
 
 function onTextColorChange(value) {
@@ -617,6 +529,18 @@ function isClickedOnRotate(line, clickedPos) {
     )
     return distance <= ROTATE_BALL_RADIUS
 }
+
+function isClickedText(line, pos) {
+    const width = getLineWidth(line)
+    const height = getLineHeight(line)
+    return (
+        pos.x > line.x - width / 2 &&
+        pos.x < line.x + width / 2 &&
+        pos.y > line.y - height / 2 &&
+        pos.y < line.y + height / 2
+    )
+}
+
 // ----------------------  ON MODULES   ----------------------
 
 function onModuleText(elBtn) {
@@ -675,22 +599,6 @@ function onModuleHelp(elBtn) {
     doTrans()
 }
 
-function renderModuleHelp() {
-    document.querySelector('.tab-container').innerHTML = `
-    ${getModuleHeader('Help')}
-    <div class="help-module">
-        <h3 data-trans="help-module-header">Need Some Help?</h3>
-        <p data-trans="help-module-p">You can contact me via one of my socials</p>
-        <div class="socials">
-            <a href="https://www.facebook.com/yaron.kashayev/" target="_blank" class="btn"><img src="imgs/facebook.png" alt=""></a>
-            <a href="https://www.linkedin.com/in/yaron-shapira/" target="_blank" class="btn"><img src="imgs/linkedin.png" alt=""></a>
-            <a href="https://www.instagram.com/yaron_shapira_k/" target="_blank" class="btn"><img src="imgs/instagram.png" alt=""></a>
-            <a href="https://github.com/ForeseN" target="_blank" class="btn"><img src="imgs/github.png" alt=""></a>
-        </div>
-        <p class="copyright">&copy; 2022, <span data-trans="full-name">Yaron Shapira</span></p>
-    </div>
-    `
-}
 function removeActiveModules() {
     const btns = document.querySelectorAll('.modules button')
     ;[...btns].forEach(btn => {
@@ -703,9 +611,22 @@ function onCloseModule() {
     hideElement('.tab-container')
 }
 
-// ---------------------- RENDER MODULES ----------------------
-
 // ---------------------- DRAW & RENDER ----------------------
+
+function renderMeme(meme) {
+    let img = new Image() // Create a new html img element
+    img.src = meme.url // Set the img src
+    img.onload = () => {
+        renderImg(img)
+        renderTextOnMeme(meme)
+        if (meme.selectedLineIdx != null) {
+            markSelectedLine(meme.lines[meme.selectedLineIdx])
+        }
+        setMeme(meme)
+        doTrans()
+        // resizeCanvas()
+    }
+}
 
 function drawText(line) {
     const {
@@ -756,56 +677,6 @@ function drawRotatedText(txt, x, y, rotateValue) {
     gCtx.restore()
 }
 
-function getEvPos(ev) {
-    // Gets the offset pos , the default pos
-    let pos = {
-        x: ev.offsetX,
-        y: ev.offsetY,
-    }
-    // Check if its a touch ev
-    if (TOUCH_EVS.includes(ev.type)) {
-        // console.log('ev:', ev)
-        //soo we will not trigger the mouse ev
-        ev.preventDefault()
-        //Gets the first touch point
-        ev = ev.changedTouches[0]
-        //Calc the right pos according to the touch screen
-        pos = {
-            x: ev.pageX - ev.target.offsetLeft - ev.target.clientLeft,
-            y: ev.pageY - ev.target.offsetTop - ev.target.clientTop,
-        }
-    }
-    return pos
-}
-
-// ----------------------   LISTENERS   ----------------------
-
-function addListeners() {
-    addMouseListeners()
-    addTouchListeners()
-
-    // Listen for resize ev
-    window.addEventListener('resize', () => {
-        // resizeCanvas()
-        // renderCanvas()
-    })
-}
-
-function addMouseListeners() {
-    gElCanvas.addEventListener('mousemove', onMove)
-    gElCanvas.addEventListener('mousedown', onDown)
-    gElCanvas.addEventListener('mouseup', onUp)
-}
-
-function addTouchListeners() {
-    gElCanvas.addEventListener('touchmove', onMove)
-    gElCanvas.addEventListener('touchstart', onDown)
-    gElCanvas.addEventListener('touchend', onUp)
-}
-function addKeyboardListeners() {
-    gElCanvas.addEventListener('keypress', onKeyDown())
-}
-
 // ----------------------     MISC     ----------------------
 function resizeCanvas(url) {
     let img = new Image() // Create a new html img element
@@ -842,42 +713,26 @@ function getCanvasMetrics() {
     }
 }
 
-function getPageWidth() {
-    return Math.max(
-        document.body.offsetWidth,
-        document.documentElement.offsetWidth,
-        document.documentElement.clientWidth
-    )
-}
-
-function initMobile() {
-    removeActiveModules()
-    hideElement('.tab-container')
-}
-
-// The next 2 functions handle IMAGE UPLOADING to img tag from file system:
-function onImgInput(ev) {
-    openEditor()
-    doTrans()
-    loadImageFromInput(ev, renderImg)
-}
-
-// CallBack func will run on success load of the img
-function loadImageFromInput(ev, onImageReady) {
-    const reader = new FileReader()
-    // After we read the file
-    reader.onload = event => {
-        let img = new Image() // Create a new html img element
-        img.src = event.target.result // Set the img src to the img file we read
-        // Run the callBack func, To render the img on the canvas
-        img.onload = () => {
-            createDownloadedMeme(img.src)
-            onImageReady(img)
-            doTrans()
+function getEvPos(ev) {
+    // Gets the offset pos , the default pos
+    let pos = {
+        x: ev.offsetX,
+        y: ev.offsetY,
+    }
+    // Check if its a touch ev
+    if (TOUCH_EVS.includes(ev.type)) {
+        // console.log('ev:', ev)
+        //soo we will not trigger the mouse ev
+        ev.preventDefault()
+        //Gets the first touch point
+        ev = ev.changedTouches[0]
+        //Calc the right pos according to the touch screen
+        pos = {
+            x: ev.pageX - ev.target.offsetLeft - ev.target.clientLeft,
+            y: ev.pageY - ev.target.offsetTop - ev.target.clientTop,
         }
     }
-
-    reader.readAsDataURL(ev.target.files[0]) // Read the file we picked
+    return pos
 }
 
 // ----------------------   MODAL   ----------------------
@@ -896,34 +751,4 @@ function openModal() {
     showElement('.modal')
     showElement('.black-overlay')
     doTrans()
-}
-
-function onChangeUserPrefFormat(elBtn) {
-    document
-        .querySelectorAll('.format-buttons button')
-        .forEach(btn => btn.classList.remove('active'))
-    elBtn.classList.add('active')
-
-    const userPref = getUserPref()
-    userPref.format = elBtn.innerText.toLowerCase()
-    setUserPref(userPref)
-}
-function onChangeUserPrefLanguage(elBtn) {
-    document
-        .querySelectorAll('.language-buttons button')
-        .forEach(btn => btn.classList.remove('active'))
-    elBtn.classList.add('active')
-
-    const userPref = getUserPref()
-    if (userPref.lang !== elBtn.dataset.lang) {
-        toggleRTL()
-    }
-    userPref.lang = elBtn.dataset.lang
-    setUserPref(userPref)
-    setLang(userPref.lang)
-    doTrans()
-}
-
-function toggleRTL() {
-    document.body.classList.toggle('rtl')
 }

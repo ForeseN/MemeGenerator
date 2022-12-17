@@ -243,3 +243,20 @@ function renderSettingsModal() {
     </div>
     `
 }
+
+function renderModuleHelp() {
+    document.querySelector('.tab-container').innerHTML = `
+    ${getModuleHeader('Help')}
+    <div class="help-module">
+        <h3 data-trans="help-module-header">Need Some Help?</h3>
+        <p data-trans="help-module-p">You can contact me via one of my socials</p>
+        <div class="socials">
+            <a href="https://www.facebook.com/yaron.kashayev/" target="_blank" class="btn"><img src="imgs/facebook.png" alt=""></a>
+            <a href="https://www.linkedin.com/in/yaron-shapira/" target="_blank" class="btn"><img src="imgs/linkedin.png" alt=""></a>
+            <a href="https://www.instagram.com/yaron_shapira_k/" target="_blank" class="btn"><img src="imgs/instagram.png" alt=""></a>
+            <a href="https://github.com/ForeseN" target="_blank" class="btn"><img src="imgs/github.png" alt=""></a>
+        </div>
+        <p class="copyright">&copy; 2022, <span data-trans="full-name">Yaron Shapira</span></p>
+    </div>
+    `
+}
