@@ -76,6 +76,10 @@
     display: none;
 }
 
+.no-grid {
+    display: block !important;
+}
+
 /* Hide scrollbar for IE, Edge add Firefox */
 .scrollbar-hidden {
     -ms-overflow-style: none;
@@ -104,8 +108,31 @@
     border-radius: 6px;
     color: white;
 }
+
+.black-overlay {
+    position: fixed;
+    top: 0%;
+    height: 0%;
+    background: rgba(0, 0, 0, 0.7);
+    width: 100vw;
+    height: 100vh;
+    z-index: 1;
+}
+
 @media screen and (min-width: 800px) {
     .pc-hide {
+        display: none !important;
+    }
+}
+
+@media screen and (max-width: 1250px) {
+    .tablet-hide {
+        display: none !important;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .mob-hide {
         display: none !important;
     }
 }

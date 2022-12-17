@@ -1,0 +1,27 @@
+.saved-media > * {
+    /* margin: 1rem 0; */
+    padding: 1rem;
+}
+
+.empty-saved-memes {
+    color: white;
+}
+.empty-saved-memes h3 {
+    font-size: 1.5rem;
+    margin: 1rem 0;
+}
+.empty-saved-memes button {
+    margin: 1rem 0;
+    display: block;
+    width: 100%;
+}
+
+.empty-saved-memes i {
+    padding-left: 0.3rem;
+}
+
+@media screen and (max-width: 1250px) {
+    .empty-gallery .empty-gallery-content {
+        flex-basis: 100%;
+    }
+}

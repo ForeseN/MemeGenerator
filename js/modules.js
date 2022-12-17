@@ -202,7 +202,6 @@ function renderEmptySavedMemes() {
 
 function renderModuleExamples() {
     const images = getExampleMemeImages()
-    // console.log(memes)
 
     let strHTML = images.map((image, idx) => {
         return `<img src=${image.url} alt="" srcset="" onclick="loadExampleMeme(${image.id - 1})">`
