@@ -265,6 +265,37 @@ main {
     height: 100vh;
     z-index: 1;
 }
+.help-module {
+    color: white;
+}
+.help-module h3 {
+    font-size: 1.5rem;
+    margin: 1rem 0;
+}
+.help-module p {
+    margin-bottom: 1rem;
+}
+
+.help-module .socials {
+    display: flex;
+    justify-content: space-evenly;
+}
+.help-module .socials a {
+    display: inline-block;
+    width: 45px;
+    background: transparent;
+    border-radius: 6px;
+    padding: 0;
+}
+.help-module .socials a img {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+.copyright {
+    text-align: center;
+    margin-top: 2rem;
+}
 @media screen and (max-width: 700px) {
     body {
         /* overflow-y: hidden; */

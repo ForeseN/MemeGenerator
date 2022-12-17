@@ -656,6 +656,30 @@ function onModuleExamples(elBtn) {
     elBtn.classList.add('active')
     renderModuleExamples()
 }
+
+function onModuleHelp(elBtn) {
+    showElement('.tab-container')
+    removeActiveModules()
+    elBtn.classList.add('active')
+    renderModuleHelp()
+}
+
+function renderModuleHelp() {
+    document.querySelector('.tab-container').innerHTML = `
+    ${getModuleHeader('Help')}
+    <div class="help-module">
+                        <h3>Need Some Help?</h3>
+                        <p>You can contact me via one of my socials</p>
+                        <div class="socials">
+                            <a href="https://www.facebook.com/yaron.kashayev/" target="_blank" class="btn"><img src="imgs/facebook.png" alt=""></a>
+                            <a href="https://www.linkedin.com/in/yaron-shapira/" target="_blank" class="btn"><img src="imgs/linkedin.png" alt=""></a>
+                            <a href="https://www.instagram.com/yaron_shapira_k/" target="_blank" class="btn"><img src="imgs/instagram.png" alt=""></a>
+                            <a href="https://github.com/ForeseN" target="_blank" class="btn"><img src="imgs/github.png" alt=""></a>
+                        </div>
+                        <p class="copyright">&copy; 2022, Yaron Shapira</p>
+                    </div>
+    `
+}
 function removeActiveModules() {
     const btns = document.querySelectorAll('.modules button')
     ;[...btns].forEach(btn => {
