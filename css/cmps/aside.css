@@ -68,7 +68,7 @@ aside {
     color: #606060;
 }
 
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 800px) {
     aside {
         position: fixed;
         order: 1;

@@ -26,8 +26,6 @@ function onInit() {
     loadFont()
 
     if (isMobileDevice()) initMobile()
-    // resizeCanvas()
-    // const meme = getMeme(3)
     defaultConfig()
     renderGallery()
 }
@@ -226,7 +224,9 @@ function TextModuleStylesClearSlate() {
 function applyTextModuleStyles(line) {
     TextModuleStylesClearSlate()
     let { txt, size, font, align, bold, italic, underline } = line
-    document.querySelector('.add-text-input').value = txt
+    if (txt !== 'ADD YOUR TEXT HERE') {
+        document.querySelector('.add-text-input').value = txt
+    }
     document.querySelector('.font-family-select').value = font
 
     size = Math.trunc(size) // after resizing it comes as a decimal
@@ -585,7 +585,7 @@ function onRotate(ev) {
 }
 
 function rotateLine(line, dx, dy) {
-    line.rotateValue += dx / 80
+    line.rotateValue += -dx / 80
     // console.log('ROTATING')
     // gCtx.save()
     // gCtx.translate(newx, newy)
@@ -925,27 +925,9 @@ function onChangeUserPrefLanguage(elBtn) {
     userPref.lang = elBtn.innerText.toLowerCase()
     setUserPref(userPref)
 }
-function renderSettingsModal() {
-    document.querySelector('.modal').innerHTML = `
-    <button class="btn close" onclick="onCloseModal()"><i class="fa-solid fa-xmark"></i></button>
-    <h2>Settings</h2>
-    <div class="mini-grid format-buttons">
-        <p>Image Type:</p>
-        <button class="btn primary-btn active" onclick="onChangeUserPrefFormat(this)">jpeg</button>
-        <button class="btn primary-btn" onclick="onChangeUserPrefFormat(this)">png</button>
-    </div>
-    <div class="mini-grid language-buttons">
-        <p>Language:</p>
-        <button class="btn primary-btn active" onclick="onChangeUserPrefLanguage(this)">English</button>
-        <button class="btn primary-btn" onclick="onChangeUserPrefLanguage(this)">Hebrew</button>
-    </div>
-    `
-}
 
 // TODO
-// add help modal
 // text to be placeholder
-// add settings modal (png/jpeg)
 // fix every layout (700 to 850...)
 // add hebrew support
 // clean all code!!!

@@ -219,3 +219,26 @@ function renderModuleExamples() {
     strHTML.push(`</div>`)
     document.querySelector('.tab-container').innerHTML = strHTML.join('')
 }
+
+function renderSettingsModal() {
+    const userPref = getUserPref()
+    const jpegClass = `${userPref.format === 'jpeg' ? 'active' : ''}`
+    const pngClass = `${userPref.format === 'png' ? 'active' : ''}`
+    const englishClass = `${userPref.lang === 'english' ? 'active' : ''}`
+    const hebrewClass = `${userPref.lang === 'hebrew' ? 'active' : ''}`
+    console.log(userPref)
+    document.querySelector('.modal').innerHTML = `
+    <button class="btn close" onclick="onCloseModal()"><i class="fa-solid fa-xmark"></i></button>
+    <h2>Settings</h2>
+    <div class="mini-grid format-buttons">
+        <p>Image Type:</p>
+        <button class="btn primary-btn ${jpegClass}" onclick="onChangeUserPrefFormat(this)">jpeg</button>
+        <button class="btn primary-btn ${pngClass}" onclick="onChangeUserPrefFormat(this)">png</button>
+    </div>
+    <div class="mini-grid language-buttons">
+        <p>Language:</p>
+        <button class="btn primary-btn ${englishClass}" onclick="onChangeUserPrefLanguage(this)">English</button>
+        <button class="btn primary-btn ${hebrewClass}" onclick="onChangeUserPrefLanguage(this)">Hebrew</button>
+    </div>
+    `
+}
