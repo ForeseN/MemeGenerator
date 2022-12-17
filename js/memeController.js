@@ -398,6 +398,47 @@ function onChangeText(value) {
     renderMeme(meme)
 }
 
+function onAlignLeft() {
+    const meme = getCurrMeme()
+    if (meme.selectedLineIdx == null) return
+
+    const line = meme.lines[meme.selectedLineIdx]
+    line.align = 'left'
+
+    const lineWidth = getLineWidth(line)
+    line.x = lineWidth / 2 + 25
+
+    setMeme(meme)
+    renderMeme(meme)
+    applyTextModuleStyles(line)
+}
+function onAlignCenter() {
+    const meme = getCurrMeme()
+    if (meme.selectedLineIdx == null) return
+
+    const line = meme.lines[meme.selectedLineIdx]
+    line.align = 'center'
+    line.x = gElCanvas.width / 2
+
+    setMeme(meme)
+    renderMeme(meme)
+    applyTextModuleStyles(line)
+}
+function onAlignRight() {
+    const meme = getCurrMeme()
+    if (meme.selectedLineIdx == null) return
+
+    const line = meme.lines[meme.selectedLineIdx]
+    line.align = 'right'
+
+    const lineWidth = getLineWidth(line)
+    line.x = gElCanvas.width - lineWidth / 2 - 25
+
+    setMeme(meme)
+    renderMeme(meme)
+    applyTextModuleStyles(line)
+}
+
 function onBack() {
     hideElement('.editor')
     showElement('.gallery')
@@ -598,6 +639,11 @@ function onMove(ev) {
     if (gIsDragging) onDrag(ev)
     if (gIsResizing) onResize(ev)
     if (gIsRotating) onRotate(ev)
+
+    const meme = getCurrMeme()
+    if (meme.selectedLineIdx == null) return
+    const line = meme.lines[meme.selectedLineIdx]
+    line.align = null
 }
 
 function resizeLine(line, dx) {
@@ -719,7 +765,6 @@ function drawText(line) {
 
     gCtx.fillStyle = fillColor
     gCtx.strokeStyle = strokeColor
-    gCtx.textAlign = align
     gCtx.lineJoin = 'miter'
     gCtx.miterLimit = 2
     if (rotateValue != 0) {
@@ -927,8 +972,7 @@ function onChangeUserPrefLanguage(elBtn) {
 }
 
 // TODO
-// text to be placeholder
-// fix every layout (700 to 850...)
+// check every layout
 // add hebrew support
 // clean all code!!!
 // add a new meme format
