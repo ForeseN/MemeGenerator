@@ -202,6 +202,69 @@ main {
 .examples-header {
     color: white;
 }
+
+.modal {
+    height: 100%;
+    width: 100%;
+    max-width: 700px;
+    max-height: 250px;
+    padding: 2rem;
+    background: var(--primary-color);
+    color: white;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    padding-right: 15rem;
+    transform: translate(-50%, -50%);
+    border: 2px solid #2b2b2c;
+    border-radius: 6px;
+    z-index: 2;
+}
+.modal .close {
+    background: transparent;
+    border: none;
+    outline: none;
+    position: absolute;
+    top: 2.5%;
+    right: 3%;
+    width: unset;
+    font-size: 1.5rem;
+    padding: 0;
+}
+.modal h2 {
+    margin-bottom: 1rem;
+}
+.modal button {
+    color: white;
+    background: #505050;
+    padding: 0.7rem 2rem;
+    text-transform: uppercase;
+    width: 100%;
+    display: inline-block;
+}
+.modal .mini-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    place-items: center;
+    gap: 10px;
+    margin-bottom: 1rem;
+}
+.modal button.active {
+    background: var(--quaternary-color);
+}
+.modal button:not(.active):not(.close):hover {
+    background: var(--tertiary-color);
+}
+
+.black-overlay {
+    position: fixed;
+    top: 0%;
+    height: 0%;
+    background: rgba(0, 0, 0, 0.7);
+    width: 100vw;
+    height: 100vh;
+    z-index: 1;
+}
 @media screen and (max-width: 700px) {
     body {
         /* overflow-y: hidden; */

@@ -350,11 +350,12 @@ async function onShare() {
 
 function onDownload() {
     removeSelectedLine()
+    const userPref = getUserPref()
     // Hopefully selected line is removed
     setTimeout(() => {
         let link = document.createElement('a')
-        link.download = 'meme.png'
-        link.href = gElCanvas.toDataURL('image/png')
+        link.download = `meme.${userPref.format}`
+        link.href = gElCanvas.toDataURL(`image/${userPref.format}`)
         link.click(), 100
     })
 }
@@ -865,10 +866,62 @@ function loadImageFromInput(ev, onImageReady) {
     reader.readAsDataURL(ev.target.files[0]) // Read the file we picked
 }
 
+function onCloseModal() {
+    hideElement('.modal')
+    hideElement('.black-overlay')
+}
+
+function onOpenSettings() {
+    renderSettingsModal()
+    openModal()
+}
+
+function openModal() {
+    showElement('.modal')
+    showElement('.black-overlay')
+}
+
+function onChangeUserPrefFormat(elBtn) {
+    document
+        .querySelectorAll('.format-buttons button')
+        .forEach(btn => btn.classList.remove('active'))
+    elBtn.classList.add('active')
+
+    const userPref = getUserPref()
+    userPref.format = elBtn.innerText.toLowerCase()
+    setUserPref(userPref)
+}
+function onChangeUserPrefLanguage(elBtn) {
+    document
+        .querySelectorAll('.language-buttons button')
+        .forEach(btn => btn.classList.remove('active'))
+    elBtn.classList.add('active')
+
+    const userPref = getUserPref()
+    userPref.lang = elBtn.innerText.toLowerCase()
+    setUserPref(userPref)
+}
+function renderSettingsModal() {
+    document.querySelector('.modal').innerHTML = `
+    <button class="btn close" onclick="onCloseModal()"><i class="fa-solid fa-xmark"></i></button>
+    <h2>Settings</h2>
+    <div class="mini-grid format-buttons">
+        <p>Image Type:</p>
+        <button class="btn primary-btn active" onclick="onChangeUserPrefFormat(this)">jpeg</button>
+        <button class="btn primary-btn" onclick="onChangeUserPrefFormat(this)">png</button>
+    </div>
+    <div class="mini-grid language-buttons">
+        <p>Language:</p>
+        <button class="btn primary-btn active" onclick="onChangeUserPrefLanguage(this)">English</button>
+        <button class="btn primary-btn" onclick="onChangeUserPrefLanguage(this)">Hebrew</button>
+    </div>
+    `
+}
+
 // TODO
 // add help modal
+// text to be placeholder
 // add settings modal (png/jpeg)
-// check for me modules to add
 // fix every layout (700 to 850...)
 // add hebrew support
 // clean all code!!!
