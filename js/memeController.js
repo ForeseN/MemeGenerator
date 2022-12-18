@@ -662,6 +662,14 @@ function drawText(line) {
         gCtx.strokeText(txt, x, y)
         gCtx.fillText(txt, x, y)
     }
+    if (underline) {
+        const width = getLineWidth(line)
+        const height = getLineHeight(line)
+        console.log(width, height)
+        const startX = line.x - width / 2
+        gCtx.strokeRect(startX, y + height / 2 + EPSILON / 2, width, 2)
+        gCtx.fillRect(startX, y + height / 2 + EPSILON / 2, width, 2)
+    }
     defaultConfig() // revert settings
 }
 
