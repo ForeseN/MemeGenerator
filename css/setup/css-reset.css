@@ -26,7 +26,8 @@ body {
   */
 body {
     line-height: 1.5;
-    font-size: 14px;
+    /* font-size: 14px; */
+    font-size: 0.875rem;
     -webkit-font-smoothing: antialiased;
     font-family: 'Poppins', sans-serif;
     /* overflow: hidden; */

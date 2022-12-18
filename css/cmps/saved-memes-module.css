@@ -15,6 +15,9 @@
     display: block;
     width: 100%;
 }
+.empty-saved-memes button:hover {
+    background: var(--tertiary-color);
+}
 
 .empty-saved-memes i {
     padding-left: 0.3rem;

@@ -62,6 +62,38 @@ nav ul li input:hover {
     text-decoration: none;
     color: black;
 }
+.export-btn:hover {
+    background: #00f7ef;
+}
+
+[data-title]:hover:after {
+    opacity: 1;
+    transition: all 0.1s ease;
+    visibility: visible;
+}
+
+[data-title]:after {
+    content: attr(data-title);
+    background-color: var(--primary-color);
+    color: white;
+    font-size: 0.9rem;
+    position: absolute;
+    padding: 2px 5px;
+    bottom: 0%;
+    left: 50%;
+    white-space: nowrap;
+    box-shadow: 1px 1px 3px #222222;
+    opacity: 0;
+    border: 1px solid var(--tertiary-color);
+    z-index: 1;
+    visibility: hidden;
+    margin-bottom: -2.5rem;
+    transform: translateX(-50%);
+}
+
+[data-title] {
+    position: relative;
+}
 
 @media screen and (max-width: 800px) {
     nav {

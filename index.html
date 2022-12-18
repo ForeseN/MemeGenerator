@@ -27,28 +27,31 @@
         <ul>
             <li class="font-600 logo mob-hide" data-trans="meme-generator-title" onclick="onBack()">Meme Generator <i
                     class="fa-solid fa-angles-right"></i></li>
-
         </ul>
         <ul>
-            <li><button class="btn util-btn" onclick="onBack()"><i class="fa-solid fa-backward"></i></button></li>
-            <li><button class="btn util-btn" onclick="onSave()"><i class="fa-regular fa-floppy-disk"></i></button></li>
-            <li><label for="file-upload" class="btn util-btn"><i class="fa-solid fa-arrow-up-from-bracket"></i>
+            <li><button class="btn util-btn" data-title="Back" onclick="onBack()"><i
+                        class="fa-solid fa-backward"></i></button></li>
+            <li><button class="btn util-btn" data-title="Save" onclick="onSave()"><i
+                        class="fa-regular fa-floppy-disk"></i></button></li>
+            <li><label for="file-upload" data-title="Upload" class="btn util-btn"><i
+                        class="fa-solid fa-arrow-up-from-bracket"></i>
                 </label>
             </li>
-            <li><button class="btn util-btn" onclick="onOpenSettings()"><i class="fa-solid fa-gear"></i></button></li>
+            <li><button class="btn util-btn" data-title="Settings" onclick="onOpenSettings()"><i
+                        class="fa-solid fa-gear"></i></button></li>
             <li><button class="btn round-btn share-btn" onclick="onShare()"><i
                         class="fa-solid fa-share-from-square"></i> <span class="mob-hide"
                         data-trans="share-btn">Share</span></button>
             </li>
             <li><a href="#" class="btn round-btn export-btn" onclick="onDownload(this)"><i
-                        class="fa-solid fa-download"></i><span class="mob-hide" data-trans="export-project">
-                        Export Project</span></a></li>
+                        class="fa-solid fa-download"></i><span class="mob-hide small-margin-left"
+                        data-trans="export-project">Export
+                        Project</span></a></li>
         </ul>
     </nav>
 
     <!-- MAIN -->
     <div class="container">
-
         <!-- ASIDE -->
         <aside>
             <div class="aside-grid">
@@ -66,7 +69,7 @@
                         <li><button class="btn util-btn saved-memes-btn" onclick="onModuleSavedMemes(this)"><i
                                     class="fa-solid fa-bookmark"></i></button></li>
                         <li><button class="btn util-btn" onclick="onModuleExamples(this)"><i
-                                    class="fa-solid fa-lightbulb"></i></i></button></li>
+                                    class="fa-solid fa-lightbulb"></i></button></li>
                     </ul>
                     <button class="btn util-btn help-btn" onclick="onModuleHelp(this)"><i
                             class="fa-regular fa-circle-question"></i></button>
@@ -76,19 +79,15 @@
                     <!-- Code inserted by Javascript -->
                 </div>
             </div>
-
         </aside>
-
-
-
 
         <main>
             <!-- GALLERY -->
             <div class="gallery scrollbar-hidden">
                 <div class="gallery-header">
                     <h3 data-trans="trending-now">Trending Now</h3>
-                    <button class="btn round-btn" data-trans="surprise-btn" onclick="onSurpriseMe()">Surprise
-                        Me</button>
+                    <button class="btn round-btn" data-trans="surprise-btn" onclick="onSurpriseMe()">
+                        Surprise Me</button>
                 </div>
 
                 <!-- GALLERY GRID -->
@@ -96,7 +95,6 @@
                     <!-- Code inserted by Javascript -->
                 </div>
             </div>
-
             <!-- EDITOR -->
             <div class="editor hide">
                 <div class="canvas-container">

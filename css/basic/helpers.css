@@ -123,6 +123,16 @@ body.rtl {
     direction: rtl;
 }
 
+.small-margin-left {
+    margin-left: 0.2rem;
+}
+.small-margin-right {
+    margin-right: 0.2rem;
+}
+.medium-margin-right {
+    margin-right: 0.5rem;
+}
+
 @media screen and (min-width: 800px) {
     .pc-hide {
         display: none !important;

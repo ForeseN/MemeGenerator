@@ -349,6 +349,7 @@ function onSearch(value) {
 }
 
 function onSave() {
+    if (!getCurrMeme()) return
     removeSelectedLine()
     // Hopefully selected line is removed
     setTimeout(() => {

@@ -157,7 +157,7 @@ function renderModuleSearch() {
 
         ${getCategories()}
     </div>
-    <label type="file" name="" for="file-upload" class="custom-file-input"><span data-trans="upload-btn">Upload </span><i
+    <label type="file" name="" for="file-upload" class="custom-file-input"><span data-trans="upload-btn" class="medium-margin-right" >Upload </span><i
             class="fa-solid fa-arrow-up-from-bracket"></i></label>
 </div>`
 }
